@@ -23,20 +23,6 @@ This is an **AI-powered system** designed to help hospitals and healthcare provi
 
 *Access the comprehensive presentation covering the Agentic AI system for Claims & Clinical Trial Billing, including system architecture, AI workflows, and business benefits.*
 
-## �📸 System Screenshots
-
-### Dashboard Overview
-*[Screenshot placeholder - Main dashboard showing claim status and metrics]*
-
-### Claim Processing Flow
-*[Screenshot placeholder - Visual representation of the AI agent workflow]*
-
-### Risk Prediction Interface
-*[Screenshot placeholder - Risk assessment and prediction results]*
-
-### Appeal Generation
-*[Screenshot placeholder - Auto-generated appeal documents]*
-
 ## 🏗️ System Architecture
 
 The system consists of multiple AI agents working together:
