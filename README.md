@@ -209,10 +209,6 @@ agentic-claims-ai/
 ## 🔌 API Integration
 
 ### Supported Insurance Providers
-- **BlueCross BlueShield**
-- **Aetna**
-- **Cigna**
-- **United Healthcare**
 - **Custom API endpoints**
 
 ### Adding New Insurance Providers
