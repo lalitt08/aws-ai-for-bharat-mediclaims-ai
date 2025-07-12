@@ -17,6 +17,10 @@ This is an **AI-powered system** designed to help hospitals and healthcare provi
 
 **The Goal**: Reduce manual effort, improve approval rates, and speed up the overall claim resolution process while continuously learning and improving over time.
 
+## 🌐 Live Demo
+
+🚀 **Live Demo**: Users can now easily access your live application at http://3.216.34.234:5000
+
 ## 📸 Application Screenshots
 
 ### Snapshot-1
