@@ -17,7 +17,24 @@ This is an **AI-powered system** designed to help hospitals and healthcare provi
 
 **The Goal**: Reduce manual effort, improve approval rates, and speed up the overall claim resolution process while continuously learning and improving over time.
 
-## � Project Presentation
+## 🌐 Live Demo
+
+🚀 **[Access Live Application](http://135.237.39.217:5000)**
+
+Try the live demo of the Healthcare MediClaims AI system. Experience the AI-powered claim processing workflow in action.
+
+## 📸 Application Screenshots
+
+### Dashboard Overview
+![Dashboard](screenshots/dashboard.png)
+
+### Claim Risk Assessment
+![Risk Assessment](screenshots/risk-assessment.png)
+
+### Agent Workflow
+![Agent Workflow](screenshots/agent-workflow.png)
+
+## 📋 Project Presentation
 
 🎯 **[View Detailed Project Presentation](https://gamma.app/docs/Agentic-AI-for-Claims-Clinical-Trial-Billing-vu8omp3vx7awy85?mode=doc)**
 
@@ -211,33 +228,6 @@ agentic-claims-ai/
 ### Supported Insurance Providers
 - **Custom API endpoints**
 
-### Adding New Insurance Providers
-1. Create a new API class in `tools/`
-2. Implement the required methods:
-   - `submit_claim()`
-   - `check_status()`
-   - `submit_appeal()`
-3. Register the provider in the orchestrator
-
-## 🧪 Testing
-
-Run the test suite:
-```bash
-pytest tests/
-```
-
-Run specific test categories:
-```bash
-# Test AI agents
-pytest tests/test_agents.py
-
-# Test API integrations
-pytest tests/test_apis.py
-
-# Test workflows
-pytest tests/test_workflows.py
-```
-
 ## 📝 Logging
 
 The system provides comprehensive logging:
@@ -253,14 +243,6 @@ The system provides comprehensive logging:
 - **Data Privacy**: Local data storage with secure handling
 - **Audit Trails**: Complete logging of all system activities
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -271,26 +253,6 @@ For support and questions:
 - **Documentation**: Check the `/docs` folder for detailed guides
 - **Issues**: Open an issue on GitHub
 - **Email**: [Your contact email]
-
-## 🎯 Roadmap
-
-### Phase 1 (Current)
-- ✅ Core AI agents implementation
-- ✅ MCP integration
-- ✅ Basic web dashboard
-- ✅ Insurance API integration
-
-### Phase 2 (Next)
-- 🔄 Advanced machine learning models
-- 🔄 Real-time claim monitoring
-- 🔄 Mobile app interface
-- 🔄 Advanced analytics dashboard
-
-### Phase 3 (Future)
-- 📋 Integration with hospital EMR systems
-- 📋 Blockchain-based claim verification
-- 📋 Multi-language support
-- 📋 Enterprise deployment options
 
 ---
 
