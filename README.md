@@ -25,14 +25,15 @@ Try the live demo of the Healthcare MediClaims AI system. Experience the AI-powe
 
 ## 📸 Application Screenshots
 
-### Dashboard Overview
-![Dashboard](screenshots/dashboard.png)
+### Snapshot-1
+![Snapshot-1](Images/image-1.png)
 
-### Claim Risk Assessment
-![Risk Assessment](screenshots/risk-assessment.png)
+### Snapshot-2
+![Snapshot-2](Images/image-2.png)
 
-### Agent Workflow
-![Agent Workflow](screenshots/agent-workflow.png)
+### Snapshot-3
+![Snapshot-3](Images/image.jpeg)
+
 
 ## 📋 Project Presentation
 
