@@ -17,12 +17,6 @@ This is an **AI-powered system** designed to help hospitals and healthcare provi
 
 **The Goal**: Reduce manual effort, improve approval rates, and speed up the overall claim resolution process while continuously learning and improving over time.
 
-## 🌐 Live Demo
-
-🚀 **[Access Live Application](http://135.237.39.217:5000)**
-
-Try the live demo of the Healthcare MediClaims AI system. Experience the AI-powered claim processing workflow in action.
-
 ## 📸 Application Screenshots
 
 ### Snapshot-1
