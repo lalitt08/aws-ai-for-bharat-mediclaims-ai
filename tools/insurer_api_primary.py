@@ -1,0 +1,189 @@
+# tools/insurer_api_primary.py - Primary Insurer API
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import Optional, Dict, Any
+import uvicorn
+import asyncio
+import pandas as pd
+import random
+from datetime import datetime, timedelta
+import json
+
+app = FastAPI(title="Primary Insurance API - BlueCross/Aetna")
+
+class ClaimSubmission(BaseModel):
+    patient_id: str
+    patient_name: str
+    diagnosis: str
+    icd_code: str
+    cpt_code: str
+    claim_amount: float
+    insurance_company: str
+    prior_auth: Optional[str] = None
+    medical_history: Optional[str] = None
+    provider_npi: str
+    treatment_date: str
+
+class AppealSubmission(BaseModel):
+    claim_id: str
+    appeal_reason: str
+    supporting_documentation: str
+    medical_necessity: str
+
+# Store pending claims for delayed response
+pending_claims: Dict[str, Dict[str, Any]] = {}
+
+@app.post("/submit")
+async def submit_claim(claim: ClaimSubmission):
+    """Submit a claim for processing with delayed response"""
+    
+    # Generate unique claim ID
+    claim_id = f"{claim.patient_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+    
+    # Determine processing result based on realistic patterns
+    approval_decision = determine_approval(claim)
+    
+    # Store for delayed response
+    pending_claims[claim_id] = {
+        "claim": claim.dict(),
+        "decision": approval_decision,
+        "submitted_at": datetime.now(),
+        "processed": False
+    }
+    
+    # Schedule delayed response (180 seconds / 3 minutes)
+    asyncio.create_task(process_claim_delayed(claim_id))
+    
+    return {
+        "status": "pending",
+        "claim_id": claim_id,
+        "message": "Claim submitted for processing. Result will be available in 3 minutes.",
+        "estimated_processing_time": "180 seconds"
+    }
+
+@app.get("/claim-status/{claim_id}")
+async def get_claim_status(claim_id: str):
+    """Check the status of a submitted claim"""
+    
+    if claim_id not in pending_claims:
+        raise HTTPException(status_code=404, detail="Claim not found")
+    
+    claim_info = pending_claims[claim_id]
+    
+    if not claim_info["processed"]:
+        time_elapsed = (datetime.now() - claim_info["submitted_at"]).total_seconds()
+        remaining_time = max(0, 180 - int(time_elapsed))
+        
+        return {
+            "status": "processing",
+            "claim_id": claim_id,
+            "message": f"Claim is being processed. Check back in {remaining_time} seconds.",
+            "time_remaining": remaining_time
+        }
+    
+    return claim_info["decision"]
+
+@app.post("/appeal")
+async def submit_appeal(appeal: AppealSubmission):
+    """Submit an appeal for a denied claim"""
+    
+    # Appeals have higher chance of approval
+    appeal_success = random.random() < 0.6  # 60% success rate for appeals
+    
+    if appeal_success:
+        return {
+            "status": "approved",
+            "claim_id": appeal.claim_id,
+            "reason": "Appeal accepted based on additional documentation",
+            "appeal_id": f"APP-{appeal.claim_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+        }
+    else:
+        return {
+            "status": "denied",
+            "claim_id": appeal.claim_id,
+            "reason": "Appeal denied - insufficient medical necessity documentation",
+            "appeal_id": f"APP-{appeal.claim_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
+        }
+
+async def process_claim_delayed(claim_id: str):
+    """Process claim after delay"""
+    await asyncio.sleep(180)  # Wait 180 seconds (3 minutes)
+    
+    if claim_id in pending_claims:
+        pending_claims[claim_id]["processed"] = True
+        
+        # Log the processing completion
+        print(f"Claim {claim_id} processed after 180 seconds (3 minutes)")
+
+def determine_approval(claim: ClaimSubmission) -> Dict[str, Any]:
+    """Determine claim approval based on realistic patterns"""
+    
+    # Load denial learning data to make intelligent decisions
+    denial_patterns = load_denial_patterns()
+    
+    # Check for common denial reasons
+    denial_reason = None
+    
+    # Pattern 1: Missing prior authorization for expensive procedures
+    if claim.claim_amount > 300 and not claim.prior_auth:
+        denial_reason = "Missing prior authorization for high-cost procedure"
+    
+    # Pattern 2: Invalid CPT/ICD combinations
+    elif is_invalid_code_combination(claim.icd_code, claim.cpt_code):
+        denial_reason = "CPT code does not match diagnosis (ICD code)"
+    
+    # Pattern 3: Insurance-specific patterns
+    elif claim.insurance_company == "BlueCross" and "Diabetes" in claim.diagnosis and not claim.prior_auth:
+        denial_reason = "BlueCross requires prior authorization for diabetes management"
+    
+    elif claim.insurance_company == "Aetna" and claim.claim_amount > 400:
+        denial_reason = "Aetna requires additional documentation for claims over $400"
+    
+    # Pattern 4: Random denials based on historical patterns
+    elif random.random() < 0.25:  # 25% random denial rate
+        denial_reasons = [
+            "Insufficient medical documentation",
+            "Procedure not medically necessary",
+            "Pre-existing condition exclusion",
+            "Provider not in network",
+            "Duplicate claim submission"
+        ]
+        denial_reason = random.choice(denial_reasons)
+    
+    if denial_reason:
+        return {
+            "status": "denied",
+            "claim_id": f"PENDING-{claim.patient_id}",
+            "reason": denial_reason,
+            "denial_code": f"D{random.randint(100, 999)}",
+            "appeal_deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d")
+        }
+    else:
+        return {
+            "status": "approved",
+            "claim_id": f"PENDING-{claim.patient_id}",
+            "approval_amount": claim.claim_amount,
+            "payment_date": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")
+        }
+
+def load_denial_patterns():
+    """Load historical denial patterns for learning"""
+    try:
+        return pd.read_csv("data/denial_learning.csv")
+    except:
+        return pd.DataFrame()
+
+def is_invalid_code_combination(icd_code: str, cpt_code: str) -> bool:
+    """Check if ICD and CPT codes are valid combination"""
+    # Simplified validation - in real system this would be comprehensive
+    invalid_combinations = [
+        ("J30.9", "99215"),  # Allergic rhinitis shouldn't need complex exam
+        ("G43.9", "99215"),  # Migraine shouldn't need complex exam
+        ("F41.9", "94640"),  # Anxiety disorder with pulmonary function test
+    ]
+    
+    return (icd_code, cpt_code) in invalid_combinations
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8081)

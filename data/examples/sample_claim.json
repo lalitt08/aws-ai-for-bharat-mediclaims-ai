@@ -1,0 +1,20 @@
+{
+  "claim_id": "demo-claim-001",
+  "patient_info": {
+    "name": "Alice Smith",
+    "dob": "1975-06-15",
+    "insurance_id": "INS-4321-XYZ"
+  },
+  "diagnosis": {
+    "icd": "ICDX01",
+    "description": "Hypertension"
+  },
+  "billing": {
+    "codes": ["XYZ123", "123ABC"],
+    "prior_auth": null
+  },
+  "metadata": {
+    "source": "mock_crm",
+    "submitted_by": "demo_user"
+  }
+}

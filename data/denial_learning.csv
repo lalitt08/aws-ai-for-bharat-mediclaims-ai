@@ -1,0 +1,11 @@
+timestamp,claim_id,insurance_company,denial_reason,denial_category,learned_pattern,solution_applied,success_rate
+2025-01-15T10:30:00,PAT001-001,BlueCross,Missing prior authorization,Authorization,Prior auth required for diabetes management,Auto-generate prior auth,85%
+2025-01-16T11:45:00,PAT002-001,Aetna,Invalid CPT code for diagnosis,Coding,CPT 94640 invalid for simple asthma,Use CPT 99213 instead,92%
+2025-01-17T14:20:00,PAT003-001,Cigna,Insufficient documentation,Documentation,Need detailed medical history,Include comprehensive notes,78%
+2025-01-18T09:15:00,PAT004-001,United,Experimental treatment code,Coverage,Migraine treatment not covered,Use standard treatment codes,65%
+2025-01-19T16:30:00,PAT005-001,BlueCross,Duplicate claim submission,Administrative,Same claim submitted twice,Check for duplicates,95%
+2025-01-20T12:45:00,PAT006-001,Aetna,Pre-existing condition exclusion,Coverage,Rheumatoid arthritis pre-existing,Provide onset documentation,70%
+2025-01-21T08:20:00,PAT007-001,Cigna,Provider not in network,Network,Provider NPI not recognized,Verify provider credentials,88%
+2025-01-22T13:50:00,PAT008-001,United,Claim exceeds benefit limit,Benefits,Annual limit exceeded,Split claim into multiple,73%
+2025-01-23T10:10:00,PAT009-001,BlueCross,Diagnosis does not support procedure,Medical Necessity,Rhinitis doesn't support complex exam,Use appropriate level code,90%
+2025-01-24T15:25:00,PAT010-001,Aetna,Missing referral documentation,Referral,Specialist visit needs referral,Include referral number,82%
