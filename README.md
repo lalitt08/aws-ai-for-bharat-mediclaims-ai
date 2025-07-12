@@ -19,7 +19,9 @@ This is an **AI-powered system** designed to help hospitals and healthcare provi
 
 ## 🌐 Live Demo
 
-🚀 **Live Demo**: Users can now easily access your live application at http://3.216.34.234:5000
+🚀 **[Access Live Application](http://3.216.34.234:5000)**
+
+Users can now easily access your live application and experience the AI-powered claim processing workflow in action.
 
 ## 📸 Application Screenshots
 
