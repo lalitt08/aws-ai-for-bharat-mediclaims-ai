@@ -26,10 +26,18 @@ requests>=2.31.0
 aiohttp>=3.9.0
 
 # === CSV & File Processing ===
-csv-python>=1.0.0
+# csv-python>=1.0.0  # Removed - CSV handling is built into Python standard library
 
 # === PDF Generation ===
-fpdf>=4.0.0
+fpdf>=1.7.2
+
+# === Flask Web Framework (Critical for Dashboard) ===
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# === Production WSGI Server ===
+gunicorn>=21.2.0
+waitress>=2.1.2
 
 # === Dashboard & Visualization ===
 streamlit>=1.28.0
@@ -42,12 +50,43 @@ loguru>=0.7.0
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 
+# === Production Monitoring & Health Checks ===
+healthcheck>=1.3.3
+prometheus-client>=0.18.0
+
+# === Error Tracking (Production) ===
+sentry-sdk[flask,fastapi]>=1.32.0
+
 # === Typing & Development ===
 mypy>=1.6.0
 black>=23.9.0
 
 # === Database (Optional for future persistence) ===
-sqlite3
+# sqlite3  # Built into Python standard library
+
+# === Production Database (if scaling beyond CSV) ===
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+
+# === Caching (Production Performance) ===
+redis>=5.0.0
+python-memcached>=1.62
+
+# === Load Balancing & Scaling ===
+nginx-python>=1.2.0
+
+# === Environment & Configuration ===
+python-dotenv>=1.0.0
+pydantic-settings>=2.0.0
+
+# === Process Management & Deployment ===
+supervisor>=4.2.5
+psutil>=5.9.0
+
+# === Security & HIPAA Compliance ===
+cryptography>=41.0.0
+bcrypt>=4.0.0
+PyJWT>=2.8.0
 
 # === Async Processing ===
 asyncio-throttle>=1.0.0

@@ -7,13 +7,17 @@ from tools.logger import secure_log
 
 async def run_feedback_learning(state: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Feedback Learning Agent - Learns from claim outcomes to improve future processing
+    Feedback Learning Agent - Learns from claim outcomes to improve future processing with detailed logging
     """
     secure_log("feedback_learner", state)
     
     try:
         claim_id = state.get('claim_id', 'unknown')
         final_status = state.get('final_status', 'unknown')
+        
+        # Add detailed logging for UI activity tracking
+        state.setdefault('log', []).append("[FeedbackLearner] Analyzes final claim outcome to learn from successful/failed strategies")
+        state.setdefault('log', []).append("[FeedbackLearner] Learning pattern updated")
         
         # Log the learning attempt
         log_entry = f"Learning from claim {claim_id} outcome: {final_status}"
@@ -62,10 +66,13 @@ async def run_feedback_learning(state: Dict[str, Any]) -> Dict[str, Any]:
         
         # Update state
         state['learning_result'] = learning_result
-        state['log'].append(f"[LEARNING] Learning completed: {len(learning_insights)} insights captured")
+        state['log'].append(f"[FeedbackLearner] Learning pattern updated")
         
-        # Set processing status
-        state["final_status"] = "learning_complete"
+        # Set processing status - DON'T override the actual claim status!
+        # Preserve the existing final_status instead of overriding it
+        if not state.get("final_status") or state.get("final_status") == "unknown":
+            state["final_status"] = "learning_complete"
+        # Otherwise keep the existing status (like "resubmitted", "appealed", etc.)
         
         secure_log("feedback_learner", state)
         

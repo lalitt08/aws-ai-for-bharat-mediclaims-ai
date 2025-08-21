@@ -7,42 +7,83 @@ from tools.logger import secure_log
 
 async def run_resubmission(state: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Resubmission Agent - Handles claim resubmission after corrections
+    Enhanced Resubmission Agent - Intelligent claim resubmission with appeal integration
     """
     secure_log("resubmitter", state)
     
     try:
         claim_id = state.get('claim_id', 'unknown')
         corrected_data = state.get('corrected_data', {})
+        appeal_packet = state.get('appeal_packet', '')
+        original_rejection = state.get('submission_result', {})
+        denial_info = original_rejection.get('denial_info', {}) if original_rejection else {}
         
-        # Log the resubmission attempt
-        log_entry = f"Resubmission attempt for claim {claim_id}"
+        # Add detailed logging for UI activity tracking
+        state.setdefault('log', []).append("[Resubmitter] Preparing intelligent resubmission with AI-generated appeal packet")
+        state.setdefault('log', []).append("[Resubmitter] Analyzing original denial reason and optimizing resubmission strategy")
+        
+        # Log the resubmission attempt with context
+        patient_name = corrected_data.get('patient_name', 'Unknown Patient')
+        insurance_company = corrected_data.get('insurance_company', 'Unknown Insurer')
+        log_entry = f"Starting intelligent resubmission for {patient_name} (Insurer: {insurance_company})"
         state.setdefault('log', []).append(log_entry)
         
-        # Simulate resubmission process
+        # Determine resubmission strategy based on denial reason
+        resubmission_strategy = determine_resubmission_strategy(denial_info, corrected_data)
+        state['log'].append(f"[Resubmitter] Strategy: {resubmission_strategy['approach']}")
+        
+        # Simulate intelligent resubmission process
         await asyncio.sleep(1)  # Simulate processing time
         
         # In a real system, this would:
-        # 1. Take the corrected data
-        # 2. Reformat it according to insurer requirements
-        # 3. Submit to the insurer's system
-        # 4. Handle any additional corrections needed
+        # 1. Take the corrected data + appeal packet
+        # 2. Apply insurer-specific formatting
+        # 3. Include supporting documentation
+        # 4. Submit via appropriate API endpoint
+        # 5. Monitor submission status
+        # 6. Handle any follow-up requirements
         
-        # For now, simulate a successful resubmission
-        resubmission_result = {
-            'resubmission_id': f"RESUB_{claim_id}_{int(asyncio.get_event_loop().time())}",
-            'status': 'resubmitted',
-            'resubmission_date': str(asyncio.get_event_loop().time()),
-            'corrected_issues': state.get('issues', []),
-            'success': True
-        }
+        # Simulate resubmission outcome based on denial type and strategy
+        success_probability = calculate_resubmission_success_rate(denial_info, resubmission_strategy)
+        resubmission_successful = success_probability > 0.6  # 60% threshold for success
+        
+        if resubmission_successful:
+            resubmission_result = {
+                'resubmission_id': f"RESUB_{claim_id}_{int(asyncio.get_event_loop().time())}",
+                'status': 'resubmitted',
+                'resubmission_date': str(asyncio.get_event_loop().time()),
+                'corrected_issues': state.get('issues', []),
+                'appeal_included': bool(appeal_packet),
+                'strategy_used': resubmission_strategy['approach'],
+                'expected_outcome': 'likely_approval',
+                'success_probability': success_probability,
+                'success': True
+            }
+            
+            state['log'].append(f"[Resubmitter] ✅ Resubmission successful - Appeal submitted with {success_probability:.1%} success probability")
+            state["final_status"] = "appeal_resubmitted"
+            
+        else:
+            # Even if resubmission has low success rate, still attempt it
+            resubmission_result = {
+                'resubmission_id': f"RESUB_{claim_id}_{int(asyncio.get_event_loop().time())}",
+                'status': 'resubmitted_low_confidence',
+                'resubmission_date': str(asyncio.get_event_loop().time()),
+                'corrected_issues': state.get('issues', []),
+                'appeal_included': bool(appeal_packet),
+                'strategy_used': resubmission_strategy['approach'],
+                'expected_outcome': 'requires_additional_documentation',
+                'success_probability': success_probability,
+                'success': True,  # Still considered successful submission
+                'notes': 'May require additional patient data updates in OpenEMR'
+            }
+            
+            state['log'].append(f"[Resubmitter] ⚠️ Resubmission completed with {success_probability:.1%} success probability - may need patient data updates")
+            state["final_status"] = "appeal_resubmitted_low_confidence"
         
         # Update state
         state['resubmission_result'] = resubmission_result
-        state['log'].append(f"[SUCCESS] Resubmission completed: {resubmission_result['resubmission_id']}")
-        
-        # Set processing status
-        state["final_status"] = "resubmitted"
+        state['log'].append(f"[Resubmitter] Claim resubmitted via {resubmission_strategy['approach']} strategy")
         
         secure_log("resubmitter", state)
         
@@ -58,8 +99,72 @@ async def run_resubmission(state: Dict[str, Any]) -> Dict[str, Any]:
             'error': str(e),
             'success': False
         }
+        state["final_status"] = "resubmission_failed"
         
         return state
+
+
+def determine_resubmission_strategy(denial_info: Dict[str, Any], claim_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Determine the best resubmission strategy based on denial reason"""
+    
+    denial_reason = denial_info.get('reason', '').lower()
+    
+    if 'authorization' in denial_reason:
+        return {
+            'approach': 'prior_auth_appeal',
+            'priority': 'high',
+            'documentation_focus': 'authorization_necessity',
+            'expected_timeline': '5-10_business_days'
+        }
+    elif 'medical necessity' in denial_reason or 'documentation' in denial_reason:
+        return {
+            'approach': 'clinical_documentation_appeal', 
+            'priority': 'high',
+            'documentation_focus': 'medical_necessity_evidence',
+            'expected_timeline': '7-14_business_days'
+        }
+    elif 'coding' in denial_reason or 'diagnosis' in denial_reason:
+        return {
+            'approach': 'coding_correction_resubmission',
+            'priority': 'medium', 
+            'documentation_focus': 'accurate_coding_justification',
+            'expected_timeline': '3-7_business_days'
+        }
+    elif 'eligibility' in denial_reason or 'coverage' in denial_reason:
+        return {
+            'approach': 'eligibility_verification_appeal',
+            'priority': 'medium',
+            'documentation_focus': 'coverage_verification',
+            'expected_timeline': '5-10_business_days'
+        }
+    else:
+        return {
+            'approach': 'comprehensive_appeal',
+            'priority': 'medium',
+            'documentation_focus': 'comprehensive_review',
+            'expected_timeline': '10-15_business_days'
+        }
+
+
+def calculate_resubmission_success_rate(denial_info: Dict[str, Any], strategy: Dict[str, Any]) -> float:
+    """Calculate expected success rate based on denial type and strategy match"""
+    
+    base_success_rate = denial_info.get('success_rate', 0.75)  # Default 75%
+    
+    # Adjust based on strategy appropriateness
+    denial_reason = denial_info.get('reason', '').lower()
+    strategy_approach = strategy.get('approach', '')
+    
+    # Strategy matching bonuses
+    if 'authorization' in denial_reason and 'prior_auth' in strategy_approach:
+        base_success_rate += 0.15  # +15% for appropriate strategy
+    elif 'documentation' in denial_reason and 'clinical_documentation' in strategy_approach:
+        base_success_rate += 0.15
+    elif 'coding' in denial_reason and 'coding_correction' in strategy_approach:
+        base_success_rate += 0.20  # +20% for coding issues (easier to fix)
+    
+    # Cap at 95% (nothing is 100% certain)
+    return min(base_success_rate, 0.95)
 
 # For direct testing
 if __name__ == "__main__":

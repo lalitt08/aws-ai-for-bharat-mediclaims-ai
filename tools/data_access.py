@@ -3,7 +3,7 @@ Unified Data Access Layer for Healthcare Claims System
 ======================================================
 
 This module provides a unified interface for data access that automatically
-selects between standalone (direct CSV) and MCP (tool-based) modes.
+selects between OpenEMR (real-time database) and MCP (tool-based) modes.
 """
 
 import asyncio
@@ -16,7 +16,6 @@ import logging
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from tools.csv_data_loader import PatientLoader, DenialLearningLoader
 from tools.logger import secure_log
 
 logger = logging.getLogger(__name__)
@@ -26,7 +25,7 @@ class UnifiedDataAccess:
     Unified data access interface that adapts to operational mode
     
     Supports two modes:
-    - 'standalone': Direct CSV loading via PatientLoader
+    - 'openemr': Real-time OpenEMR database access
     - 'mcp': Tool-based access via MCP client
     """
     
@@ -34,22 +33,27 @@ class UnifiedDataAccess:
         self.mode = settings.OPERATIONAL_MODE
         self.settings = settings
         
+        # Check for OpenEMR mode override
+        if hasattr(settings, 'DATA_SOURCE') and settings.DATA_SOURCE == 'openemr':
+            self.mode = 'openemr'
+        
         # Initialize based on mode
-        if self.mode == 'standalone':
-            self._init_standalone()
+        if self.mode == 'openemr':
+            self._init_openemr()
         elif self.mode == 'mcp':
             self._init_mcp()
         else:
             raise ValueError(f"Invalid operational mode: {self.mode}")
     
-    def _init_standalone(self):
-        """Initialize standalone mode with direct CSV access"""
+    def _init_openemr(self):
+        """Initialize OpenEMR mode with real-time database access"""
         try:
-            self.patient_loader = PatientLoader()
-            self.denial_loader = DenialLearningLoader()
-            secure_log("Initialized standalone data access", "INFO")
+            from tools.openemr_data_loader import OpenEMRPatientLoader, OpenEMRDenialLearningLoader
+            self.patient_loader = OpenEMRPatientLoader()
+            self.denial_loader = OpenEMRDenialLearningLoader()
+            secure_log("Initialized OpenEMR database data access", "INFO")
         except Exception as e:
-            secure_log(f"Error initializing standalone mode: {e}", "ERROR")
+            secure_log(f"Error initializing OpenEMR mode: {e}", "ERROR")
             raise
     
     def _init_mcp(self):
@@ -64,13 +68,13 @@ class UnifiedDataAccess:
     
     async def get_patient_data(self, patient_id: str) -> Dict[str, Any]:
         """Get patient data using appropriate access method"""
-        if self.mode == 'standalone':
-            return self._get_patient_data_standalone(patient_id)
+        if self.mode == 'openemr':
+            return self._get_patient_data_openemr(patient_id)
         elif self.mode == 'mcp':
             return await self._get_patient_data_mcp(patient_id)
     
-    def _get_patient_data_standalone(self, patient_id: str) -> Dict[str, Any]:
-        """Get patient data directly from CSV"""
+    def _get_patient_data_openemr(self, patient_id: str) -> Dict[str, Any]:
+        """Get patient data directly from OpenEMR database"""
         try:
             patient = self.patient_loader.get_patient_by_id(patient_id)
             if not patient:
@@ -79,11 +83,11 @@ class UnifiedDataAccess:
             return {
                 "patient_id": patient_id,
                 "data": patient,
-                "source": "standalone_csv",
+                "source": "openemr_database",
                 "timestamp": datetime.now().isoformat()
             }
         except Exception as e:
-            secure_log(f"Error getting patient data (standalone): {e}", "ERROR")
+            secure_log(f"Error getting patient data (OpenEMR): {e}", "ERROR")
             raise
     
     async def _get_patient_data_mcp(self, patient_id: str) -> Dict[str, Any]:
@@ -100,22 +104,22 @@ class UnifiedDataAccess:
     
     async def get_all_patients(self) -> List[Dict[str, Any]]:
         """Get all patients using appropriate access method"""
-        if self.mode == 'standalone':
-            return self._get_all_patients_standalone()
+        if self.mode == 'openemr':
+            return self._get_all_patients_openemr()
         elif self.mode == 'mcp':
             return await self._get_all_patients_mcp()
     
-    def _get_all_patients_standalone(self) -> List[Dict[str, Any]]:
-        """Get all patients directly from CSV"""
+    def _get_all_patients_openemr(self) -> List[Dict[str, Any]]:
+        """Get all patients directly from OpenEMR database"""
         try:
             patients = self.patient_loader.get_all_patients()
             return [{
                 "data": patient,
-                "source": "standalone_csv",
+                "source": "openemr_database",
                 "timestamp": datetime.now().isoformat()
             } for patient in patients]
         except Exception as e:
-            secure_log(f"Error getting all patients (standalone): {e}", "ERROR")
+            secure_log(f"Error getting all patients (OpenEMR): {e}", "ERROR")
             raise
     
     async def _get_all_patients_mcp(self) -> List[Dict[str, Any]]:
@@ -131,13 +135,13 @@ class UnifiedDataAccess:
     
     async def validate_claim(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
         """Validate claim data using appropriate method"""
-        if self.mode == 'standalone':
-            return self._validate_claim_standalone(claim_data)
+        if self.mode == 'openemr':
+            return self._validate_claim_openemr(claim_data)
         elif self.mode == 'mcp':
             return await self._validate_claim_mcp(claim_data)
     
-    def _validate_claim_standalone(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Validate claim data using local logic"""
+    def _validate_claim_openemr(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Validate claim data using OpenEMR-based logic"""
         required_fields = [
             "patient_id", "procedure_code", "diagnosis_code", 
             "claim_amount", "service_date", "provider_id"
@@ -152,7 +156,7 @@ class UnifiedDataAccess:
             "is_valid": len(missing_fields) == 0,
             "missing_fields": missing_fields,
             "validation_timestamp": datetime.now().isoformat(),
-            "source": "standalone_validation"
+            "source": "openemr_validation"
         }
     
     async def _validate_claim_mcp(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -169,25 +173,25 @@ class UnifiedDataAccess:
     
     async def submit_to_insurer(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
         """Submit claim to insurer using appropriate method"""
-        if self.mode == 'standalone':
-            return self._submit_to_insurer_standalone(claim_data)
+        if self.mode == 'openemr':
+            return self._submit_to_insurer_openemr(claim_data)
         elif self.mode == 'mcp':
             return await self._submit_to_insurer_mcp(claim_data)
     
-    def _submit_to_insurer_standalone(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Submit claim using local insurer API simulation"""
+    def _submit_to_insurer_openemr(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Submit claim using OpenEMR-based insurer API"""
         try:
             from tools.insurer_api import InsurerAPI
             api = InsurerAPI()
             return api.submit_claim(claim_data)
         except Exception as e:
-            secure_log(f"Error submitting claim (standalone): {e}", "ERROR")
+            secure_log(f"Error submitting claim (OpenEMR): {e}", "ERROR")
             # Return mock response for testing
             return {
                 "status": "submitted",
                 "claim_id": f"CLM_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
                 "timestamp": datetime.now().isoformat(),
-                "source": "standalone_submission"
+                "source": "openemr_submission"
             }
     
     async def _submit_to_insurer_mcp(self, claim_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -204,13 +208,13 @@ class UnifiedDataAccess:
     
     async def get_risk_score(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get risk score using appropriate method"""
-        if self.mode == 'standalone':
-            return self._get_risk_score_standalone(patient_data)
+        if self.mode == 'openemr':
+            return self._get_risk_score_openemr(patient_data)
         elif self.mode == 'mcp':
             return await self._get_risk_score_mcp(patient_data)
     
-    def _get_risk_score_standalone(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Calculate risk score using local logic"""
+    def _get_risk_score_openemr(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Calculate risk score using OpenEMR data logic"""
         # Simple risk scoring logic
         risk_score = 0.5  # Default medium risk
         
@@ -231,7 +235,7 @@ class UnifiedDataAccess:
             "risk_score": min(risk_score, 1.0),
             "risk_level": "high" if risk_score > 0.7 else "medium" if risk_score > 0.3 else "low",
             "timestamp": datetime.now().isoformat(),
-            "source": "standalone_risk_assessment"
+            "source": "openemr_risk_assessment"
         }
     
     async def _get_risk_score_mcp(self, patient_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -251,7 +255,7 @@ class UnifiedDataAccess:
         return {
             "mode": self.mode,
             "description": {
-                "standalone": "Direct CSV access for local processing",
+                "openemr": "Real-time OpenEMR database access for live patient data",
                 "mcp": "Tool-based access via MCP server"
             }.get(self.mode, "Unknown mode"),
             "timestamp": datetime.now().isoformat()
@@ -260,11 +264,12 @@ class UnifiedDataAccess:
 
 # Convenience function for creating unified data access
 def create_data_access(settings=None):
-    """Create unified data access instance with fallback to standalone mode"""
+    """Create unified data access instance with OpenEMR as default"""
     if settings is None:
-        # Create minimal settings for standalone mode
+        # Create minimal settings for OpenEMR mode
         class MinimalSettings:
-            OPERATIONAL_MODE = 'standalone'
+            OPERATIONAL_MODE = 'openemr'
+            DATA_SOURCE = 'openemr'
         settings = MinimalSettings()
     
     return UnifiedDataAccess(settings)

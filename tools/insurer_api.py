@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from random import random, choice
 from typing import Optional
 import uvicorn
+from .denial_reasons import DenialReasonGenerator
 
 app = FastAPI(title="Dummy Insurer API")
 
@@ -20,15 +21,24 @@ class ClaimSubmission(BaseModel):
 
 @app.post("/v1/submit")
 async def submit_claim(claim: ClaimSubmission):
-    # Simulate denial if prior_auth is missing or random chance
-    prior_auth = claim.billing.get("prior_auth")
-    codes = claim.billing.get("codes", [])
-
-    if not prior_auth or "XYZ123" in codes:
-        return {"status": "rejected", "reason": "Missing or invalid prior_auth / CPT code"}
-
-    if random() < 0.1:
-        return {"status": "rejected", "reason": "Random rejection (for realism)"}
+    denial_generator = DenialReasonGenerator()
+    
+    # Get patient info and claim details
+    patient_name = claim.patient_info.get("name", "Unknown Patient")
+    claim_amount = claim.billing.get("amount", 0)
+    insurer = claim.metadata.get("insurer", "Unknown")
+    
+    # Simulate denial with specific reasons
+    if random() < 0.3:  # 30% denial rate for demonstration
+        denial_info = denial_generator.get_specific_denial(insurer, claim_amount)
+        denial_message = denial_generator.format_denial_message(
+            patient_name, claim_amount, insurer, denial_info
+        )
+        return {
+            "status": "rejected",
+            "message": denial_message,
+            "denial_info": denial_info
+        }
 
     return {"status": "approved"}
 

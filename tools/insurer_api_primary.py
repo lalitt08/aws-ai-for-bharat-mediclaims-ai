@@ -12,6 +12,14 @@ import json
 
 app = FastAPI(title="Primary Insurance API - BlueCross/Aetna")
 
+@app.get("/api/health")
+async def health_check():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "service": "Primary Insurance API"
+    }
+
 class ClaimSubmission(BaseModel):
     patient_id: str
     patient_name: str
@@ -34,6 +42,14 @@ class AppealSubmission(BaseModel):
 # Store pending claims for delayed response
 pending_claims: Dict[str, Dict[str, Any]] = {}
 
+# Import denial patterns handler with absolute import
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from tools.denial_patterns_handler import DenialPatternsHandler
+
+denial_handler = DenialPatternsHandler()
+
 @app.post("/submit")
 async def submit_claim(claim: ClaimSubmission):
     """Submit a claim for processing with delayed response"""
@@ -41,25 +57,37 @@ async def submit_claim(claim: ClaimSubmission):
     # Generate unique claim ID
     claim_id = f"{claim.patient_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
     
-    # Determine processing result based on realistic patterns
-    approval_decision = determine_approval(claim)
+    # Use 30% denial rate for demonstration
+    if random.random() < 0.3:
+        denial_result = denial_handler.get_denial_message(
+            patient_name=claim.patient_name,
+            claim_amount=claim.claim_amount,
+            insurance_company=claim.insurance_company
+        )
+        decision = denial_result
+    else:
+        decision = {
+            "status": "approved",
+            "approved_amount": claim.claim_amount * random.uniform(0.85, 1.0),
+            "message": f"Claim approved for ${claim.claim_amount:.2f}"
+        }
     
     # Store for delayed response
     pending_claims[claim_id] = {
         "claim": claim.dict(),
-        "decision": approval_decision,
+        "decision": decision,
         "submitted_at": datetime.now(),
         "processed": False
     }
     
-    # Schedule delayed response (180 seconds / 3 minutes)
+    # Schedule delayed response (60 seconds / 1 minute)
     asyncio.create_task(process_claim_delayed(claim_id))
     
     return {
         "status": "pending",
         "claim_id": claim_id,
-        "message": "Claim submitted for processing. Result will be available in 3 minutes.",
-        "estimated_processing_time": "180 seconds"
+        "message": "Claim submitted for processing. Result will be available in 1 minute.",
+        "estimated_processing_time": "60 seconds"
     }
 
 @app.get("/claim-status/{claim_id}")
@@ -108,13 +136,13 @@ async def submit_appeal(appeal: AppealSubmission):
 
 async def process_claim_delayed(claim_id: str):
     """Process claim after delay"""
-    await asyncio.sleep(180)  # Wait 180 seconds (3 minutes)
+    await asyncio.sleep(60)  # Wait 60 seconds (1 minute)
     
     if claim_id in pending_claims:
         pending_claims[claim_id]["processed"] = True
         
         # Log the processing completion
-        print(f"Claim {claim_id} processed after 180 seconds (3 minutes)")
+        print(f"Claim {claim_id} processed after 60 seconds (1 minute)")
 
 def determine_approval(claim: ClaimSubmission) -> Dict[str, Any]:
     """Determine claim approval based on realistic patterns"""

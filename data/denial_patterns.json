@@ -1,0 +1,68 @@
+{
+    "patterns": [
+        {
+            "category": "Documentation",
+            "sub_patterns": [
+                {
+                    "reason": "Missing medication documentation",
+                    "required_fields": [
+                        "Current medication list",
+                        "Drug allergies",
+                        "Date of last medication review"
+                    ],
+                    "risk_weight": 0.7
+                },
+                {
+                    "reason": "Incomplete medical necessity",
+                    "required_fields": [
+                        "Detailed symptoms description",
+                        "Previous treatment attempts",
+                        "Clinical findings"
+                    ],
+                    "risk_weight": 0.8
+                },
+                {
+                    "reason": "Prior authorization issues",
+                    "required_fields": [
+                        "Prior authorization documentation",
+                        "Service dates",
+                        "Authorization number"
+                    ],
+                    "risk_weight": 0.9
+                }
+            ]
+        },
+        {
+            "category": "Coding",
+            "sub_patterns": [
+                {
+                    "reason": "Invalid diagnosis code relationship",
+                    "required_fields": [
+                        "Updated ICD-10 codes",
+                        "Supporting test results",
+                        "Clinical notes"
+                    ],
+                    "risk_weight": 0.75
+                },
+                {
+                    "reason": "Procedure code mismatch",
+                    "required_fields": [
+                        "Correct CPT codes",
+                        "Procedure notes",
+                        "Medical necessity documentation"
+                    ],
+                    "risk_weight": 0.85
+                }
+            ]
+        }
+    ],
+    "learning_data": {
+        "last_updated": "2025-07-18",
+        "total_claims_analyzed": 1000,
+        "success_rate_improvements": {
+            "documentation": 0.25,
+            "coding": 0.35,
+            "authorization": 0.40
+        }
+    }
+}

@@ -13,6 +13,7 @@ try:
     from orchestrator import orchestrator
     from config.settings import Settings
     from tools.logger import secure_log
+    from tools.claim_status_manager import save_claim_status
 except ModuleNotFoundError:
     # If running from graph/ directory, add parent to sys.path
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -27,10 +28,42 @@ except ModuleNotFoundError:
     from orchestrator import orchestrator
     from config.settings import Settings
     from tools.logger import secure_log
+    from tools.claim_status_manager import save_claim_status
 import asyncio
 import time
 from typing import TypedDict, Optional, List, Dict, Any
 from tools.logger import secure_log
+
+# Module-level Unicode cleaner used by error handling and serialization
+def clean_unicode_for_json(obj):
+    """Clean Unicode characters that might cause encoding issues"""
+    try:
+        if isinstance(obj, dict):
+            return {k: clean_unicode_for_json(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [clean_unicode_for_json(item) for item in obj]
+        elif isinstance(obj, str):
+            # Replace problematic Unicode characters first
+            replacements = {
+                '\u2013': '-', '\u2014': '--', '\u2018': "'", '\u2019': "'",
+                '\u201C': '"', '\u201D': '"', '\u2026': '...', '\u2713': 'v',
+                '\u26a0': '!', '\u274c': 'X', '\u2705': 'v', '\ud83e\udde0': 'BRAIN',
+                '\u2192': '->', '\u2190': '<-'
+            }
+            result = obj
+            for old, new in replacements.items():
+                result = result.replace(old, new)
+            # Remove any remaining non-ASCII characters as a final fallback
+            result = ''.join(char if ord(char) < 128 else '?' for char in result)
+            return result
+        else:
+            return obj
+    except Exception:
+        # In worst case, cast to string safely
+        try:
+            return str(obj)
+        except Exception:
+            return "<unserializable>"
 
 # Define state structure
 class ClaimState(TypedDict):
@@ -111,7 +144,7 @@ class ClaimFlow:
             status = result.get("status", "unknown")
             
             if status == "rejected" or status == "denied":
-                state["log"].append(f"Claim {status}, routing to appeal_generator")
+                state["log"].append(f"Claim {status}, automatically routing to appeal_generator for AI-powered appeal")
                 return "appeal_generator"
             elif status == "approved":
                 state["log"].append("Claim approved, routing to feedback_learner")
@@ -119,19 +152,55 @@ class ClaimFlow:
             elif status == "pending":
                 state["log"].append("Claim pending, routing to feedback_learner")
                 return "feedback_learner"
+            elif status == "timeout" or status == "error" or status == "submission_error":
+                # AUTO-RETRY: Route timeout/error cases to appeal_generator for automatic reprocessing
+                state["log"].append(f"Claim {status}, auto-routing to appeal_generator for intelligent retry")
+                return "appeal_generator"
             else:
                 state["log"].append(f"Unknown status {status}, routing to feedback_learner")
                 return "feedback_learner"
 
         def resubmit_branch(state: ClaimState) -> str:
-            state["log"].append("Resubmission complete, routing to feedback_learner")
+            # After resubmission, check if we need another round or we're done
+            resubmission_result = state.get("resubmission_result", {})
+            resubmit_status = resubmission_result.get("status", "unknown")
+            
+            # Log the resubmission flow for debugging
+            state["log"].append(f"[ClaimFlow] Resubmission completed with status: {resubmit_status}")
+            
+            if resubmit_status == "resubmitted":
+                state["log"].append("✅ Resubmission successful - routing to feedback_learner")
+                state["final_status"] = "appeal_resubmitted"
+            elif resubmit_status == "resubmitted_low_confidence":
+                state["log"].append("⚠️ Resubmission completed with low confidence - routing to feedback_learner")
+                state["final_status"] = "appeal_resubmitted_low_confidence"
+            else:
+                state["log"].append(f"")
+                state["final_status"] = "resubmission"
+                
             return "feedback_learner"
 
         # Conditional routes
         graph.add_conditional_edges("risk_predictor", risk_branch)
         graph.add_edge("auto_corrector", "claim_submitter")
         graph.add_conditional_edges("claim_submitter", submit_branch)
-        graph.add_edge("appeal_generator", "resubmitter")
+        
+        # CRITICAL: Appeal generator needs conditional routing too!
+        def appeal_branch(state: ClaimState) -> str:
+            final_status = state.get("final_status", "unknown")
+            patient_update_required = state.get("patient_update_required", {})
+            
+            if final_status == "awaiting_patient_data_update":
+                state["log"].append("Appeal paused - patient data update required, ending workflow")
+                return END
+            elif final_status == "appeal_generated":
+                state["log"].append("Appeal generated successfully - proceeding to resubmitter")
+                return "resubmitter"
+            else:
+                state["log"].append(f"Appeal generation completed with status {final_status} - proceeding to resubmitter")
+                return "resubmitter"
+        
+        graph.add_conditional_edges("appeal_generator", appeal_branch)
         graph.add_edge("resubmitter", "feedback_learner")
         graph.add_edge("feedback_learner", END)
 
@@ -139,8 +208,18 @@ class ClaimFlow:
 
     async def process_claim(self, claim_data: dict) -> dict:
         """Process a single claim through the agentic workflow"""
-        claim_id = claim_data.get("claim_id", "unknown")
+        # Generate claim_id if not provided
+        claim_id = claim_data.get("claim_id")
+        if not claim_id or claim_id == "unknown":
+            claim_id = f"CLM-{int(time.time())}-{claim_data.get('patient_id', 'UNK')}"
+            claim_data["claim_id"] = claim_id
+        
         try:
+            # Import the centralized logger
+            from tools.execution_logger import execution_logger
+            
+            # Log claim processing start with detailed info
+            execution_logger.log_claim_start(claim_data)
             secure_log("claim_flow", {"action": "start_processing", "claim_id": claim_id})
 
             # Create initial state with reasonable defaults
@@ -153,11 +232,44 @@ class ClaimFlow:
                 "submission_result": None,
                 "appeal_packet": None,
                 "final_status": None,
-                "log": [f"Processing started at {time.strftime('%Y-%m-%d %H:%M:%S')}"]
+                "log": [f"Processing started at {time.strftime('%Y-%m-%d %H:%M:%S')} for claim {claim_id}"]
             }
 
             # Run the workflow
+            execution_logger.log_execution_step("claim_flow", "WORKFLOW_START", {
+                "claim_id": claim_id,
+                "patient_id": claim_data.get("patient_id"),
+                "initial_state": initial_state
+            })
+            
             final_state = await self.graph.ainvoke(initial_state)
+            
+            execution_logger.log_execution_step("claim_flow", "WORKFLOW_COMPLETE", {
+                "claim_id": claim_id,
+                "final_state": {
+                    "final_status": final_state.get("final_status"),
+                    "risk_score": final_state.get("risk_score"),
+                    "issues_count": len(final_state.get("issues", [])),
+                    "log_entries": len(final_state.get("log", []))
+                }
+            })
+
+            # Save claim status to persistent storage for dashboard
+            try:
+                patient_id = claim_data.get("patient_id")
+                final_status = final_state.get("final_status", "unknown")
+                
+                if patient_id and final_status:
+                    additional_data = {
+                        "risk_score": final_state.get("risk_score", 0.0),
+                        "issues_count": len(final_state.get("issues", [])),
+                        "submission_result": final_state.get("submission_result"),
+                        "processing_time": time.time()
+                    }
+                    save_claim_status(claim_id, patient_id, final_status, additional_data)
+                    secure_log("claim_flow", {"action": "status_saved", "patient_id": patient_id, "status": final_status})
+            except Exception as status_error:
+                secure_log("claim_flow", {"action": "status_save_failed", "error": str(status_error)})
 
             # Always provide non-null, reasonable values in result
             result = {
@@ -175,8 +287,19 @@ class ClaimFlow:
             return result
 
         except Exception as e:
+            # Import the centralized logger
+            from tools.execution_logger import execution_logger
+            
             # Clean the error message to avoid Unicode issues
             clean_error = clean_unicode_for_json(str(e))
+            
+            # Log detailed error information
+            execution_logger.log_error("claim_flow", clean_error, {
+                "claim_id": claim_id,
+                "claim_data": claim_data,
+                "error_type": type(e).__name__
+            })
+            
             secure_log("claim_flow", {"action": "processing_error", "claim_id": claim_id, "error": clean_error})
             return {
                 "claim_id": claim_id,

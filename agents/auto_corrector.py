@@ -4,12 +4,31 @@ from tools.code_mapper import correct_codes
 from config.settings import Settings
 from tools.logger import secure_log
 from tools.csv_data_loader import patient_loader, denial_loader
-from mcp_client import mcp_client
+from orchestrator.mcp_client import mcp_client
 import random
 import asyncio
 
+# Import centralized execution logger
+try:
+    from tools.execution_logger import execution_logger, log_execution, log_error
+    HAS_EXECUTION_LOGGER = True
+except ImportError:
+    HAS_EXECUTION_LOGGER = False
+
 async def run_auto_correction(state: dict) -> dict:
     """Enhanced Auto-Corrector Agent with MCP integration and detailed stage output"""
+    
+    claim_id = state.get("claim_id", "unknown")
+    patient_name = state.get("raw_data", {}).get("patient_name", "Unknown Patient")
+    
+    # Log agent start with centralized logger
+    if HAS_EXECUTION_LOGGER:
+        log_execution('auto_corrector', 'AGENT_START', {
+            'claim_id': claim_id,
+            'patient_name': patient_name,
+            'issues_count': len(state.get("issues", [])),
+            'action': 'Starting intelligent auto-correction with MCP data enhancement'
+        })
     
     print("\n" + "="*80)
     print("🔧 STAGE 2: INTELLIGENT AUTO-CORRECTION")
@@ -19,9 +38,9 @@ async def run_auto_correction(state: dict) -> dict:
     recommendations = state.get("recommendations", [])
     claim_data = state.get("raw_data", {}).copy()
     insurance_company = claim_data.get("insurance_company", "")
-    claim_id = state.get("claim_id", "unknown")
     
     print(f"📋 Processing Claim: {claim_id}")
+    print(f"   Patient: {patient_name}")
     print(f"   Issues to resolve: {len(issues)}")
     print(f"   Recommendations available: {len(recommendations)}")
     
@@ -29,6 +48,15 @@ async def run_auto_correction(state: dict) -> dict:
         print(f"\n   📝 Issues Identified:")
         for i, issue in enumerate(issues, 1):
             print(f"      {i}. {issue}")
+            
+        # Log specific issues being processed
+        if HAS_EXECUTION_LOGGER:
+            log_execution('auto_corrector', 'ISSUES_PROCESSING', {
+                'claim_id': claim_id,
+                'patient_name': patient_name,
+                'issues': issues,
+                'action': f'Processing {len(issues)} data quality issues'
+            })
     else:
         print(f"   [SUCCESS] No issues detected")
     
@@ -43,9 +71,14 @@ async def run_auto_correction(state: dict) -> dict:
     print(f"   Policy data available: {'Yes' if policy_check else 'No'}")
     print(f"   Denial patterns available: {'Yes' if denial_analysis else 'No'}")
     
+    # Add detailed logging for UI activity tracking
+    state["log"].append("[AutoCorrector] Enhanced patient data retrieval from CSV and MCP sources")
+    state["log"].append("[AutoCorrector] Analyzing demographic completeness and data quality")
+    
     # Generate prior authorization via MCP if required
     if policy_check.get("prior_auth_required", False) and not claim_data.get("prior_auth"):
         print(f"   🔍 Processing prior authorization requirement...")
+        state["log"].append("[AutoCorrector] Generated missing prior authorization numbers")
         try:
             prior_auth_result = await mcp_client.generate_prior_auth_request(
                 patient_id=claim_data.get("patient_id", ""),
@@ -539,6 +572,18 @@ async def run_auto_correction(state: dict) -> dict:
         state["final_status"] = "corrected"
     else:
         state["final_status"] = "partially_corrected"
+
+    # Log completion with centralized logger
+    if HAS_EXECUTION_LOGGER:
+        log_execution('auto_corrector', 'AGENT_COMPLETE', {
+            'claim_id': claim_id,
+            'patient_name': patient_name,
+            'corrections_applied': len(resolved_issues),
+            'remaining_issues': len(updated_issues),
+            'data_quality_score': data_quality_score,
+            'status': state["final_status"],
+            'action': f'Auto-correction completed - {len(resolved_issues)} corrections applied'
+        })
 
     secure_log("AutoCorrector", {
         "claim_id": state.get("claim_id"),

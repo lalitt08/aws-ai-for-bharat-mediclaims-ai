@@ -15,6 +15,9 @@ class Settings:
     # System operational mode - MCP for full agentic behavior
     OPERATIONAL_MODE = os.getenv("OPERATIONAL_MODE", "mcp")  # Default to MCP mode
     MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8001")
+    
+    # Data source configuration - Only OpenEMR for real-time data
+    DATA_SOURCE = os.getenv("DATA_SOURCE", "openemr")  # Always use OpenEMR for real-time data
 
     # LangGraph / Agent settings
     RISK_THRESHOLD = 0.4
