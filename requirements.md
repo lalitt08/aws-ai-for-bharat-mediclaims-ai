@@ -77,9 +77,9 @@ Traditional claims processing uses static rules:
 
 ## Solution: AI-Powered Claims Intelligence
 
-### Core Innovation: 6-Agent Autonomous System
+### Core Innovation: 10-Agent Autonomous System
 
-Unlike single-model AI solutions, MediClaims AI uses **specialized agents** that collaborate:
+Unlike single-model AI solutions, MediClaims AI uses **specialized agents** that collaborate across two phases:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -97,8 +97,16 @@ Unlike single-model AI solutions, MediClaims AI uses **specialized agents** that
                     │   APPROVED?   │
                     └───────┬───────┘
                             │ NO
-┌───────────────────────────▼─────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────┐
 │                   POST-SUBMISSION PHASE                     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
+│  │    ERA       │  │   DENIAL     │  │  COMPLIANCE  │      │
+│  │  PROCESSOR   │─►│  CLASSIFIER  │─►│   CHECKER    │      │
+│  │  (Parser)    │  │   (ML/NLP)   │  │  (Rules+AI)  │      │
+│  └──────────────┘  └──────────────┘  └──────────────┘      │
+│   Parses ERA/835    Categorizes       Validates HIPAA      │
+│   denial files      denial reasons    & regulations        │
+│                                                             │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
 │  │   APPEAL     │  │    RE-       │  │   FEEDBACK   │      │
 │  │  GENERATOR   │─►│  SUBMITTER   │─►│   LEARNER    │      │
@@ -109,12 +117,28 @@ Unlike single-model AI solutions, MediClaims AI uses **specialized agents** that
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### All 10 Agents Explained
+
+| # | Agent | Phase | AI Type | Function |
+|---|-------|-------|---------|----------|
+| 1 | Risk Predictor | Pre | ML Ensemble | Predicts denial probability before submission |
+| 2 | Auto-Corrector | Pre | LLM (GPT-4) | Fixes data quality issues intelligently |
+| 3 | Claim Submitter | Pre | API + Logic | Routes claims to correct insurer |
+| 4 | ERA Processor | Post | Parser + AI | Parses ERA/835 files, extracts denial codes |
+| 5 | Denial Classifier | Post | ML + NLP | Categorizes denials, calculates appeal likelihood |
+| 6 | Compliance Checker | Post | Rules + AI | Validates HIPAA, state regulations, payer policies |
+| 7 | Appeal Generator | Post | GPT-4 | Creates persuasive appeal letters with medical justification |
+| 8 | Resubmitter | Post | Strategy AI | Selects optimal resubmission strategy |
+| 9 | Feedback Learner | Post | RL | Learns from outcomes to improve predictions |
+
 ### What Makes This Novel?
 
 | Feature | Existing Solutions | MediClaims AI |
 |---------|-------------------|---------------|
 | Denial prediction | Post-hoc analysis | **Pre-submission** prediction |
-| Data correction | Manual or template | **Context-aware** AI generation |
+| ERA Processing | Manual review | **AI-powered** denial extraction |
+| Denial Classification | Simple rules | **ML + NLP** hybrid classification |
+| Compliance | Manual checklists | **Automated** HIPAA/state/payer validation |
 | Appeals | Generic templates | **GPT-4 generated** persuasive letters |
 | Learning | Static rules | **Continuous** outcome-based learning |
 | Multi-insurer | Single integration | **Unified** routing to all insurers |
@@ -142,39 +166,69 @@ Unlike single-model AI solutions, MediClaims AI uses **specialized agents** that
 | FR-2.3 | Enhance medical documentation | GPT-4 expands clinical notes into comprehensive documentation |
 | FR-2.4 | Validate and correct ICD-10/CPT codes | Semantic understanding maps procedures to correct codes |
 
-### FR-3: Multi-Insurer Claim Submission
-
-| ID | Requirement | Priority |
-|----|-------------|----------|
-| FR-3.1 | Route claims to correct insurer API automatically | High |
-| FR-3.2 | Real-time eligibility verification | High |
-| FR-3.3 | Handle API failures with intelligent fallbacks | Medium |
-| FR-3.4 | Track submission status in real-time | High |
-
-### FR-4: AI-Generated Appeals (GPT-4 Powered)
+### FR-3: ERA Processing & Denial Extraction (AI-Powered)
 
 | ID | Requirement | AI Justification |
 |----|-------------|------------------|
-| FR-4.1 | Generate persuasive appeal letters | GPT-4 creates legally sound, medically justified arguments |
-| FR-4.2 | Customize appeals per denial reason | LLM understands denial context and tailors response |
-| FR-4.3 | Include relevant medical citations | AI retrieves and incorporates supporting evidence |
-| FR-4.4 | Generate PDF appeal packets | Automated document assembly with AI-generated content |
+| FR-3.1 | Parse ERA/835 electronic remittance files automatically | AI extracts structured data from complex healthcare formats |
+| FR-3.2 | Extract and categorize denial codes (CO-16, CO-197, etc.) | NLP understands denial code meanings and implications |
+| FR-3.3 | Calculate appeal likelihood for each denial | ML predicts success probability based on denial type |
+| FR-3.4 | Generate suggested actions per denial type | AI recommends specific remediation steps |
+| FR-3.5 | Identify required documentation for appeals | Context-aware document requirement generation |
 
-### FR-5: Continuous Learning System
+### FR-4: Intelligent Denial Classification (ML + NLP)
 
 | ID | Requirement | AI Justification |
 |----|-------------|------------------|
-| FR-5.1 | Learn from every claim outcome | Reinforcement learning improves predictions |
-| FR-5.2 | Identify emerging denial patterns | Anomaly detection spots new insurer behaviors |
-| FR-5.3 | Update risk models automatically | Online learning adapts to changing patterns |
-| FR-5.4 | Share learnings across similar claims | Transfer learning applies insights broadly |
+| FR-4.1 | Classify denials into categories (medical necessity, prior auth, coding, etc.) | Hybrid ML + NLP classification with 85%+ accuracy |
+| FR-4.2 | Calculate priority scores for denial queue management | ML ranks denials by recovery potential and urgency |
+| FR-4.3 | Identify alternative classifications with confidence scores | Ensemble model provides multiple interpretations |
+| FR-4.4 | Generate recommended actions based on classification | LLM creates contextual action plans |
 
-### FR-6: India-Specific Requirements
+### FR-5: Compliance Validation (Rules + AI)
+
+| ID | Requirement | AI Justification |
+|----|-------------|------------------|
+| FR-5.1 | Validate HIPAA compliance for all claims and appeals | AI checks PHI handling, consent, audit requirements |
+| FR-5.2 | Check state-specific regulations (CA, NY, TX, etc.) | Rule engine + AI for jurisdiction-specific compliance |
+| FR-5.3 | Validate payer-specific policies and deadlines | AI understands insurer requirements and timelines |
+| FR-5.4 | Calculate compliance score and identify violations | ML-based risk scoring for compliance issues |
+| FR-5.5 | Generate compliance recommendations | LLM creates actionable remediation steps |
+
+### FR-6: Multi-Insurer Claim Submission
 
 | ID | Requirement | Priority |
 |----|-------------|----------|
-| FR-6.1 | Support Ayushman Bharat (PM-JAY) claim formats | High |
-| FR-6.2 | ABHA ID integration for patient identification | Medium |
+| FR-6.1 | Route claims to correct insurer API automatically | High |
+| FR-6.2 | Real-time eligibility verification | High |
+| FR-6.3 | Handle API failures with intelligent fallbacks | Medium |
+| FR-6.4 | Track submission status in real-time | High |
+
+### FR-7: AI-Generated Appeals (GPT-4 Powered)
+
+| ID | Requirement | AI Justification |
+|----|-------------|------------------|
+| FR-7.1 | Generate persuasive appeal letters | GPT-4 creates legally sound, medically justified arguments |
+| FR-7.2 | Customize appeals per denial reason | LLM understands denial context and tailors response |
+| FR-7.3 | Include relevant medical citations | AI retrieves and incorporates supporting evidence |
+| FR-7.4 | Generate PDF appeal packets | Automated document assembly with AI-generated content |
+| FR-7.5 | Calculate appeal success probability | ML predicts likelihood based on denial type and strategy |
+
+### FR-8: Continuous Learning System
+
+| ID | Requirement | AI Justification |
+|----|-------------|------------------|
+| FR-8.1 | Learn from every claim outcome | Reinforcement learning improves predictions |
+| FR-8.2 | Identify emerging denial patterns | Anomaly detection spots new insurer behaviors |
+| FR-8.3 | Update risk models automatically | Online learning adapts to changing patterns |
+| FR-8.4 | Share learnings across similar claims | Transfer learning applies insights broadly |
+
+### FR-9: India-Specific Requirements
+
+| ID | Requirement | Priority |
+|----|-------------|----------|
+| FR-9.1 | Support Ayushman Bharat (PM-JAY) claim formats | High |
+| FR-9.2 | ABHA ID integration for patient identification | Medium |
 | FR-6.3 | IRDAI compliance for all operations | High |
 | FR-6.4 | Regional language support (Hindi, Tamil, Telugu) | Medium |
 | FR-6.5 | WhatsApp/SMS notifications for claim status | Medium |

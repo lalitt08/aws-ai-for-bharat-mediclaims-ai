@@ -17,13 +17,21 @@ An AI-powered multi-agent system that reduces healthcare claim denials from 35% 
 
 ## 🚀 Solution
 
-6 specialized AI agents working together:
+9 specialized AI agents working in two phases:
 
+**Pre-Submission (3 Agents):**
 | Agent | Role |
 |-------|------|
 | Risk Predictor | ML-based denial prediction before submission |
-| Auto-Corrector | LLM-powered data correction |
+| Auto-Corrector | LLM-powered intelligent data correction |
 | Claim Submitter | Multi-insurer API routing |
+
+**Post-Submission (6 Agents):**
+| Agent | Role |
+|-------|------|
+| ERA Processor | Parse ERA/835 files, extract denial codes |
+| Denial Classifier | ML+NLP categorization, priority scoring |
+| Compliance Checker | HIPAA, state, payer policy validation |
 | Appeal Generator | GPT-4 powered appeal letter creation |
 | Resubmitter | Strategic appeal submission |
 | Feedback Learner | Continuous improvement from outcomes |

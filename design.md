@@ -16,16 +16,26 @@ MediClaims AI is a **multi-agent autonomous system** that uses AI at every decis
 - Specialized agents can be optimized independently
 - Failure isolation - one agent failing doesn't break the entire system
 
-**Our Approach: 6 Specialized Agents**
+**Our Approach: 9 Specialized Agents**
+
+**PRE-SUBMISSION (3 Agents):**
 ```
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │    Risk     │     │    Auto     │     │   Claim     │
 │  Predictor  │────►│  Corrector  │────►│  Submitter  │
 │   (ML)      │     │   (LLM)     │     │   (API)     │
 └─────────────┘     └─────────────┘     └─────────────┘
+```
+
+**POST-SUBMISSION (6 Agents):**
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│    ERA      │     │   Denial    │     │ Compliance  │
+│  Processor  │────►│ Classifier  │────►│  Checker    │
+│  (Parser)   │     │  (ML+NLP)   │     │ (Rules+AI)  │
+└─────────────┘     └─────────────┘     └─────────────┘
        │                                       │
-       │ Learns from                          │ If denied
-       │ outcomes                             ▼
+       │                                       ▼
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │  Feedback   │◄────│    Re-      │◄────│   Appeal    │
 │   Learner   │     │  submitter  │     │  Generator  │
@@ -169,6 +179,134 @@ Identified Issues
 
 **Correction Strategies**:
 
+---
+
+## POST-SUBMISSION AGENTS
+
+### 4. ERA Processor Agent (Parser + AI)
+
+**Purpose**: Parse ERA/835 electronic remittance files and extract denial information
+
+**Architecture**:
+```
+ERA/835 File
+       │
+       ▼
+┌─────────────────┐
+│  Format Parser  │ ← Supports 835, ERA, XML, JSON
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Denial Extractor│ ← Identifies denial codes (CO-16, CO-197, etc.)
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Code Categorizer│ ← Maps codes to categories
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│Action Generator │ ← Suggests remediation steps
+└────────┬────────┘
+         │
+         ▼
+   Structured Denials
+```
+
+**Denial Code Mapping**:
+| Code | Category | Appeal Likelihood |
+|------|----------|-------------------|
+| CO-16 | Documentation | 75% |
+| CO-27 | Eligibility | 25% |
+| CO-29 | Timely Filing | 15% |
+| CO-50 | Medical Necessity | 60% |
+| CO-97 | Bundling | 85% |
+| CO-197 | Prior Authorization | 80% |
+
+### 5. Denial Classifier Agent (ML + NLP)
+
+**Purpose**: Intelligently categorize denials and calculate appeal priority
+
+**Architecture**:
+```
+Denial Reason + Code
+         │
+         ▼
+┌─────────────────┐
+│ Code Classifier │ ← High confidence (0.9) for known codes
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Text Classifier │ ← NLP keyword matching
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│Hybrid Combiner  │ ← Merges classifications with confidence
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│Priority Scorer  │ ← Ranks by amount, success rate, urgency
+└────────┬────────┘
+         │
+         ▼
+   Classified Denial + Priority
+```
+
+**Classification Categories**:
+| Category | Appeal Strategy | Success Rate |
+|----------|-----------------|--------------|
+| Medical Necessity | Clinical documentation | 65% |
+| Prior Authorization | Authorization request | 80% |
+| Documentation | Additional documentation | 75% |
+| Coding Error | Code correction | 85% |
+| Timely Filing | Good cause explanation | 25% |
+| Policy Exclusion | Policy interpretation | 40% |
+
+### 6. Compliance Checker Agent (Rules + AI)
+
+**Purpose**: Validate HIPAA, state regulations, and payer policies
+
+**Architecture**:
+```
+Claim/Appeal Data
+         │
+         ▼
+┌─────────────────┐
+│  HIPAA Checker  │ ← PHI consent, minimum necessary, audit trail
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ State Validator │ ← CA, NY, TX specific rules
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Payer Validator │ ← Aetna, United, BlueCross policies
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Score Calculator│ ← Compliance score (0-1)
+└────────┬────────┘
+         │
+         ▼
+   Compliance Report + Recommendations
+```
+
+**Compliance Checks**:
+| Type | Regulation | Severity |
+|------|------------|----------|
+| Patient Consent | 45 CFR § 164.508 | High |
+| Minimum Necessary | 45 CFR § 164.502(b) | Medium |
+| Timely Filing | Payer-specific (30-365 days) | High |
+| Prior Auth Threshold | Payer-specific ($500-$1000) | High |
+
 | Issue | Rule-Based Approach | AI Approach |
 |-------|---------------------|-------------|
 | Missing DOB | Reject claim | Infer from age field, patient records |
@@ -180,7 +318,19 @@ Identified Issues
 - Database: Can only fill if exact match exists
 - LLM: Can infer, generate, and validate contextually
 
-### 3. Appeal Generator Agent (GPT-4)
+### 3. Claim Submitter Agent (API + Logic)
+
+**Purpose**: Route claims to correct insurer and handle submission
+
+**Routing Logic**:
+```python
+def get_api_endpoint(insurer: str) -> str:
+    primary = ["BlueCross", "Aetna"]      # Port 8081
+    secondary = ["Cigna", "United"]        # Port 8082
+    return PRIMARY_API if insurer in primary else SECONDARY_API
+```
+
+### 7. Appeal Generator Agent (GPT-4)
 
 **Purpose**: Create persuasive, medically-justified appeal letters
 
@@ -239,7 +389,20 @@ Length: 300-500 words
 - Templates: Generic, low success rate (40-50%)
 - GPT-4: Contextual, persuasive, high success rate (78%+)
 
-### 4. Feedback Learner Agent (Reinforcement Learning)
+### 8. Resubmitter Agent (Strategy AI)
+
+**Purpose**: Select optimal resubmission strategy and execute
+
+**Strategy Selection**:
+| Denial Type | Strategy | Success Probability |
+|-------------|----------|---------------------|
+| Prior auth missing | Prior auth appeal | 85% |
+| Insufficient docs | Clinical documentation | 72% |
+| Coding error | Code correction | 90% |
+| Eligibility issue | Eligibility verification | 65% |
+| Complex denial | Comprehensive appeal | 55% |
+
+### 9. Feedback Learner Agent (Reinforcement Learning)
 
 **Purpose**: Continuously improve from outcomes
 
