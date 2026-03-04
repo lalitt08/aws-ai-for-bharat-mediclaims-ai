@@ -1,0 +1,3754 @@
+[
+  {
+    "era_id": "ERA-000001",
+    "transaction_date": "2025-08-25T11:10:50.042421",
+    "payer": "humana",
+    "total_claims": 9,
+    "total_billed": 14280,
+    "total_paid": 10478,
+    "total_adjustments": 2155,
+    "claims": [
+      {
+        "claim_id": "CLM-84409225",
+        "patient_name": "Michael Rodriguez",
+        "service_date": "2025-08-01T11:10:50.042421",
+        "billed_amount": 2261,
+        "paid_amount": 1478,
+        "adjustment_amount": 366,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-45473345",
+        "patient_name": "Richard Garcia",
+        "service_date": "2025-08-03T11:10:50.042421",
+        "billed_amount": 2282,
+        "paid_amount": 177,
+        "adjustment_amount": 256,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-99082889",
+        "patient_name": "Kimberly Torres",
+        "service_date": "2025-07-30T11:10:50.042421",
+        "billed_amount": 1964,
+        "paid_amount": 151,
+        "adjustment_amount": 411,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-14520261",
+        "patient_name": "Mark Thompson",
+        "service_date": "2025-08-02T11:10:50.042421",
+        "billed_amount": 979,
+        "paid_amount": 1768,
+        "adjustment_amount": 213,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-91545489",
+        "patient_name": "Sharon Wilson",
+        "service_date": "2025-08-08T11:10:50.042421",
+        "billed_amount": 875,
+        "paid_amount": 1978,
+        "adjustment_amount": 166,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-92664315",
+        "patient_name": "Daniel Anderson",
+        "service_date": "2025-08-14T11:10:50.042421",
+        "billed_amount": 2759,
+        "paid_amount": 1965,
+        "adjustment_amount": 446,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-75716423",
+        "patient_name": "Michael Harris",
+        "service_date": "2025-08-08T11:10:50.042421",
+        "billed_amount": 819,
+        "paid_amount": 1752,
+        "adjustment_amount": 12,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-21742908",
+        "patient_name": "Joseph Brown",
+        "service_date": "2025-08-10T11:10:50.042421",
+        "billed_amount": 2107,
+        "paid_amount": 407,
+        "adjustment_amount": 211,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-77059408",
+        "patient_name": "David Miller",
+        "service_date": "2025-08-14T11:10:50.042421",
+        "billed_amount": 234,
+        "paid_amount": 802,
+        "adjustment_amount": 74,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042610"
+  },
+  {
+    "era_id": "ERA-000002",
+    "transaction_date": "2025-08-09T11:10:50.042620",
+    "payer": "humana",
+    "total_claims": 4,
+    "total_billed": 4220,
+    "total_paid": 4454,
+    "total_adjustments": 1440,
+    "claims": [
+      {
+        "claim_id": "CLM-15717502",
+        "patient_name": "Karen Rodriguez",
+        "service_date": "2025-07-28T11:10:50.042620",
+        "billed_amount": 2312,
+        "paid_amount": 1071,
+        "adjustment_amount": 421,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-94180502",
+        "patient_name": "Kimberly White",
+        "service_date": "2025-07-12T11:10:50.042620",
+        "billed_amount": 673,
+        "paid_amount": 1996,
+        "adjustment_amount": 287,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-99329155",
+        "patient_name": "Anthony Anderson",
+        "service_date": "2025-07-29T11:10:50.042620",
+        "billed_amount": 279,
+        "paid_amount": 442,
+        "adjustment_amount": 380,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-23719338",
+        "patient_name": "Anthony Hill",
+        "service_date": "2025-07-27T11:10:50.042620",
+        "billed_amount": 956,
+        "paid_amount": 945,
+        "adjustment_amount": 352,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042670"
+  },
+  {
+    "era_id": "ERA-000003",
+    "transaction_date": "2025-07-29T11:10:50.042675",
+    "payer": "cigna",
+    "total_claims": 7,
+    "total_billed": 10799,
+    "total_paid": 7782,
+    "total_adjustments": 1855,
+    "claims": [
+      {
+        "claim_id": "CLM-33293907",
+        "patient_name": "Lisa Thomas",
+        "service_date": "2025-06-29T11:10:50.042675",
+        "billed_amount": 2935,
+        "paid_amount": 1468,
+        "adjustment_amount": 305,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-20391108",
+        "patient_name": "Robert Moore",
+        "service_date": "2025-07-16T11:10:50.042675",
+        "billed_amount": 1695,
+        "paid_amount": 1180,
+        "adjustment_amount": 473,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-90013552",
+        "patient_name": "Dorothy Ramirez",
+        "service_date": "2025-07-10T11:10:50.042675",
+        "billed_amount": 434,
+        "paid_amount": 742,
+        "adjustment_amount": 369,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-63808731",
+        "patient_name": "Donna Thomas",
+        "service_date": "2025-07-11T11:10:50.042675",
+        "billed_amount": 1479,
+        "paid_amount": 1914,
+        "adjustment_amount": 191,
+        "status": "partial",
+        "denial_codes": [
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-18246058",
+        "patient_name": "Sarah Robinson",
+        "service_date": "2025-07-19T11:10:50.042675",
+        "billed_amount": 2602,
+        "paid_amount": 1981,
+        "adjustment_amount": 140,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97",
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-76829394",
+        "patient_name": "Donald Harris",
+        "service_date": "2025-06-29T11:10:50.042675",
+        "billed_amount": 1125,
+        "paid_amount": 313,
+        "adjustment_amount": 289,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-52353602",
+        "patient_name": "Deborah Jackson",
+        "service_date": "2025-07-07T11:10:50.042675",
+        "billed_amount": 529,
+        "paid_amount": 184,
+        "adjustment_amount": 88,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042744"
+  },
+  {
+    "era_id": "ERA-000004",
+    "transaction_date": "2025-09-04T11:10:50.042746",
+    "payer": "united",
+    "total_claims": 7,
+    "total_billed": 10612,
+    "total_paid": 5536,
+    "total_adjustments": 1836,
+    "claims": [
+      {
+        "claim_id": "CLM-94880217",
+        "patient_name": "David Harris",
+        "service_date": "2025-08-11T11:10:50.042746",
+        "billed_amount": 292,
+        "paid_amount": 102,
+        "adjustment_amount": 19,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-41078898",
+        "patient_name": "Dorothy Johnson",
+        "service_date": "2025-08-06T11:10:50.042746",
+        "billed_amount": 2980,
+        "paid_amount": 210,
+        "adjustment_amount": 391,
+        "status": "paid",
+        "denial_codes": [
+          "PR-1",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-37147893",
+        "patient_name": "Lisa Wright",
+        "service_date": "2025-08-13T11:10:50.042746",
+        "billed_amount": 1836,
+        "paid_amount": 911,
+        "adjustment_amount": 118,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-23074293",
+        "patient_name": "Michelle Lopez",
+        "service_date": "2025-08-11T11:10:50.042746",
+        "billed_amount": 1595,
+        "paid_amount": 208,
+        "adjustment_amount": 487,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-96483161",
+        "patient_name": "Sarah Lopez",
+        "service_date": "2025-08-20T11:10:50.042746",
+        "billed_amount": 2736,
+        "paid_amount": 1766,
+        "adjustment_amount": 63,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-88299607",
+        "patient_name": "Charles Walker",
+        "service_date": "2025-08-22T11:10:50.042746",
+        "billed_amount": 1012,
+        "paid_amount": 1761,
+        "adjustment_amount": 431,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-26115970",
+        "patient_name": "Lisa White",
+        "service_date": "2025-08-14T11:10:50.042746",
+        "billed_amount": 161,
+        "paid_amount": 578,
+        "adjustment_amount": 327,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042797"
+  },
+  {
+    "era_id": "ERA-000005",
+    "transaction_date": "2025-08-05T11:10:50.042799",
+    "payer": "bluecross",
+    "total_claims": 3,
+    "total_billed": 7172,
+    "total_paid": 3190,
+    "total_adjustments": 944,
+    "claims": [
+      {
+        "claim_id": "CLM-80679842",
+        "patient_name": "Anthony Clark",
+        "service_date": "2025-07-23T11:10:50.042799",
+        "billed_amount": 2720,
+        "paid_amount": 1105,
+        "adjustment_amount": 157,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-18383541",
+        "patient_name": "Anthony Young",
+        "service_date": "2025-07-14T11:10:50.042799",
+        "billed_amount": 2978,
+        "paid_amount": 1887,
+        "adjustment_amount": 323,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-92538420",
+        "patient_name": "Donald Smith",
+        "service_date": "2025-07-15T11:10:50.042799",
+        "billed_amount": 1474,
+        "paid_amount": 198,
+        "adjustment_amount": 464,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042830"
+  },
+  {
+    "era_id": "ERA-000006",
+    "transaction_date": "2025-07-22T11:10:50.042833",
+    "payer": "anthem",
+    "total_claims": 10,
+    "total_billed": 12748,
+    "total_paid": 11595,
+    "total_adjustments": 2438,
+    "claims": [
+      {
+        "claim_id": "CLM-62487850",
+        "patient_name": "Sandra Brown",
+        "service_date": "2025-06-24T11:10:50.042833",
+        "billed_amount": 2143,
+        "paid_amount": 1862,
+        "adjustment_amount": 325,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-32841293",
+        "patient_name": "Mary Allen",
+        "service_date": "2025-07-11T11:10:50.042833",
+        "billed_amount": 896,
+        "paid_amount": 103,
+        "adjustment_amount": 87,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-27634056",
+        "patient_name": "Nancy Hernandez",
+        "service_date": "2025-07-10T11:10:50.042833",
+        "billed_amount": 383,
+        "paid_amount": 1592,
+        "adjustment_amount": 365,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-42407141",
+        "patient_name": "Karen Williams",
+        "service_date": "2025-06-25T11:10:50.042833",
+        "billed_amount": 2083,
+        "paid_amount": 964,
+        "adjustment_amount": 361,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-58479224",
+        "patient_name": "Daniel Moore",
+        "service_date": "2025-07-09T11:10:50.042833",
+        "billed_amount": 1867,
+        "paid_amount": 1064,
+        "adjustment_amount": 132,
+        "status": "partial",
+        "denial_codes": [
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-74780960",
+        "patient_name": "Michelle Hernandez",
+        "service_date": "2025-07-08T11:10:50.042833",
+        "billed_amount": 801,
+        "paid_amount": 1908,
+        "adjustment_amount": 270,
+        "status": "denied",
+        "denial_codes": [
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-43609348",
+        "patient_name": "Anthony Nguyen",
+        "service_date": "2025-07-03T11:10:50.042833",
+        "billed_amount": 2740,
+        "paid_amount": 1348,
+        "adjustment_amount": 461,
+        "status": "partial",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-57398533",
+        "patient_name": "Donna Scott",
+        "service_date": "2025-06-24T11:10:50.042833",
+        "billed_amount": 311,
+        "paid_amount": 512,
+        "adjustment_amount": 98,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-37455610",
+        "patient_name": "Donald Thomas",
+        "service_date": "2025-07-12T11:10:50.042833",
+        "billed_amount": 149,
+        "paid_amount": 410,
+        "adjustment_amount": 244,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-92587250",
+        "patient_name": "Lisa Thomas",
+        "service_date": "2025-06-23T11:10:50.042833",
+        "billed_amount": 1375,
+        "paid_amount": 1832,
+        "adjustment_amount": 95,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042923"
+  },
+  {
+    "era_id": "ERA-000007",
+    "transaction_date": "2025-08-31T11:10:50.042924",
+    "payer": "aetna",
+    "total_claims": 2,
+    "total_billed": 5405,
+    "total_paid": 2423,
+    "total_adjustments": 59,
+    "claims": [
+      {
+        "claim_id": "CLM-57278967",
+        "patient_name": "Andrew Gonzalez",
+        "service_date": "2025-08-21T11:10:50.042924",
+        "billed_amount": 2488,
+        "paid_amount": 1061,
+        "adjustment_amount": 24,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-25637494",
+        "patient_name": "Laura Thomas",
+        "service_date": "2025-08-02T11:10:50.042924",
+        "billed_amount": 2917,
+        "paid_amount": 1362,
+        "adjustment_amount": 35,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042944"
+  },
+  {
+    "era_id": "ERA-000008",
+    "transaction_date": "2025-07-17T11:10:50.042946",
+    "payer": "cigna",
+    "total_claims": 3,
+    "total_billed": 4532,
+    "total_paid": 2692,
+    "total_adjustments": 478,
+    "claims": [
+      {
+        "claim_id": "CLM-20981847",
+        "patient_name": "Steven Jackson",
+        "service_date": "2025-06-28T11:10:50.042946",
+        "billed_amount": 1111,
+        "paid_amount": 891,
+        "adjustment_amount": 306,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-93164156",
+        "patient_name": "Mary Hernandez",
+        "service_date": "2025-07-06T11:10:50.042946",
+        "billed_amount": 832,
+        "paid_amount": 1114,
+        "adjustment_amount": 24,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-73954262",
+        "patient_name": "Thomas Anderson",
+        "service_date": "2025-06-17T11:10:50.042946",
+        "billed_amount": 2589,
+        "paid_amount": 687,
+        "adjustment_amount": 148,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.042970"
+  },
+  {
+    "era_id": "ERA-000009",
+    "transaction_date": "2025-08-07T11:10:50.042972",
+    "payer": "united",
+    "total_claims": 7,
+    "total_billed": 8996,
+    "total_paid": 5400,
+    "total_adjustments": 941,
+    "claims": [
+      {
+        "claim_id": "CLM-89185229",
+        "patient_name": "Thomas Martinez",
+        "service_date": "2025-07-23T11:10:50.042972",
+        "billed_amount": 1216,
+        "paid_amount": 953,
+        "adjustment_amount": 54,
+        "status": "paid",
+        "denial_codes": [
+          "PR-1",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-86448494",
+        "patient_name": "Steven Moore",
+        "service_date": "2025-07-14T11:10:50.042972",
+        "billed_amount": 215,
+        "paid_amount": 179,
+        "adjustment_amount": 443,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-78001359",
+        "patient_name": "Mary Scott",
+        "service_date": "2025-07-11T11:10:50.042972",
+        "billed_amount": 1945,
+        "paid_amount": 823,
+        "adjustment_amount": 66,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-17424362",
+        "patient_name": "Lisa Rodriguez",
+        "service_date": "2025-07-17T11:10:50.042972",
+        "billed_amount": 178,
+        "paid_amount": 850,
+        "adjustment_amount": 76,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-24103180",
+        "patient_name": "Sandra Rodriguez",
+        "service_date": "2025-07-31T11:10:50.042972",
+        "billed_amount": 2793,
+        "paid_amount": 78,
+        "adjustment_amount": 247,
+        "status": "denied",
+        "denial_codes": [
+          "PR-1",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-27039322",
+        "patient_name": "Helen Johnson",
+        "service_date": "2025-07-27T11:10:50.042972",
+        "billed_amount": 640,
+        "paid_amount": 939,
+        "adjustment_amount": 0,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-58520497",
+        "patient_name": "Laura Gonzalez",
+        "service_date": "2025-07-13T11:10:50.042972",
+        "billed_amount": 2009,
+        "paid_amount": 1578,
+        "adjustment_amount": 55,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043023"
+  },
+  {
+    "era_id": "ERA-000010",
+    "transaction_date": "2025-07-07T11:10:50.043024",
+    "payer": "united",
+    "total_claims": 4,
+    "total_billed": 5681,
+    "total_paid": 3028,
+    "total_adjustments": 916,
+    "claims": [
+      {
+        "claim_id": "CLM-75016306",
+        "patient_name": "Michael Scott",
+        "service_date": "2025-06-12T11:10:50.043024",
+        "billed_amount": 1699,
+        "paid_amount": 653,
+        "adjustment_amount": 405,
+        "status": "denied",
+        "denial_codes": [
+          "CO-96",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-59015144",
+        "patient_name": "Sarah Davis",
+        "service_date": "2025-06-12T11:10:50.043024",
+        "billed_amount": 2690,
+        "paid_amount": 528,
+        "adjustment_amount": 431,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-66122024",
+        "patient_name": "Michelle Thompson",
+        "service_date": "2025-06-28T11:10:50.043024",
+        "billed_amount": 1001,
+        "paid_amount": 535,
+        "adjustment_amount": 28,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-42271303",
+        "patient_name": "Karen Johnson",
+        "service_date": "2025-06-08T11:10:50.043024",
+        "billed_amount": 291,
+        "paid_amount": 1312,
+        "adjustment_amount": 52,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043058"
+  },
+  {
+    "era_id": "ERA-000011",
+    "transaction_date": "2025-08-30T11:10:50.043059",
+    "payer": "humana",
+    "total_claims": 1,
+    "total_billed": 1215,
+    "total_paid": 337,
+    "total_adjustments": 219,
+    "claims": [
+      {
+        "claim_id": "CLM-41984294",
+        "patient_name": "Thomas Anderson",
+        "service_date": "2025-08-03T11:10:50.043059",
+        "billed_amount": 1215,
+        "paid_amount": 337,
+        "adjustment_amount": 219,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043073"
+  },
+  {
+    "era_id": "ERA-000012",
+    "transaction_date": "2025-08-27T11:10:50.043075",
+    "payer": "aetna",
+    "total_claims": 8,
+    "total_billed": 13290,
+    "total_paid": 5963,
+    "total_adjustments": 1668,
+    "claims": [
+      {
+        "claim_id": "CLM-26843782",
+        "patient_name": "Lisa King",
+        "service_date": "2025-08-12T11:10:50.043075",
+        "billed_amount": 2065,
+        "paid_amount": 726,
+        "adjustment_amount": 48,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-90313703",
+        "patient_name": "Deborah Clark",
+        "service_date": "2025-08-04T11:10:50.043075",
+        "billed_amount": 1073,
+        "paid_amount": 176,
+        "adjustment_amount": 439,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-23608371",
+        "patient_name": "Nancy Clark",
+        "service_date": "2025-07-30T11:10:50.043075",
+        "billed_amount": 266,
+        "paid_amount": 115,
+        "adjustment_amount": 10,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-55795850",
+        "patient_name": "Kimberly Harris",
+        "service_date": "2025-07-30T11:10:50.043075",
+        "billed_amount": 1970,
+        "paid_amount": 1074,
+        "adjustment_amount": 254,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-76012871",
+        "patient_name": "Donald White",
+        "service_date": "2025-08-04T11:10:50.043075",
+        "billed_amount": 2968,
+        "paid_amount": 664,
+        "adjustment_amount": 395,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-68919153",
+        "patient_name": "Kimberly Davis",
+        "service_date": "2025-08-03T11:10:50.043075",
+        "billed_amount": 2255,
+        "paid_amount": 1173,
+        "adjustment_amount": 121,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-51982148",
+        "patient_name": "Michelle Davis",
+        "service_date": "2025-08-13T11:10:50.043075",
+        "billed_amount": 738,
+        "paid_amount": 983,
+        "adjustment_amount": 128,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23",
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-11725734",
+        "patient_name": "Sarah Garcia",
+        "service_date": "2025-08-08T11:10:50.043075",
+        "billed_amount": 1955,
+        "paid_amount": 1052,
+        "adjustment_amount": 273,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043131"
+  },
+  {
+    "era_id": "ERA-000013",
+    "transaction_date": "2025-07-10T11:10:50.043133",
+    "payer": "aetna",
+    "total_claims": 8,
+    "total_billed": 15508,
+    "total_paid": 10095,
+    "total_adjustments": 2261,
+    "claims": [
+      {
+        "claim_id": "CLM-40126996",
+        "patient_name": "Michael Nguyen",
+        "service_date": "2025-06-10T11:10:50.043133",
+        "billed_amount": 2996,
+        "paid_amount": 1904,
+        "adjustment_amount": 335,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-70739340",
+        "patient_name": "Donald Martin",
+        "service_date": "2025-06-16T11:10:50.043133",
+        "billed_amount": 2510,
+        "paid_amount": 1611,
+        "adjustment_amount": 156,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-63338709",
+        "patient_name": "Donald Jones",
+        "service_date": "2025-06-10T11:10:50.043133",
+        "billed_amount": 1549,
+        "paid_amount": 602,
+        "adjustment_amount": 156,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-10390336",
+        "patient_name": "Sarah Lopez",
+        "service_date": "2025-06-21T11:10:50.043133",
+        "billed_amount": 595,
+        "paid_amount": 511,
+        "adjustment_amount": 245,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-12121766",
+        "patient_name": "William Perez",
+        "service_date": "2025-06-19T11:10:50.043133",
+        "billed_amount": 2161,
+        "paid_amount": 1520,
+        "adjustment_amount": 179,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-49396347",
+        "patient_name": "Karen Robinson",
+        "service_date": "2025-06-30T11:10:50.043133",
+        "billed_amount": 2077,
+        "paid_amount": 1600,
+        "adjustment_amount": 424,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-18770990",
+        "patient_name": "Helen Gonzalez",
+        "service_date": "2025-06-26T11:10:50.043133",
+        "billed_amount": 1088,
+        "paid_amount": 1597,
+        "adjustment_amount": 381,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82552640",
+        "patient_name": "Laura Walker",
+        "service_date": "2025-06-28T11:10:50.043133",
+        "billed_amount": 2532,
+        "paid_amount": 750,
+        "adjustment_amount": 385,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043189"
+  },
+  {
+    "era_id": "ERA-000014",
+    "transaction_date": "2025-08-21T11:10:50.043191",
+    "payer": "anthem",
+    "total_claims": 5,
+    "total_billed": 7077,
+    "total_paid": 4909,
+    "total_adjustments": 1058,
+    "claims": [
+      {
+        "claim_id": "CLM-91050768",
+        "patient_name": "Anthony Gonzalez",
+        "service_date": "2025-08-14T11:10:50.043191",
+        "billed_amount": 1174,
+        "paid_amount": 1461,
+        "adjustment_amount": 84,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23",
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-77629192",
+        "patient_name": "Mary Robinson",
+        "service_date": "2025-08-02T11:10:50.043191",
+        "billed_amount": 739,
+        "paid_amount": 904,
+        "adjustment_amount": 497,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-18636505",
+        "patient_name": "Betty Brown",
+        "service_date": "2025-08-08T11:10:50.043191",
+        "billed_amount": 307,
+        "paid_amount": 780,
+        "adjustment_amount": 99,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-86130924",
+        "patient_name": "Michelle Miller",
+        "service_date": "2025-08-05T11:10:50.043191",
+        "billed_amount": 1995,
+        "paid_amount": 1712,
+        "adjustment_amount": 45,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-93823061",
+        "patient_name": "Richard Rodriguez",
+        "service_date": "2025-08-02T11:10:50.043191",
+        "billed_amount": 2862,
+        "paid_amount": 52,
+        "adjustment_amount": 333,
+        "status": "paid",
+        "denial_codes": [
+          "OA-23",
+          "PR-1"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043233"
+  },
+  {
+    "era_id": "ERA-000015",
+    "transaction_date": "2025-09-08T11:10:50.043235",
+    "payer": "bluecross",
+    "total_claims": 5,
+    "total_billed": 6285,
+    "total_paid": 4841,
+    "total_adjustments": 1107,
+    "claims": [
+      {
+        "claim_id": "CLM-61772398",
+        "patient_name": "Michael Lee",
+        "service_date": "2025-08-30T11:10:50.043235",
+        "billed_amount": 323,
+        "paid_amount": 1803,
+        "adjustment_amount": 66,
+        "status": "paid",
+        "denial_codes": [
+          "PR-2",
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-60819116",
+        "patient_name": "Ruth Taylor",
+        "service_date": "2025-08-31T11:10:50.043235",
+        "billed_amount": 1803,
+        "paid_amount": 579,
+        "adjustment_amount": 326,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-52387539",
+        "patient_name": "Andrew Nguyen",
+        "service_date": "2025-08-29T11:10:50.043235",
+        "billed_amount": 983,
+        "paid_amount": 1883,
+        "adjustment_amount": 91,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-39160215",
+        "patient_name": "Sandra Lopez",
+        "service_date": "2025-08-16T11:10:50.043235",
+        "billed_amount": 1143,
+        "paid_amount": 131,
+        "adjustment_amount": 139,
+        "status": "denied",
+        "denial_codes": [
+          "PR-2",
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-99470898",
+        "patient_name": "John King",
+        "service_date": "2025-08-25T11:10:50.043235",
+        "billed_amount": 2033,
+        "paid_amount": 445,
+        "adjustment_amount": 485,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043276"
+  },
+  {
+    "era_id": "ERA-000016",
+    "transaction_date": "2025-06-26T11:10:50.043277",
+    "payer": "humana",
+    "total_claims": 8,
+    "total_billed": 13322,
+    "total_paid": 11484,
+    "total_adjustments": 2091,
+    "claims": [
+      {
+        "claim_id": "CLM-65055472",
+        "patient_name": "Betty Clark",
+        "service_date": "2025-05-31T11:10:50.043277",
+        "billed_amount": 2981,
+        "paid_amount": 1610,
+        "adjustment_amount": 70,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-59130186",
+        "patient_name": "Deborah Anderson",
+        "service_date": "2025-06-04T11:10:50.043277",
+        "billed_amount": 2206,
+        "paid_amount": 1051,
+        "adjustment_amount": 177,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-37562915",
+        "patient_name": "Deborah Garcia",
+        "service_date": "2025-06-04T11:10:50.043277",
+        "billed_amount": 1651,
+        "paid_amount": 1179,
+        "adjustment_amount": 454,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-47207119",
+        "patient_name": "Jennifer Johnson",
+        "service_date": "2025-06-13T11:10:50.043277",
+        "billed_amount": 574,
+        "paid_amount": 1627,
+        "adjustment_amount": 331,
+        "status": "partial",
+        "denial_codes": [
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-50627017",
+        "patient_name": "Mark Wright",
+        "service_date": "2025-06-11T11:10:50.043277",
+        "billed_amount": 2863,
+        "paid_amount": 1321,
+        "adjustment_amount": 267,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-90173080",
+        "patient_name": "John Clark",
+        "service_date": "2025-05-27T11:10:50.043277",
+        "billed_amount": 1545,
+        "paid_amount": 1860,
+        "adjustment_amount": 189,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-56356705",
+        "patient_name": "Kenneth Lopez",
+        "service_date": "2025-06-06T11:10:50.043277",
+        "billed_amount": 337,
+        "paid_amount": 1782,
+        "adjustment_amount": 418,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-96448655",
+        "patient_name": "Kimberly Miller",
+        "service_date": "2025-05-28T11:10:50.043277",
+        "billed_amount": 1165,
+        "paid_amount": 1054,
+        "adjustment_amount": 185,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043331"
+  },
+  {
+    "era_id": "ERA-000017",
+    "transaction_date": "2025-07-28T11:10:50.043333",
+    "payer": "aetna",
+    "total_claims": 8,
+    "total_billed": 13126,
+    "total_paid": 4905,
+    "total_adjustments": 1878,
+    "claims": [
+      {
+        "claim_id": "CLM-57472572",
+        "patient_name": "Christopher Lewis",
+        "service_date": "2025-07-04T11:10:50.043333",
+        "billed_amount": 2540,
+        "paid_amount": 1172,
+        "adjustment_amount": 183,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97",
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-52826193",
+        "patient_name": "Lisa White",
+        "service_date": "2025-07-20T11:10:50.043333",
+        "billed_amount": 1744,
+        "paid_amount": 616,
+        "adjustment_amount": 348,
+        "status": "denied",
+        "denial_codes": [
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-86011128",
+        "patient_name": "Anthony Davis",
+        "service_date": "2025-07-12T11:10:50.043333",
+        "billed_amount": 1908,
+        "paid_amount": 655,
+        "adjustment_amount": 158,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-58451529",
+        "patient_name": "Sarah Scott",
+        "service_date": "2025-07-18T11:10:50.043333",
+        "billed_amount": 1591,
+        "paid_amount": 270,
+        "adjustment_amount": 403,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-25242704",
+        "patient_name": "Dorothy Garcia",
+        "service_date": "2025-07-02T11:10:50.043333",
+        "billed_amount": 1464,
+        "paid_amount": 392,
+        "adjustment_amount": 184,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-49114375",
+        "patient_name": "Daniel Anderson",
+        "service_date": "2025-07-07T11:10:50.043333",
+        "billed_amount": 389,
+        "paid_amount": 537,
+        "adjustment_amount": 285,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-97506223",
+        "patient_name": "Kevin Perez",
+        "service_date": "2025-07-15T11:10:50.043333",
+        "billed_amount": 1979,
+        "paid_amount": 904,
+        "adjustment_amount": 151,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-37946895",
+        "patient_name": "Karen Anderson",
+        "service_date": "2025-07-18T11:10:50.043333",
+        "billed_amount": 1511,
+        "paid_amount": 359,
+        "adjustment_amount": 166,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043390"
+  },
+  {
+    "era_id": "ERA-000018",
+    "transaction_date": "2025-08-08T11:10:50.043392",
+    "payer": "humana",
+    "total_claims": 9,
+    "total_billed": 13721,
+    "total_paid": 7722,
+    "total_adjustments": 2596,
+    "claims": [
+      {
+        "claim_id": "CLM-12906223",
+        "patient_name": "Anthony Gonzalez",
+        "service_date": "2025-07-09T11:10:50.043392",
+        "billed_amount": 1218,
+        "paid_amount": 699,
+        "adjustment_amount": 451,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-27298546",
+        "patient_name": "Laura Miller",
+        "service_date": "2025-07-25T11:10:50.043392",
+        "billed_amount": 2101,
+        "paid_amount": 159,
+        "adjustment_amount": 35,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-31029578",
+        "patient_name": "Helen Williams",
+        "service_date": "2025-07-17T11:10:50.043392",
+        "billed_amount": 831,
+        "paid_amount": 995,
+        "adjustment_amount": 342,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-60035205",
+        "patient_name": "Dorothy Lewis",
+        "service_date": "2025-07-25T11:10:50.043392",
+        "billed_amount": 2687,
+        "paid_amount": 1773,
+        "adjustment_amount": 85,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-55658410",
+        "patient_name": "Richard Lewis",
+        "service_date": "2025-07-16T11:10:50.043392",
+        "billed_amount": 743,
+        "paid_amount": 280,
+        "adjustment_amount": 248,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-70610503",
+        "patient_name": "Deborah Sanchez",
+        "service_date": "2025-07-17T11:10:50.043392",
+        "billed_amount": 1236,
+        "paid_amount": 1778,
+        "adjustment_amount": 453,
+        "status": "partial",
+        "denial_codes": [
+          "PR-2",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-98658231",
+        "patient_name": "Mark Rodriguez",
+        "service_date": "2025-07-14T11:10:50.043392",
+        "billed_amount": 2711,
+        "paid_amount": 292,
+        "adjustment_amount": 300,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-92343187",
+        "patient_name": "Sarah Thomas",
+        "service_date": "2025-07-19T11:10:50.043392",
+        "billed_amount": 1298,
+        "paid_amount": 276,
+        "adjustment_amount": 331,
+        "status": "denied",
+        "denial_codes": [
+          "CO-96",
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-26932010",
+        "patient_name": "Nancy White",
+        "service_date": "2025-07-24T11:10:50.043392",
+        "billed_amount": 896,
+        "paid_amount": 1470,
+        "adjustment_amount": 351,
+        "status": "paid",
+        "denial_codes": [
+          "CO-96"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043458"
+  },
+  {
+    "era_id": "ERA-000019",
+    "transaction_date": "2025-09-03T11:10:50.043460",
+    "payer": "united",
+    "total_claims": 7,
+    "total_billed": 11707,
+    "total_paid": 6853,
+    "total_adjustments": 1503,
+    "claims": [
+      {
+        "claim_id": "CLM-13291383",
+        "patient_name": "Mark Young",
+        "service_date": "2025-08-19T11:10:50.043460",
+        "billed_amount": 2927,
+        "paid_amount": 550,
+        "adjustment_amount": 136,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-70085488",
+        "patient_name": "William Sanchez",
+        "service_date": "2025-08-06T11:10:50.043460",
+        "billed_amount": 757,
+        "paid_amount": 1747,
+        "adjustment_amount": 212,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-89326261",
+        "patient_name": "Charles Robinson",
+        "service_date": "2025-08-26T11:10:50.043460",
+        "billed_amount": 2213,
+        "paid_amount": 294,
+        "adjustment_amount": 126,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-21351962",
+        "patient_name": "Kenneth Lopez",
+        "service_date": "2025-08-11T11:10:50.043460",
+        "billed_amount": 1693,
+        "paid_amount": 1638,
+        "adjustment_amount": 17,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-66224540",
+        "patient_name": "Thomas Young",
+        "service_date": "2025-08-27T11:10:50.043460",
+        "billed_amount": 2698,
+        "paid_amount": 1440,
+        "adjustment_amount": 131,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-62751635",
+        "patient_name": "Mark Scott",
+        "service_date": "2025-08-07T11:10:50.043460",
+        "billed_amount": 687,
+        "paid_amount": 1108,
+        "adjustment_amount": 413,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-31032828",
+        "patient_name": "Lisa Davis",
+        "service_date": "2025-08-15T11:10:50.043460",
+        "billed_amount": 732,
+        "paid_amount": 76,
+        "adjustment_amount": 468,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043512"
+  },
+  {
+    "era_id": "ERA-000020",
+    "transaction_date": "2025-06-27T11:10:50.043514",
+    "payer": "aetna",
+    "total_claims": 2,
+    "total_billed": 1750,
+    "total_paid": 2053,
+    "total_adjustments": 943,
+    "claims": [
+      {
+        "claim_id": "CLM-44351318",
+        "patient_name": "Jennifer Miller",
+        "service_date": "2025-06-05T11:10:50.043514",
+        "billed_amount": 230,
+        "paid_amount": 1735,
+        "adjustment_amount": 449,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-69592859",
+        "patient_name": "Steven Allen",
+        "service_date": "2025-06-20T11:10:50.043514",
+        "billed_amount": 1520,
+        "paid_amount": 318,
+        "adjustment_amount": 494,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043531"
+  },
+  {
+    "era_id": "ERA-000021",
+    "transaction_date": "2025-09-02T11:10:50.043532",
+    "payer": "anthem",
+    "total_claims": 5,
+    "total_billed": 8761,
+    "total_paid": 6860,
+    "total_adjustments": 1272,
+    "claims": [
+      {
+        "claim_id": "CLM-44526435",
+        "patient_name": "Sharon Thomas",
+        "service_date": "2025-08-22T11:10:50.043532",
+        "billed_amount": 2057,
+        "paid_amount": 622,
+        "adjustment_amount": 448,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-87775633",
+        "patient_name": "Michael Ramirez",
+        "service_date": "2025-08-23T11:10:50.043532",
+        "billed_amount": 671,
+        "paid_amount": 1847,
+        "adjustment_amount": 468,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-69552393",
+        "patient_name": "David Harris",
+        "service_date": "2025-08-20T11:10:50.043532",
+        "billed_amount": 1618,
+        "paid_amount": 1898,
+        "adjustment_amount": 35,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82349099",
+        "patient_name": "Richard Martinez",
+        "service_date": "2025-08-04T11:10:50.043532",
+        "billed_amount": 1969,
+        "paid_amount": 1792,
+        "adjustment_amount": 117,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-34099326",
+        "patient_name": "Daniel Gonzalez",
+        "service_date": "2025-08-09T11:10:50.043532",
+        "billed_amount": 2446,
+        "paid_amount": 701,
+        "adjustment_amount": 204,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043567"
+  },
+  {
+    "era_id": "ERA-000022",
+    "transaction_date": "2025-07-30T11:10:50.043569",
+    "payer": "cigna",
+    "total_claims": 8,
+    "total_billed": 9789,
+    "total_paid": 12603,
+    "total_adjustments": 1942,
+    "claims": [
+      {
+        "claim_id": "CLM-97712869",
+        "patient_name": "Betty Torres",
+        "service_date": "2025-07-19T11:10:50.043569",
+        "billed_amount": 1469,
+        "paid_amount": 1449,
+        "adjustment_amount": 227,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-39064133",
+        "patient_name": "David Ramirez",
+        "service_date": "2025-07-21T11:10:50.043569",
+        "billed_amount": 1412,
+        "paid_amount": 1993,
+        "adjustment_amount": 211,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-31113657",
+        "patient_name": "Andrew Martinez",
+        "service_date": "2025-07-10T11:10:50.043569",
+        "billed_amount": 382,
+        "paid_amount": 1530,
+        "adjustment_amount": 342,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-14597858",
+        "patient_name": "David Torres",
+        "service_date": "2025-07-13T11:10:50.043569",
+        "billed_amount": 1584,
+        "paid_amount": 1198,
+        "adjustment_amount": 454,
+        "status": "denied",
+        "denial_codes": [
+          "PR-2",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-70711710",
+        "patient_name": "Christopher Scott",
+        "service_date": "2025-07-13T11:10:50.043569",
+        "billed_amount": 643,
+        "paid_amount": 1382,
+        "adjustment_amount": 105,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-54633012",
+        "patient_name": "Carol Lee",
+        "service_date": "2025-07-23T11:10:50.043569",
+        "billed_amount": 2862,
+        "paid_amount": 1641,
+        "adjustment_amount": 58,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-41395538",
+        "patient_name": "Carol Ramirez",
+        "service_date": "2025-07-13T11:10:50.043569",
+        "billed_amount": 361,
+        "paid_amount": 1440,
+        "adjustment_amount": 47,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-67362332",
+        "patient_name": "Joseph Williams",
+        "service_date": "2025-07-12T11:10:50.043569",
+        "billed_amount": 1076,
+        "paid_amount": 1970,
+        "adjustment_amount": 498,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043628"
+  },
+  {
+    "era_id": "ERA-000023",
+    "transaction_date": "2025-07-15T11:10:50.043630",
+    "payer": "bluecross",
+    "total_claims": 10,
+    "total_billed": 13406,
+    "total_paid": 10005,
+    "total_adjustments": 3136,
+    "claims": [
+      {
+        "claim_id": "CLM-75748233",
+        "patient_name": "Paul Scott",
+        "service_date": "2025-06-24T11:10:50.043630",
+        "billed_amount": 748,
+        "paid_amount": 1728,
+        "adjustment_amount": 379,
+        "status": "paid",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-98425912",
+        "patient_name": "Anthony Williams",
+        "service_date": "2025-06-26T11:10:50.043630",
+        "billed_amount": 1279,
+        "paid_amount": 1296,
+        "adjustment_amount": 186,
+        "status": "paid",
+        "denial_codes": [
+          "PR-2",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-45781096",
+        "patient_name": "Robert Moore",
+        "service_date": "2025-07-05T11:10:50.043630",
+        "billed_amount": 1978,
+        "paid_amount": 108,
+        "adjustment_amount": 100,
+        "status": "paid",
+        "denial_codes": [
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-60637901",
+        "patient_name": "Sarah King",
+        "service_date": "2025-06-19T11:10:50.043630",
+        "billed_amount": 2519,
+        "paid_amount": 279,
+        "adjustment_amount": 386,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-49737022",
+        "patient_name": "David Lee",
+        "service_date": "2025-07-05T11:10:50.043630",
+        "billed_amount": 1554,
+        "paid_amount": 1138,
+        "adjustment_amount": 257,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-35564957",
+        "patient_name": "Helen Rodriguez",
+        "service_date": "2025-06-17T11:10:50.043630",
+        "billed_amount": 871,
+        "paid_amount": 1239,
+        "adjustment_amount": 400,
+        "status": "paid",
+        "denial_codes": [
+          "PR-1",
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-87397782",
+        "patient_name": "Sarah Miller",
+        "service_date": "2025-07-01T11:10:50.043630",
+        "billed_amount": 1335,
+        "paid_amount": 1560,
+        "adjustment_amount": 260,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-58920700",
+        "patient_name": "Paul Harris",
+        "service_date": "2025-06-24T11:10:50.043630",
+        "billed_amount": 1564,
+        "paid_amount": 762,
+        "adjustment_amount": 319,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-21353817",
+        "patient_name": "Mary Davis",
+        "service_date": "2025-06-25T11:10:50.043630",
+        "billed_amount": 444,
+        "paid_amount": 1259,
+        "adjustment_amount": 499,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-37332086",
+        "patient_name": "Donald Thomas",
+        "service_date": "2025-07-02T11:10:50.043630",
+        "billed_amount": 1114,
+        "paid_amount": 636,
+        "adjustment_amount": 350,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043701"
+  },
+  {
+    "era_id": "ERA-000024",
+    "transaction_date": "2025-07-08T11:10:50.043702",
+    "payer": "cigna",
+    "total_claims": 5,
+    "total_billed": 6908,
+    "total_paid": 5934,
+    "total_adjustments": 1596,
+    "claims": [
+      {
+        "claim_id": "CLM-58116401",
+        "patient_name": "Ruth Torres",
+        "service_date": "2025-06-22T11:10:50.043702",
+        "billed_amount": 1770,
+        "paid_amount": 1339,
+        "adjustment_amount": 317,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-57182296",
+        "patient_name": "Jennifer Miller",
+        "service_date": "2025-06-12T11:10:50.043702",
+        "billed_amount": 520,
+        "paid_amount": 1428,
+        "adjustment_amount": 323,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-80934285",
+        "patient_name": "Richard Garcia",
+        "service_date": "2025-06-08T11:10:50.043702",
+        "billed_amount": 2880,
+        "paid_amount": 1759,
+        "adjustment_amount": 375,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-63821743",
+        "patient_name": "David Nguyen",
+        "service_date": "2025-06-21T11:10:50.043702",
+        "billed_amount": 1123,
+        "paid_amount": 749,
+        "adjustment_amount": 172,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-54636484",
+        "patient_name": "Carol Brown",
+        "service_date": "2025-06-28T11:10:50.043702",
+        "billed_amount": 615,
+        "paid_amount": 659,
+        "adjustment_amount": 409,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043738"
+  },
+  {
+    "era_id": "ERA-000025",
+    "transaction_date": "2025-07-21T11:10:50.043740",
+    "payer": "bluecross",
+    "total_claims": 6,
+    "total_billed": 10620,
+    "total_paid": 7867,
+    "total_adjustments": 1459,
+    "claims": [
+      {
+        "claim_id": "CLM-58915307",
+        "patient_name": "Sharon Young",
+        "service_date": "2025-07-12T11:10:50.043740",
+        "billed_amount": 812,
+        "paid_amount": 1180,
+        "adjustment_amount": 100,
+        "status": "denied",
+        "denial_codes": [
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-71348495",
+        "patient_name": "Michael King",
+        "service_date": "2025-07-02T11:10:50.043740",
+        "billed_amount": 2627,
+        "paid_amount": 1827,
+        "adjustment_amount": 297,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-35542366",
+        "patient_name": "Sarah Brown",
+        "service_date": "2025-07-07T11:10:50.043740",
+        "billed_amount": 1463,
+        "paid_amount": 1937,
+        "adjustment_amount": 109,
+        "status": "partial",
+        "denial_codes": [
+          "CO-97",
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-58737804",
+        "patient_name": "Ruth Williams",
+        "service_date": "2025-07-01T11:10:50.043740",
+        "billed_amount": 1186,
+        "paid_amount": 1432,
+        "adjustment_amount": 155,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-22487392",
+        "patient_name": "Laura Young",
+        "service_date": "2025-07-06T11:10:50.043740",
+        "billed_amount": 1971,
+        "paid_amount": 66,
+        "adjustment_amount": 435,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-46096743",
+        "patient_name": "Deborah Lopez",
+        "service_date": "2025-07-06T11:10:50.043740",
+        "billed_amount": 2561,
+        "paid_amount": 1425,
+        "adjustment_amount": 363,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043785"
+  },
+  {
+    "era_id": "ERA-000026",
+    "transaction_date": "2025-07-11T11:10:50.043787",
+    "payer": "anthem",
+    "total_claims": 3,
+    "total_billed": 4752,
+    "total_paid": 2478,
+    "total_adjustments": 1102,
+    "claims": [
+      {
+        "claim_id": "CLM-85894233",
+        "patient_name": "Laura Johnson",
+        "service_date": "2025-06-23T11:10:50.043787",
+        "billed_amount": 2554,
+        "paid_amount": 906,
+        "adjustment_amount": 319,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-94646470",
+        "patient_name": "Karen Miller",
+        "service_date": "2025-06-22T11:10:50.043787",
+        "billed_amount": 1222,
+        "paid_amount": 1327,
+        "adjustment_amount": 407,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-38560622",
+        "patient_name": "Kenneth Moore",
+        "service_date": "2025-06-23T11:10:50.043787",
+        "billed_amount": 976,
+        "paid_amount": 245,
+        "adjustment_amount": 376,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043811"
+  },
+  {
+    "era_id": "ERA-000027",
+    "transaction_date": "2025-09-10T11:10:50.043814",
+    "payer": "aetna",
+    "total_claims": 8,
+    "total_billed": 11393,
+    "total_paid": 7425,
+    "total_adjustments": 2195,
+    "claims": [
+      {
+        "claim_id": "CLM-87847107",
+        "patient_name": "Robert Young",
+        "service_date": "2025-09-02T11:10:50.043814",
+        "billed_amount": 448,
+        "paid_amount": 647,
+        "adjustment_amount": 212,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-49033077",
+        "patient_name": "Laura Walker",
+        "service_date": "2025-09-01T11:10:50.043814",
+        "billed_amount": 894,
+        "paid_amount": 1293,
+        "adjustment_amount": 484,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-71319293",
+        "patient_name": "Andrew Brown",
+        "service_date": "2025-08-28T11:10:50.043814",
+        "billed_amount": 1206,
+        "paid_amount": 338,
+        "adjustment_amount": 321,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-24994935",
+        "patient_name": "Joseph Allen",
+        "service_date": "2025-08-13T11:10:50.043814",
+        "billed_amount": 2457,
+        "paid_amount": 1075,
+        "adjustment_amount": 265,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-18869934",
+        "patient_name": "Nancy Williams",
+        "service_date": "2025-08-21T11:10:50.043814",
+        "billed_amount": 208,
+        "paid_amount": 407,
+        "adjustment_amount": 464,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82863627",
+        "patient_name": "William Robinson",
+        "service_date": "2025-08-28T11:10:50.043814",
+        "billed_amount": 2525,
+        "paid_amount": 974,
+        "adjustment_amount": 198,
+        "status": "partial",
+        "denial_codes": [
+          "CO-97",
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-19312957",
+        "patient_name": "Helen Lopez",
+        "service_date": "2025-08-17T11:10:50.043814",
+        "billed_amount": 2117,
+        "paid_amount": 1934,
+        "adjustment_amount": 42,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-88062377",
+        "patient_name": "Mary Moore",
+        "service_date": "2025-08-17T11:10:50.043814",
+        "billed_amount": 1538,
+        "paid_amount": 757,
+        "adjustment_amount": 209,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043877"
+  },
+  {
+    "era_id": "ERA-000028",
+    "transaction_date": "2025-07-23T11:10:50.043879",
+    "payer": "humana",
+    "total_claims": 9,
+    "total_billed": 16307,
+    "total_paid": 9881,
+    "total_adjustments": 3195,
+    "claims": [
+      {
+        "claim_id": "CLM-76967631",
+        "patient_name": "Thomas Torres",
+        "service_date": "2025-06-28T11:10:50.043879",
+        "billed_amount": 902,
+        "paid_amount": 833,
+        "adjustment_amount": 401,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-36535808",
+        "patient_name": "Ruth Martin",
+        "service_date": "2025-07-05T11:10:50.043879",
+        "billed_amount": 977,
+        "paid_amount": 634,
+        "adjustment_amount": 461,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-87119049",
+        "patient_name": "Laura White",
+        "service_date": "2025-07-06T11:10:50.043879",
+        "billed_amount": 2342,
+        "paid_amount": 137,
+        "adjustment_amount": 392,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-73315611",
+        "patient_name": "Daniel Jackson",
+        "service_date": "2025-07-10T11:10:50.043879",
+        "billed_amount": 676,
+        "paid_amount": 1483,
+        "adjustment_amount": 134,
+        "status": "denied",
+        "denial_codes": [
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-95339835",
+        "patient_name": "Mark Martin",
+        "service_date": "2025-06-23T11:10:50.043879",
+        "billed_amount": 2893,
+        "paid_amount": 890,
+        "adjustment_amount": 498,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-83279043",
+        "patient_name": "Jennifer Martin",
+        "service_date": "2025-07-02T11:10:50.043879",
+        "billed_amount": 2500,
+        "paid_amount": 1233,
+        "adjustment_amount": 485,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82276199",
+        "patient_name": "Robert Sanchez",
+        "service_date": "2025-07-03T11:10:50.043879",
+        "billed_amount": 2846,
+        "paid_amount": 1776,
+        "adjustment_amount": 136,
+        "status": "partial",
+        "denial_codes": [
+          "CO-96",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-22341046",
+        "patient_name": "Sandra Clark",
+        "service_date": "2025-07-06T11:10:50.043879",
+        "billed_amount": 1386,
+        "paid_amount": 1760,
+        "adjustment_amount": 306,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-15470498",
+        "patient_name": "Charles Anderson",
+        "service_date": "2025-07-15T11:10:50.043879",
+        "billed_amount": 1785,
+        "paid_amount": 1135,
+        "adjustment_amount": 382,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.043947"
+  },
+  {
+    "era_id": "ERA-000029",
+    "transaction_date": "2025-07-17T11:10:50.043949",
+    "payer": "cigna",
+    "total_claims": 8,
+    "total_billed": 12254,
+    "total_paid": 10326,
+    "total_adjustments": 2337,
+    "claims": [
+      {
+        "claim_id": "CLM-74207886",
+        "patient_name": "Ruth White",
+        "service_date": "2025-06-18T11:10:50.043949",
+        "billed_amount": 2906,
+        "paid_amount": 1883,
+        "adjustment_amount": 163,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-65147340",
+        "patient_name": "Paul Nguyen",
+        "service_date": "2025-07-01T11:10:50.043949",
+        "billed_amount": 2145,
+        "paid_amount": 1727,
+        "adjustment_amount": 111,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-27739042",
+        "patient_name": "Daniel Brown",
+        "service_date": "2025-07-01T11:10:50.043949",
+        "billed_amount": 884,
+        "paid_amount": 866,
+        "adjustment_amount": 343,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-80636402",
+        "patient_name": "William Garcia",
+        "service_date": "2025-07-05T11:10:50.043949",
+        "billed_amount": 1363,
+        "paid_amount": 1172,
+        "adjustment_amount": 482,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-89805022",
+        "patient_name": "Paul Hill",
+        "service_date": "2025-06-20T11:10:50.043949",
+        "billed_amount": 1291,
+        "paid_amount": 1443,
+        "adjustment_amount": 404,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-54598023",
+        "patient_name": "Kimberly King",
+        "service_date": "2025-06-21T11:10:50.043949",
+        "billed_amount": 1443,
+        "paid_amount": 1961,
+        "adjustment_amount": 343,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-26334162",
+        "patient_name": "Anthony Harris",
+        "service_date": "2025-06-19T11:10:50.043949",
+        "billed_amount": 1186,
+        "paid_amount": 556,
+        "adjustment_amount": 160,
+        "status": "denied",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-68984071",
+        "patient_name": "Betty Lewis",
+        "service_date": "2025-06-26T11:10:50.043949",
+        "billed_amount": 1036,
+        "paid_amount": 718,
+        "adjustment_amount": 331,
+        "status": "denied",
+        "denial_codes": [
+          "CO-96"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044007"
+  },
+  {
+    "era_id": "ERA-000030",
+    "transaction_date": "2025-06-30T11:10:50.044008",
+    "payer": "cigna",
+    "total_claims": 5,
+    "total_billed": 4992,
+    "total_paid": 4564,
+    "total_adjustments": 1374,
+    "claims": [
+      {
+        "claim_id": "CLM-88256628",
+        "patient_name": "Michelle Walker",
+        "service_date": "2025-06-04T11:10:50.044008",
+        "billed_amount": 2165,
+        "paid_amount": 883,
+        "adjustment_amount": 152,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-70888492",
+        "patient_name": "Lisa Gonzalez",
+        "service_date": "2025-06-11T11:10:50.044008",
+        "billed_amount": 638,
+        "paid_amount": 353,
+        "adjustment_amount": 137,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-42956100",
+        "patient_name": "Donald Jackson",
+        "service_date": "2025-06-16T11:10:50.044008",
+        "billed_amount": 1137,
+        "paid_amount": 1880,
+        "adjustment_amount": 488,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-35237663",
+        "patient_name": "Sarah Jackson",
+        "service_date": "2025-06-11T11:10:50.044008",
+        "billed_amount": 793,
+        "paid_amount": 958,
+        "adjustment_amount": 383,
+        "status": "partial",
+        "denial_codes": [
+          "PR-2",
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-81466515",
+        "patient_name": "Michael Walker",
+        "service_date": "2025-06-14T11:10:50.044008",
+        "billed_amount": 259,
+        "paid_amount": 490,
+        "adjustment_amount": 214,
+        "status": "paid",
+        "denial_codes": [
+          "PR-2"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044048"
+  },
+  {
+    "era_id": "ERA-000031",
+    "transaction_date": "2025-07-14T11:10:50.044050",
+    "payer": "humana",
+    "total_claims": 7,
+    "total_billed": 14977,
+    "total_paid": 9243,
+    "total_adjustments": 1435,
+    "claims": [
+      {
+        "claim_id": "CLM-26803812",
+        "patient_name": "Steven Taylor",
+        "service_date": "2025-07-07T11:10:50.044050",
+        "billed_amount": 2214,
+        "paid_amount": 1844,
+        "adjustment_amount": 102,
+        "status": "denied",
+        "denial_codes": [
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-39799993",
+        "patient_name": "Karen Jones",
+        "service_date": "2025-06-24T11:10:50.044050",
+        "billed_amount": 331,
+        "paid_amount": 65,
+        "adjustment_amount": 207,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-97858195",
+        "patient_name": "Lisa Garcia",
+        "service_date": "2025-07-06T11:10:50.044050",
+        "billed_amount": 1932,
+        "paid_amount": 1754,
+        "adjustment_amount": 97,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-51920470",
+        "patient_name": "Andrew Rodriguez",
+        "service_date": "2025-06-17T11:10:50.044050",
+        "billed_amount": 2188,
+        "paid_amount": 1609,
+        "adjustment_amount": 344,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-51090647",
+        "patient_name": "Betty Torres",
+        "service_date": "2025-06-16T11:10:50.044050",
+        "billed_amount": 2564,
+        "paid_amount": 1375,
+        "adjustment_amount": 365,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-65043343",
+        "patient_name": "Nancy Walker",
+        "service_date": "2025-06-20T11:10:50.044050",
+        "billed_amount": 2760,
+        "paid_amount": 1835,
+        "adjustment_amount": 29,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-66478970",
+        "patient_name": "Daniel Johnson",
+        "service_date": "2025-07-02T11:10:50.044050",
+        "billed_amount": 2988,
+        "paid_amount": 761,
+        "adjustment_amount": 291,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044100"
+  },
+  {
+    "era_id": "ERA-000032",
+    "transaction_date": "2025-07-09T11:10:50.044102",
+    "payer": "anthem",
+    "total_claims": 3,
+    "total_billed": 3628,
+    "total_paid": 4282,
+    "total_adjustments": 751,
+    "claims": [
+      {
+        "claim_id": "CLM-24592973",
+        "patient_name": "Andrew Williams",
+        "service_date": "2025-06-28T11:10:50.044102",
+        "billed_amount": 1401,
+        "paid_amount": 604,
+        "adjustment_amount": 412,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-55544605",
+        "patient_name": "Charles Moore",
+        "service_date": "2025-06-10T11:10:50.044102",
+        "billed_amount": 1762,
+        "paid_amount": 1804,
+        "adjustment_amount": 267,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-41275461",
+        "patient_name": "Sandra Lopez",
+        "service_date": "2025-06-17T11:10:50.044102",
+        "billed_amount": 465,
+        "paid_amount": 1874,
+        "adjustment_amount": 72,
+        "status": "denied",
+        "denial_codes": [
+          "CO-97"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044127"
+  },
+  {
+    "era_id": "ERA-000033",
+    "transaction_date": "2025-09-05T11:10:50.044129",
+    "payer": "cigna",
+    "total_claims": 6,
+    "total_billed": 10899,
+    "total_paid": 7004,
+    "total_adjustments": 1324,
+    "claims": [
+      {
+        "claim_id": "CLM-10997907",
+        "patient_name": "Betty Moore",
+        "service_date": "2025-08-11T11:10:50.044129",
+        "billed_amount": 1871,
+        "paid_amount": 959,
+        "adjustment_amount": 27,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-63876737",
+        "patient_name": "William Moore",
+        "service_date": "2025-08-29T11:10:50.044129",
+        "billed_amount": 1500,
+        "paid_amount": 1775,
+        "adjustment_amount": 326,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-92431654",
+        "patient_name": "Donna Nguyen",
+        "service_date": "2025-08-17T11:10:50.044129",
+        "billed_amount": 1982,
+        "paid_amount": 1273,
+        "adjustment_amount": 349,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-85637273",
+        "patient_name": "Donald Young",
+        "service_date": "2025-08-12T11:10:50.044129",
+        "billed_amount": 2116,
+        "paid_amount": 1770,
+        "adjustment_amount": 22,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-84996521",
+        "patient_name": "Andrew Scott",
+        "service_date": "2025-08-10T11:10:50.044129",
+        "billed_amount": 1930,
+        "paid_amount": 1152,
+        "adjustment_amount": 383,
+        "status": "paid",
+        "denial_codes": [
+          "OA-23",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-71362540",
+        "patient_name": "Andrew Harris",
+        "service_date": "2025-08-12T11:10:50.044129",
+        "billed_amount": 1500,
+        "paid_amount": 75,
+        "adjustment_amount": 217,
+        "status": "paid",
+        "denial_codes": [
+          "CO-96",
+          "PR-2"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044175"
+  },
+  {
+    "era_id": "ERA-000034",
+    "transaction_date": "2025-08-05T11:10:50.044177",
+    "payer": "united",
+    "total_claims": 8,
+    "total_billed": 13057,
+    "total_paid": 9672,
+    "total_adjustments": 2133,
+    "claims": [
+      {
+        "claim_id": "CLM-98693124",
+        "patient_name": "Charles Nguyen",
+        "service_date": "2025-07-24T11:10:50.044177",
+        "billed_amount": 2141,
+        "paid_amount": 1588,
+        "adjustment_amount": 79,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-90479166",
+        "patient_name": "Jennifer King",
+        "service_date": "2025-07-25T11:10:50.044177",
+        "billed_amount": 585,
+        "paid_amount": 1661,
+        "adjustment_amount": 320,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-37061055",
+        "patient_name": "Helen Gonzalez",
+        "service_date": "2025-07-18T11:10:50.044177",
+        "billed_amount": 2792,
+        "paid_amount": 978,
+        "adjustment_amount": 499,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-60003674",
+        "patient_name": "Lisa Walker",
+        "service_date": "2025-07-11T11:10:50.044177",
+        "billed_amount": 1674,
+        "paid_amount": 206,
+        "adjustment_amount": 172,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-47378866",
+        "patient_name": "Donald Davis",
+        "service_date": "2025-07-19T11:10:50.044177",
+        "billed_amount": 1659,
+        "paid_amount": 406,
+        "adjustment_amount": 79,
+        "status": "denied",
+        "denial_codes": [
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-34437287",
+        "patient_name": "Dorothy Wright",
+        "service_date": "2025-07-21T11:10:50.044177",
+        "billed_amount": 780,
+        "paid_amount": 1680,
+        "adjustment_amount": 164,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-52195488",
+        "patient_name": "Jennifer Johnson",
+        "service_date": "2025-07-15T11:10:50.044177",
+        "billed_amount": 491,
+        "paid_amount": 1200,
+        "adjustment_amount": 333,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-91257252",
+        "patient_name": "Thomas Moore",
+        "service_date": "2025-07-12T11:10:50.044177",
+        "billed_amount": 2935,
+        "paid_amount": 1953,
+        "adjustment_amount": 487,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044232"
+  },
+  {
+    "era_id": "ERA-000035",
+    "transaction_date": "2025-08-30T11:10:50.044233",
+    "payer": "cigna",
+    "total_claims": 4,
+    "total_billed": 7188,
+    "total_paid": 4171,
+    "total_adjustments": 753,
+    "claims": [
+      {
+        "claim_id": "CLM-40133717",
+        "patient_name": "Helen Lee",
+        "service_date": "2025-08-14T11:10:50.044233",
+        "billed_amount": 2388,
+        "paid_amount": 1416,
+        "adjustment_amount": 66,
+        "status": "partial",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-51141733",
+        "patient_name": "Kimberly Davis",
+        "service_date": "2025-08-13T11:10:50.044233",
+        "billed_amount": 2414,
+        "paid_amount": 1129,
+        "adjustment_amount": 55,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-90905235",
+        "patient_name": "Mark Thompson",
+        "service_date": "2025-08-10T11:10:50.044233",
+        "billed_amount": 953,
+        "paid_amount": 1215,
+        "adjustment_amount": 190,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-41456491",
+        "patient_name": "Michelle Torres",
+        "service_date": "2025-08-07T11:10:50.044233",
+        "billed_amount": 1433,
+        "paid_amount": 411,
+        "adjustment_amount": 442,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044267"
+  },
+  {
+    "era_id": "ERA-000036",
+    "transaction_date": "2025-07-04T11:10:50.044268",
+    "payer": "aetna",
+    "total_claims": 1,
+    "total_billed": 1222,
+    "total_paid": 694,
+    "total_adjustments": 474,
+    "claims": [
+      {
+        "claim_id": "CLM-96560922",
+        "patient_name": "Deborah Williams",
+        "service_date": "2025-06-14T11:10:50.044268",
+        "billed_amount": 1222,
+        "paid_amount": 694,
+        "adjustment_amount": 474,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044281"
+  },
+  {
+    "era_id": "ERA-000037",
+    "transaction_date": "2025-07-12T11:10:50.044282",
+    "payer": "united",
+    "total_claims": 8,
+    "total_billed": 13039,
+    "total_paid": 6581,
+    "total_adjustments": 3012,
+    "claims": [
+      {
+        "claim_id": "CLM-28199376",
+        "patient_name": "Nancy Allen",
+        "service_date": "2025-06-17T11:10:50.044282",
+        "billed_amount": 2352,
+        "paid_amount": 1499,
+        "adjustment_amount": 483,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-10140066",
+        "patient_name": "Donna Brown",
+        "service_date": "2025-06-20T11:10:50.044282",
+        "billed_amount": 2345,
+        "paid_amount": 997,
+        "adjustment_amount": 483,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-66245585",
+        "patient_name": "Daniel Martin",
+        "service_date": "2025-06-18T11:10:50.044282",
+        "billed_amount": 1221,
+        "paid_amount": 196,
+        "adjustment_amount": 110,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-14447949",
+        "patient_name": "Donna Robinson",
+        "service_date": "2025-06-23T11:10:50.044282",
+        "billed_amount": 2117,
+        "paid_amount": 652,
+        "adjustment_amount": 496,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-65785722",
+        "patient_name": "Sarah Lewis",
+        "service_date": "2025-07-05T11:10:50.044282",
+        "billed_amount": 818,
+        "paid_amount": 144,
+        "adjustment_amount": 468,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-72700562",
+        "patient_name": "William Williams",
+        "service_date": "2025-07-05T11:10:50.044282",
+        "billed_amount": 668,
+        "paid_amount": 1118,
+        "adjustment_amount": 299,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-49093117",
+        "patient_name": "Kimberly White",
+        "service_date": "2025-06-30T11:10:50.044282",
+        "billed_amount": 2186,
+        "paid_amount": 241,
+        "adjustment_amount": 446,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-40664431",
+        "patient_name": "Andrew Ramirez",
+        "service_date": "2025-06-18T11:10:50.044282",
+        "billed_amount": 1332,
+        "paid_amount": 1734,
+        "adjustment_amount": 227,
+        "status": "paid",
+        "denial_codes": [
+          "PR-1"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044337"
+  },
+  {
+    "era_id": "ERA-000038",
+    "transaction_date": "2025-07-05T11:10:50.044339",
+    "payer": "united",
+    "total_claims": 7,
+    "total_billed": 11288,
+    "total_paid": 9045,
+    "total_adjustments": 1994,
+    "claims": [
+      {
+        "claim_id": "CLM-67210375",
+        "patient_name": "Sandra Lopez",
+        "service_date": "2025-06-14T11:10:50.044339",
+        "billed_amount": 2406,
+        "paid_amount": 646,
+        "adjustment_amount": 454,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-95898850",
+        "patient_name": "Kevin Davis",
+        "service_date": "2025-06-25T11:10:50.044339",
+        "billed_amount": 714,
+        "paid_amount": 1446,
+        "adjustment_amount": 391,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-55556619",
+        "patient_name": "Michael Nguyen",
+        "service_date": "2025-06-26T11:10:50.044339",
+        "billed_amount": 2229,
+        "paid_amount": 1683,
+        "adjustment_amount": 40,
+        "status": "paid",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-93034895",
+        "patient_name": "Charles Lewis",
+        "service_date": "2025-06-12T11:10:50.044339",
+        "billed_amount": 1069,
+        "paid_amount": 2000,
+        "adjustment_amount": 362,
+        "status": "partial",
+        "denial_codes": [
+          "CO-96"
+        ]
+      },
+      {
+        "claim_id": "CLM-50936070",
+        "patient_name": "Jennifer Perez",
+        "service_date": "2025-06-17T11:10:50.044339",
+        "billed_amount": 650,
+        "paid_amount": 336,
+        "adjustment_amount": 298,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-97863266",
+        "patient_name": "Helen Taylor",
+        "service_date": "2025-06-20T11:10:50.044339",
+        "billed_amount": 1748,
+        "paid_amount": 1641,
+        "adjustment_amount": 12,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-99840234",
+        "patient_name": "Dorothy Lopez",
+        "service_date": "2025-06-18T11:10:50.044339",
+        "billed_amount": 2472,
+        "paid_amount": 1293,
+        "adjustment_amount": 437,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044392"
+  },
+  {
+    "era_id": "ERA-000039",
+    "transaction_date": "2025-08-08T11:10:50.044394",
+    "payer": "cigna",
+    "total_claims": 10,
+    "total_billed": 15166,
+    "total_paid": 9497,
+    "total_adjustments": 2744,
+    "claims": [
+      {
+        "claim_id": "CLM-56309948",
+        "patient_name": "Paul Wilson",
+        "service_date": "2025-07-20T11:10:50.044394",
+        "billed_amount": 1744,
+        "paid_amount": 869,
+        "adjustment_amount": 116,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-88535518",
+        "patient_name": "Anthony White",
+        "service_date": "2025-07-28T11:10:50.044394",
+        "billed_amount": 166,
+        "paid_amount": 1545,
+        "adjustment_amount": 204,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-36730470",
+        "patient_name": "Sharon Taylor",
+        "service_date": "2025-07-09T11:10:50.044394",
+        "billed_amount": 1019,
+        "paid_amount": 316,
+        "adjustment_amount": 159,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-10424052",
+        "patient_name": "Carol Clark",
+        "service_date": "2025-07-20T11:10:50.044394",
+        "billed_amount": 2835,
+        "paid_amount": 1817,
+        "adjustment_amount": 493,
+        "status": "partial",
+        "denial_codes": [
+          "PR-2",
+          "OA-23"
+        ]
+      },
+      {
+        "claim_id": "CLM-43433288",
+        "patient_name": "Robert Moore",
+        "service_date": "2025-07-26T11:10:50.044394",
+        "billed_amount": 2535,
+        "paid_amount": 1645,
+        "adjustment_amount": 50,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-89812223",
+        "patient_name": "Christopher Torres",
+        "service_date": "2025-07-31T11:10:50.044394",
+        "billed_amount": 2620,
+        "paid_amount": 401,
+        "adjustment_amount": 491,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-79041223",
+        "patient_name": "Thomas King",
+        "service_date": "2025-07-21T11:10:50.044394",
+        "billed_amount": 348,
+        "paid_amount": 1342,
+        "adjustment_amount": 380,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-23359365",
+        "patient_name": "Sarah Torres",
+        "service_date": "2025-07-12T11:10:50.044394",
+        "billed_amount": 431,
+        "paid_amount": 1379,
+        "adjustment_amount": 71,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-97865361",
+        "patient_name": "John Allen",
+        "service_date": "2025-07-22T11:10:50.044394",
+        "billed_amount": 2651,
+        "paid_amount": 110,
+        "adjustment_amount": 472,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82766433",
+        "patient_name": "Steven Walker",
+        "service_date": "2025-07-27T11:10:50.044394",
+        "billed_amount": 817,
+        "paid_amount": 73,
+        "adjustment_amount": 308,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044460"
+  },
+  {
+    "era_id": "ERA-000040",
+    "transaction_date": "2025-07-25T11:10:50.044462",
+    "payer": "cigna",
+    "total_claims": 3,
+    "total_billed": 4627,
+    "total_paid": 1363,
+    "total_adjustments": 634,
+    "claims": [
+      {
+        "claim_id": "CLM-60338738",
+        "patient_name": "Lisa Robinson",
+        "service_date": "2025-06-28T11:10:50.044462",
+        "billed_amount": 1978,
+        "paid_amount": 993,
+        "adjustment_amount": 433,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-43807301",
+        "patient_name": "Sandra Nguyen",
+        "service_date": "2025-07-03T11:10:50.044462",
+        "billed_amount": 1828,
+        "paid_amount": 125,
+        "adjustment_amount": 69,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-85691788",
+        "patient_name": "Anthony Smith",
+        "service_date": "2025-07-11T11:10:50.044462",
+        "billed_amount": 821,
+        "paid_amount": 245,
+        "adjustment_amount": 132,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044488"
+  },
+  {
+    "era_id": "ERA-000041",
+    "transaction_date": "2025-08-16T11:10:50.044490",
+    "payer": "cigna",
+    "total_claims": 5,
+    "total_billed": 8285,
+    "total_paid": 4199,
+    "total_adjustments": 937,
+    "claims": [
+      {
+        "claim_id": "CLM-46459204",
+        "patient_name": "Sandra Williams",
+        "service_date": "2025-07-20T11:10:50.044490",
+        "billed_amount": 1203,
+        "paid_amount": 1166,
+        "adjustment_amount": 277,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-96888020",
+        "patient_name": "Lisa White",
+        "service_date": "2025-08-02T11:10:50.044490",
+        "billed_amount": 2873,
+        "paid_amount": 948,
+        "adjustment_amount": 94,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-58398037",
+        "patient_name": "Christopher Walker",
+        "service_date": "2025-08-05T11:10:50.044490",
+        "billed_amount": 661,
+        "paid_amount": 740,
+        "adjustment_amount": 254,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-84112513",
+        "patient_name": "Andrew Nguyen",
+        "service_date": "2025-08-06T11:10:50.044490",
+        "billed_amount": 2882,
+        "paid_amount": 348,
+        "adjustment_amount": 101,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-45393850",
+        "patient_name": "Lisa Jackson",
+        "service_date": "2025-07-20T11:10:50.044490",
+        "billed_amount": 666,
+        "paid_amount": 997,
+        "adjustment_amount": 211,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97"
+        ]
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044530"
+  },
+  {
+    "era_id": "ERA-000042",
+    "transaction_date": "2025-08-02T11:10:50.044531",
+    "payer": "united",
+    "total_claims": 9,
+    "total_billed": 14625,
+    "total_paid": 13444,
+    "total_adjustments": 1930,
+    "claims": [
+      {
+        "claim_id": "CLM-17934312",
+        "patient_name": "Betty Anderson",
+        "service_date": "2025-07-23T11:10:50.044531",
+        "billed_amount": 1292,
+        "paid_amount": 1034,
+        "adjustment_amount": 404,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-39610576",
+        "patient_name": "Ruth Smith",
+        "service_date": "2025-07-05T11:10:50.044531",
+        "billed_amount": 2790,
+        "paid_amount": 1047,
+        "adjustment_amount": 152,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-63234070",
+        "patient_name": "Daniel Thompson",
+        "service_date": "2025-07-14T11:10:50.044531",
+        "billed_amount": 1110,
+        "paid_amount": 1818,
+        "adjustment_amount": 61,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-95358875",
+        "patient_name": "Richard Wright",
+        "service_date": "2025-07-14T11:10:50.044531",
+        "billed_amount": 2446,
+        "paid_amount": 1857,
+        "adjustment_amount": 42,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-87197783",
+        "patient_name": "Paul Lopez",
+        "service_date": "2025-07-20T11:10:50.044531",
+        "billed_amount": 2870,
+        "paid_amount": 1804,
+        "adjustment_amount": 217,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-82963059",
+        "patient_name": "Lisa Johnson",
+        "service_date": "2025-07-21T11:10:50.044531",
+        "billed_amount": 249,
+        "paid_amount": 1929,
+        "adjustment_amount": 379,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-20620508",
+        "patient_name": "Betty Lee",
+        "service_date": "2025-07-09T11:10:50.044531",
+        "billed_amount": 610,
+        "paid_amount": 1612,
+        "adjustment_amount": 334,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-43351723",
+        "patient_name": "Robert Johnson",
+        "service_date": "2025-07-05T11:10:50.044531",
+        "billed_amount": 504,
+        "paid_amount": 585,
+        "adjustment_amount": 103,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-78780833",
+        "patient_name": "Sandra Moore",
+        "service_date": "2025-07-23T11:10:50.044531",
+        "billed_amount": 2754,
+        "paid_amount": 1758,
+        "adjustment_amount": 238,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044593"
+  },
+  {
+    "era_id": "ERA-000043",
+    "transaction_date": "2025-06-25T11:10:50.044595",
+    "payer": "anthem",
+    "total_claims": 8,
+    "total_billed": 11127,
+    "total_paid": 5229,
+    "total_adjustments": 1727,
+    "claims": [
+      {
+        "claim_id": "CLM-33935664",
+        "patient_name": "Ruth Martin",
+        "service_date": "2025-06-06T11:10:50.044595",
+        "billed_amount": 2606,
+        "paid_amount": 861,
+        "adjustment_amount": 330,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-47703055",
+        "patient_name": "Sharon Hill",
+        "service_date": "2025-06-05T11:10:50.044595",
+        "billed_amount": 207,
+        "paid_amount": 564,
+        "adjustment_amount": 238,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-95121818",
+        "patient_name": "Thomas Hill",
+        "service_date": "2025-06-06T11:10:50.044595",
+        "billed_amount": 1773,
+        "paid_amount": 1060,
+        "adjustment_amount": 255,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-75432925",
+        "patient_name": "Michael Brown",
+        "service_date": "2025-06-18T11:10:50.044595",
+        "billed_amount": 2518,
+        "paid_amount": 213,
+        "adjustment_amount": 139,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-43275222",
+        "patient_name": "Sharon Wilson",
+        "service_date": "2025-06-02T11:10:50.044595",
+        "billed_amount": 472,
+        "paid_amount": 179,
+        "adjustment_amount": 399,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-44693547",
+        "patient_name": "Daniel Perez",
+        "service_date": "2025-06-12T11:10:50.044595",
+        "billed_amount": 1854,
+        "paid_amount": 1069,
+        "adjustment_amount": 107,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-85597542",
+        "patient_name": "John Gonzalez",
+        "service_date": "2025-06-15T11:10:50.044595",
+        "billed_amount": 854,
+        "paid_amount": 222,
+        "adjustment_amount": 153,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-61195566",
+        "patient_name": "Kevin White",
+        "service_date": "2025-06-13T11:10:50.044595",
+        "billed_amount": 843,
+        "paid_amount": 1061,
+        "adjustment_amount": 106,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044651"
+  },
+  {
+    "era_id": "ERA-000044",
+    "transaction_date": "2025-07-07T11:10:50.044653",
+    "payer": "cigna",
+    "total_claims": 7,
+    "total_billed": 12419,
+    "total_paid": 5891,
+    "total_adjustments": 2008,
+    "claims": [
+      {
+        "claim_id": "CLM-30443728",
+        "patient_name": "Richard Lopez",
+        "service_date": "2025-06-16T11:10:50.044653",
+        "billed_amount": 1337,
+        "paid_amount": 1094,
+        "adjustment_amount": 431,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-60493176",
+        "patient_name": "Kenneth Johnson",
+        "service_date": "2025-06-21T11:10:50.044653",
+        "billed_amount": 2270,
+        "paid_amount": 536,
+        "adjustment_amount": 298,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-13816540",
+        "patient_name": "Charles Harris",
+        "service_date": "2025-06-12T11:10:50.044653",
+        "billed_amount": 997,
+        "paid_amount": 383,
+        "adjustment_amount": 279,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-56853094",
+        "patient_name": "Thomas Lopez",
+        "service_date": "2025-06-29T11:10:50.044653",
+        "billed_amount": 2686,
+        "paid_amount": 767,
+        "adjustment_amount": 167,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-66812325",
+        "patient_name": "Donald Williams",
+        "service_date": "2025-06-12T11:10:50.044653",
+        "billed_amount": 1612,
+        "paid_amount": 721,
+        "adjustment_amount": 199,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-72080380",
+        "patient_name": "Sandra Garcia",
+        "service_date": "2025-06-22T11:10:50.044653",
+        "billed_amount": 2949,
+        "paid_amount": 1247,
+        "adjustment_amount": 381,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-13840647",
+        "patient_name": "Christopher Lee",
+        "service_date": "2025-06-15T11:10:50.044653",
+        "billed_amount": 568,
+        "paid_amount": 1143,
+        "adjustment_amount": 253,
+        "status": "partial",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044702"
+  },
+  {
+    "era_id": "ERA-000045",
+    "transaction_date": "2025-06-26T11:10:50.044703",
+    "payer": "anthem",
+    "total_claims": 5,
+    "total_billed": 11472,
+    "total_paid": 7410,
+    "total_adjustments": 1373,
+    "claims": [
+      {
+        "claim_id": "CLM-13986410",
+        "patient_name": "Matthew Martin",
+        "service_date": "2025-06-12T11:10:50.044703",
+        "billed_amount": 2724,
+        "paid_amount": 1576,
+        "adjustment_amount": 21,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-46322961",
+        "patient_name": "Donald Thompson",
+        "service_date": "2025-06-07T11:10:50.044703",
+        "billed_amount": 1844,
+        "paid_amount": 1534,
+        "adjustment_amount": 276,
+        "status": "paid",
+        "denial_codes": [
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-81912665",
+        "patient_name": "Sandra Moore",
+        "service_date": "2025-06-12T11:10:50.044703",
+        "billed_amount": 2876,
+        "paid_amount": 1988,
+        "adjustment_amount": 453,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-73310305",
+        "patient_name": "Michael Scott",
+        "service_date": "2025-05-29T11:10:50.044703",
+        "billed_amount": 2524,
+        "paid_amount": 1325,
+        "adjustment_amount": 437,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-86605998",
+        "patient_name": "Daniel Anderson",
+        "service_date": "2025-06-04T11:10:50.044703",
+        "billed_amount": 1504,
+        "paid_amount": 987,
+        "adjustment_amount": 186,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044739"
+  },
+  {
+    "era_id": "ERA-000046",
+    "transaction_date": "2025-08-24T11:10:50.044741",
+    "payer": "anthem",
+    "total_claims": 1,
+    "total_billed": 642,
+    "total_paid": 1665,
+    "total_adjustments": 109,
+    "claims": [
+      {
+        "claim_id": "CLM-13521538",
+        "patient_name": "Charles Clark",
+        "service_date": "2025-08-06T11:10:50.044741",
+        "billed_amount": 642,
+        "paid_amount": 1665,
+        "adjustment_amount": 109,
+        "status": "denied",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044751"
+  },
+  {
+    "era_id": "ERA-000047",
+    "transaction_date": "2025-07-23T11:10:50.044753",
+    "payer": "anthem",
+    "total_claims": 5,
+    "total_billed": 5454,
+    "total_paid": 5456,
+    "total_adjustments": 1840,
+    "claims": [
+      {
+        "claim_id": "CLM-17700779",
+        "patient_name": "Paul Moore",
+        "service_date": "2025-06-26T11:10:50.044753",
+        "billed_amount": 687,
+        "paid_amount": 1114,
+        "adjustment_amount": 385,
+        "status": "partial",
+        "denial_codes": [
+          "OA-23",
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-96094545",
+        "patient_name": "Anthony Clark",
+        "service_date": "2025-07-01T11:10:50.044753",
+        "billed_amount": 428,
+        "paid_amount": 1671,
+        "adjustment_amount": 451,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-22719579",
+        "patient_name": "Sharon Miller",
+        "service_date": "2025-07-15T11:10:50.044753",
+        "billed_amount": 1040,
+        "paid_amount": 1345,
+        "adjustment_amount": 103,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-79831766",
+        "patient_name": "Sarah Lopez",
+        "service_date": "2025-07-07T11:10:50.044753",
+        "billed_amount": 2279,
+        "paid_amount": 1031,
+        "adjustment_amount": 442,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-61110931",
+        "patient_name": "Kimberly Wright",
+        "service_date": "2025-06-30T11:10:50.044753",
+        "billed_amount": 1020,
+        "paid_amount": 295,
+        "adjustment_amount": 459,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044794"
+  },
+  {
+    "era_id": "ERA-000048",
+    "transaction_date": "2025-08-14T11:10:50.044795",
+    "payer": "anthem",
+    "total_claims": 10,
+    "total_billed": 15312,
+    "total_paid": 10150,
+    "total_adjustments": 2858,
+    "claims": [
+      {
+        "claim_id": "CLM-34594547",
+        "patient_name": "Betty Jones",
+        "service_date": "2025-07-22T11:10:50.044795",
+        "billed_amount": 2355,
+        "paid_amount": 260,
+        "adjustment_amount": 386,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-43248987",
+        "patient_name": "Kenneth Thompson",
+        "service_date": "2025-07-31T11:10:50.044795",
+        "billed_amount": 2065,
+        "paid_amount": 1192,
+        "adjustment_amount": 191,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-81757906",
+        "patient_name": "Michael Robinson",
+        "service_date": "2025-07-20T11:10:50.044795",
+        "billed_amount": 2081,
+        "paid_amount": 203,
+        "adjustment_amount": 415,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-70207461",
+        "patient_name": "Ruth Gonzalez",
+        "service_date": "2025-07-19T11:10:50.044795",
+        "billed_amount": 1575,
+        "paid_amount": 1470,
+        "adjustment_amount": 481,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-94025204",
+        "patient_name": "Carol Brown",
+        "service_date": "2025-07-31T11:10:50.044795",
+        "billed_amount": 1998,
+        "paid_amount": 699,
+        "adjustment_amount": 12,
+        "status": "partial",
+        "denial_codes": [
+          "CO-96",
+          "CO-97"
+        ]
+      },
+      {
+        "claim_id": "CLM-18184538",
+        "patient_name": "Paul Hernandez",
+        "service_date": "2025-08-05T11:10:50.044795",
+        "billed_amount": 457,
+        "paid_amount": 1263,
+        "adjustment_amount": 340,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-20900493",
+        "patient_name": "Kenneth Perez",
+        "service_date": "2025-08-04T11:10:50.044795",
+        "billed_amount": 530,
+        "paid_amount": 1947,
+        "adjustment_amount": 346,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-87541206",
+        "patient_name": "Sarah Torres",
+        "service_date": "2025-07-18T11:10:50.044795",
+        "billed_amount": 563,
+        "paid_amount": 1033,
+        "adjustment_amount": 113,
+        "status": "partial",
+        "denial_codes": [
+          "PR-2",
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-38877860",
+        "patient_name": "Paul King",
+        "service_date": "2025-08-01T11:10:50.044795",
+        "billed_amount": 822,
+        "paid_amount": 506,
+        "adjustment_amount": 290,
+        "status": "denied",
+        "denial_codes": [
+          "OA-23",
+          "PR-2"
+        ]
+      },
+      {
+        "claim_id": "CLM-61865442",
+        "patient_name": "Dorothy Miller",
+        "service_date": "2025-07-21T11:10:50.044795",
+        "billed_amount": 2866,
+        "paid_amount": 1577,
+        "adjustment_amount": 284,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044872"
+  },
+  {
+    "era_id": "ERA-000049",
+    "transaction_date": "2025-07-01T11:10:50.044874",
+    "payer": "united",
+    "total_claims": 1,
+    "total_billed": 2713,
+    "total_paid": 1356,
+    "total_adjustments": 328,
+    "claims": [
+      {
+        "claim_id": "CLM-64865090",
+        "patient_name": "Lisa Thompson",
+        "service_date": "2025-06-16T11:10:50.044874",
+        "billed_amount": 2713,
+        "paid_amount": 1356,
+        "adjustment_amount": 328,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044884"
+  },
+  {
+    "era_id": "ERA-000050",
+    "transaction_date": "2025-07-17T11:10:50.044886",
+    "payer": "united",
+    "total_claims": 9,
+    "total_billed": 13045,
+    "total_paid": 10173,
+    "total_adjustments": 1832,
+    "claims": [
+      {
+        "claim_id": "CLM-71858020",
+        "patient_name": "Kevin Robinson",
+        "service_date": "2025-06-17T11:10:50.044886",
+        "billed_amount": 1406,
+        "paid_amount": 213,
+        "adjustment_amount": 86,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-16602826",
+        "patient_name": "Donna Anderson",
+        "service_date": "2025-07-03T11:10:50.044886",
+        "billed_amount": 2434,
+        "paid_amount": 925,
+        "adjustment_amount": 461,
+        "status": "paid",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-10673317",
+        "patient_name": "Betty Smith",
+        "service_date": "2025-07-03T11:10:50.044886",
+        "billed_amount": 144,
+        "paid_amount": 1336,
+        "adjustment_amount": 246,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-12386430",
+        "patient_name": "Kimberly Miller",
+        "service_date": "2025-06-30T11:10:50.044886",
+        "billed_amount": 970,
+        "paid_amount": 1225,
+        "adjustment_amount": 54,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-22983606",
+        "patient_name": "Jennifer Wright",
+        "service_date": "2025-07-07T11:10:50.044886",
+        "billed_amount": 1691,
+        "paid_amount": 1953,
+        "adjustment_amount": 397,
+        "status": "partial",
+        "denial_codes": [
+          "OA-23",
+          "PR-1"
+        ]
+      },
+      {
+        "claim_id": "CLM-65596711",
+        "patient_name": "Deborah Davis",
+        "service_date": "2025-06-28T11:10:50.044886",
+        "billed_amount": 553,
+        "paid_amount": 1260,
+        "adjustment_amount": 59,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-60042378",
+        "patient_name": "Matthew Anderson",
+        "service_date": "2025-06-24T11:10:50.044886",
+        "billed_amount": 1642,
+        "paid_amount": 474,
+        "adjustment_amount": 65,
+        "status": "partial",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-36165812",
+        "patient_name": "Sarah Moore",
+        "service_date": "2025-06-18T11:10:50.044886",
+        "billed_amount": 1708,
+        "paid_amount": 1771,
+        "adjustment_amount": 279,
+        "status": "denied",
+        "denial_codes": []
+      },
+      {
+        "claim_id": "CLM-51404625",
+        "patient_name": "John Martin",
+        "service_date": "2025-07-02T11:10:50.044886",
+        "billed_amount": 2497,
+        "paid_amount": 1016,
+        "adjustment_amount": 185,
+        "status": "paid",
+        "denial_codes": []
+      }
+    ],
+    "processed_at": "2025-09-16T11:10:50.044950"
+  }
+]

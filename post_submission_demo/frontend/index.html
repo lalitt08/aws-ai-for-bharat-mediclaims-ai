@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediClaims AI - Post-Submission Appeals</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3e%3cpath d='M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z'/%3e%3c/svg%3e">
+    <link rel="stylesheet" href="/static/styles_new.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header matching pre-submission style -->
+        <header class="unified-header">
+            <div class="header-inner">
+                <div class="header-left">
+                    <a href="http://localhost:5000" class="back-link" title="Back to Pre-Submission">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    </a>
+                    <svg class="header-icon" viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                        <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z"/>
+                    </svg>
+                    <div>
+                        <h1 class="header-title">MediClaims AI</h1>
+                        <p class="header-subtitle">Post-Submission Appeals Dashboard</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="live-badge">
+                        <span class="live-dot"></span>
+                        Live Data
+                    </div>
+                    <button class="btn-refresh" onclick="loadPatients()">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Metrics Row -->
+        <section class="metrics-row">
+            <div class="metric-box metric-urgent">
+                <div class="metric-icon-circle">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+                </div>
+                <div class="metric-text">
+                    <p class="metric-label">Urgent Appeals</p>
+                    <p class="metric-value" id="urgentClaims">0</p>
+                </div>
+            </div>
+            <div class="metric-box metric-denied">
+                <div class="metric-icon-circle">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div class="metric-text">
+                    <p class="metric-label">Total Denied</p>
+                    <p class="metric-value" id="totalDenied">0</p>
+                </div>
+            </div>
+            <div class="metric-box metric-recovery">
+                <div class="metric-icon-circle">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+                <div class="metric-text">
+                    <p class="metric-label">Recovery Potential</p>
+                    <p class="metric-value" id="recoveryAmount">$0</p>
+                </div>
+            </div>
+            <div class="metric-box metric-success">
+                <div class="metric-icon-circle">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div class="metric-text">
+                    <p class="metric-label">Avg Success Rate</p>
+                    <p class="metric-value" id="avgSuccess">0%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-area">
+            <!-- Search & Filters Card -->
+            <div class="filter-card">
+                <div class="filter-card-header">
+                    <div>
+                        <h3 class="filter-title">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+                            Denied Claims — Appeals Management
+                        </h3>
+                        <p class="filter-desc">Review denied claims and initiate AI-powered appeal processes</p>
+                    </div>
+                </div>
+                <div class="filter-controls">
+                    <div class="search-wrap">
+                        <svg class="search-icon" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <input type="text" id="searchFilter" placeholder="Search by patient name, claim ID, or denial reason..." class="search-input">
+                    </div>
+                    <select id="priorityFilter" class="filter-select">
+                        <option value="">All Priorities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <select id="payerFilter" class="filter-select">
+                        <option value="">All Insurers</option>
+                        <option value="aetna">Aetna</option>
+                        <option value="united">United Healthcare</option>
+                        <option value="bluecross">Blue Cross Blue Shield</option>
+                        <option value="cigna">Cigna</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Patients Grid -->
+            <div class="patients-grid" id="patientsGrid"></div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" style="color: hsl(215 15% 75%); margin-bottom: 1rem;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                <h3>No Denied Claims Found</h3>
+                <p>Submit claims through the <a href="http://localhost:5000">Pre-Submission Dashboard</a> first. Denied claims will appear here automatically.</p>
+                <button class="btn-primary-sm" onclick="clearFilters()">Clear Filters</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-box">
+            <div class="loading-spinner-ring"></div>
+            <h3>Loading Patient Data</h3>
+            <p>Analyzing denied claims...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="/static/patients.js"></script>
+</body>
+</html>

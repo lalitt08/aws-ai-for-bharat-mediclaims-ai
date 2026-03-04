@@ -67,7 +67,7 @@ async def run_appeal_generation(state: dict) -> dict:
             except Exception as pdf_error:
                 # Don't let PDF generation failure block the workflow
                 state["appeal_packet"] = f"Appeal text generated (PDF creation failed: {str(pdf_error)})"
-                state["log"].append(f"[AppealGenerator] Appeal created (PDF generation failed)")
+                state["log"].append(f"[AppealGenerator] Appeal created (PDF generation)")
             
             # Store the appeal text even if PDF fails
             state["appeal_text"] = appeal_text

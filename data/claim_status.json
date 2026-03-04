@@ -1,569 +1,224 @@
 {
-  "PAT001": {
-    "claim_id": "CLM-20250821153826-PAT001",
-    "patient_id": "PAT001",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:38:47.523390",
-    "updated_at": "2025-08-21T15:38:47.523401",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153826-PAT001",
-      "message": "John Smith REJECTED\nClaim Amount: $250.0\nInsurer: \nRejected: 08/21/2025, 03:38:40 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770927.5215912
-  },
   "PAT002": {
-    "claim_id": "CLM-20250821153826-PAT002",
+    "claim_id": "CLM-20260301182309-PAT002",
     "patient_id": "PAT002",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:38:47.033073",
-    "updated_at": "2025-08-21T15:38:47.033079",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:22.468370",
+    "updated_at": "2026-03-01T18:23:22.468386",
     "risk_score": 0.45,
     "issues_count": 0,
     "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153826-PAT002",
-      "message": "Sarah Johnson REJECTED\nClaim Amount: $250.0\nInsurer: \nRejected: 08/21/2025, 03:38:40 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT002",
+      "timestamp": "2026-03-01T18:23:17.875091"
     },
-    "processing_time": 1755770927.0318456
-  },
-  "PAT003": {
-    "claim_id": "CLM-20250821145404-PAT003",
-    "patient_id": "PAT003",
-    "status": "resubmitted",
-    "timestamp": "2025-08-21T14:54:30.472690",
-    "updated_at": "2025-08-21T14:54:30.472701",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821145404-PAT003",
-      "message": "Michael Davis REJECTED\nClaim Amount: $250.0\nInsurer: \nRejected: 08/21/2025, 02:54:18 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755768270.4710684
+    "processing_time": 1772369602.4579582
   },
   "PAT004": {
-    "claim_id": "CLM-20250821145405-PAT004",
+    "claim_id": "CLM-20260301182309-PAT004",
     "patient_id": "PAT004",
-    "status": "resubmitted",
-    "timestamp": "2025-08-21T14:54:29.340293",
-    "updated_at": "2025-08-21T14:54:29.340304",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:16.943777",
+    "updated_at": "2026-03-01T18:23:16.943802",
     "risk_score": 0.45,
     "issues_count": 0,
     "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821145405-PAT004",
-      "message": "Emma Wilson REJECTED\nClaim Amount: $250.0\nInsurer: \nRejected: 08/21/2025, 02:54:19 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT004",
+      "timestamp": "2026-03-01T18:23:12.841378"
     },
-    "processing_time": 1755768269.3387825
-  },
-  "PAT005": {
-    "claim_id": "CLM-20250821145407-PAT005",
-    "patient_id": "PAT005",
-    "status": "resubmitted",
-    "timestamp": "2025-08-21T14:54:29.653885",
-    "updated_at": "2025-08-21T14:54:29.653908",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821145407-PAT005",
-      "message": "Robert Brown REJECTED\nClaim Amount: $250.0\nInsurer: \nRejected: 08/21/2025, 02:54:20 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755768269.6522934
-  },
-  "PAT017": {
-    "claim_id": "CLM-20250821153509-PAT017",
-    "patient_id": "PAT017",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:35:29.776899",
-    "updated_at": "2025-08-21T15:35:29.776907",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153509-PAT017",
-      "message": "Matthew Lewis REJECTED\nClaim Amount: $395.0\nInsurer: \nRejected: 08/21/2025, 03:35:23 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770729.7758167
-  },
-  "PAT021": {
-    "claim_id": "CLM-20250821154453-PAT021",
-    "patient_id": "PAT021",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:45:15.535521",
-    "updated_at": "2025-08-21T15:45:15.535533",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154453-PAT021",
-      "message": "Gregory Scott REJECTED\nClaim Amount: $415.0\nInsurer: \nRejected: 08/21/2025, 03:45:08 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755771315.5337353
-  },
-  "PAT024": {
-    "claim_id": "CLM-20250821154317-PAT024",
-    "patient_id": "PAT024",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:43:38.132441",
-    "updated_at": "2025-08-21T15:43:38.132452",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154317-PAT024",
-      "message": "Catherine Phillips REJECTED\nClaim Amount: $205.0\nInsurer: \nRejected: 08/21/2025, 03:43:31 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755771218.1303573
-  },
-  "PAT020": {
-    "claim_id": "CLM-20250821154450-PAT020",
-    "patient_id": "PAT020",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:45:11.665563",
-    "updated_at": "2025-08-21T15:45:11.665580",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154450-PAT020",
-      "message": "Stephanie King REJECTED\nClaim Amount: $145.0\nInsurer: \nRejected: 08/21/2025, 03:45:04 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755771311.6636105
-  },
-  "PAT016": {
-    "claim_id": "CLM-20250821153504-PAT016",
-    "patient_id": "PAT016",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:35:25.610257",
-    "updated_at": "2025-08-21T15:35:25.610274",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153504-PAT016",
-      "message": "Nicole Clark REJECTED\nClaim Amount: $220.0\nInsurer: \nRejected: 08/21/2025, 03:35:18 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770725.6084368
-  },
-  "PAT022": {
-    "claim_id": "CLM-20250821154454-PAT022",
-    "patient_id": "PAT022",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:45:16.030963",
-    "updated_at": "2025-08-21T15:45:16.030969",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154454-PAT022",
-      "message": "Helen Roberts REJECTED\nClaim Amount: $195.0\nInsurer: \nRejected: 08/21/2025, 03:45:08 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755771316.0300667
-  },
-  "PAT025": {
-    "claim_id": "CLM-20250821154316-PAT025",
-    "patient_id": "PAT025",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:43:37.094761",
-    "updated_at": "2025-08-21T15:43:37.094776",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154316-PAT025",
-      "message": "Ronald Campbell REJECTED\nClaim Amount: $365.0\nInsurer: \nRejected: 08/21/2025, 03:43:30 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755771217.0928264
+    "processing_time": 1772369596.9427428
   },
   "PAT006": {
-    "claim_id": "CLM-20250821145408-PAT006",
+    "claim_id": "CLM-20260301182309-PAT006",
     "patient_id": "PAT006",
-    "status": "resubmitted",
-    "timestamp": "2025-08-21T14:54:30.075306",
-    "updated_at": "2025-08-21T14:54:30.075318",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:37.363086",
+    "updated_at": "2026-03-01T18:23:37.363097",
     "risk_score": 0.45,
     "issues_count": 0,
     "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821145408-PAT006",
-      "message": "Lisa Garcia REJECTED\nClaim Amount: $180.0\nInsurer: \nRejected: 08/21/2025, 02:54:22 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT006",
+      "timestamp": "2026-03-01T18:23:17.461777"
     },
-    "processing_time": 1755768270.0735645
+    "processing_time": 1772369617.3438282
   },
-  "PAT019": {
-    "claim_id": "CLM-20250821154450-PAT019",
-    "patient_id": "PAT019",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:45:11.286916",
-    "updated_at": "2025-08-21T15:45:11.286934",
+  "PAT008": {
+    "claim_id": "CLM-20260301182317-PAT008",
+    "patient_id": "PAT008",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:24.408761",
+    "updated_at": "2026-03-01T18:23:24.408769",
     "risk_score": 0.45,
     "issues_count": 0,
     "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154450-PAT019",
-      "message": "Thomas Young REJECTED\nClaim Amount: $425.0\nInsurer: \nRejected: 08/21/2025, 03:45:04 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182317-PAT008",
+      "timestamp": "2026-03-01T18:23:20.558278"
     },
-    "processing_time": 1755771311.2843723
-  },
-  "PAT015": {
-    "claim_id": "CLM-20250821153502-PAT015",
-    "patient_id": "PAT015",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:35:23.913474",
-    "updated_at": "2025-08-21T15:35:23.913491",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153502-PAT015",
-      "message": "Andrew Harris REJECTED\nClaim Amount: $345.0\nInsurer: \nRejected: 08/21/2025, 03:35:16 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770723.9120471
-  },
-  "PAT012": {
-    "claim_id": "CLM-20250821153519-PAT012",
-    "patient_id": "PAT012",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:35:45.819686",
-    "updated_at": "2025-08-21T15:35:45.819699",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153519-PAT012",
-      "message": "Michelle Thompson REJECTED\nClaim Amount: $190.0\nInsurer: \nRejected: 08/21/2025, 03:35:32 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770745.8173008
-  },
-  "PAT013": {
-    "claim_id": "CLM-20250821153701-PAT013",
-    "patient_id": "PAT013",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:37:27.334128",
-    "updated_at": "2025-08-21T15:37:27.334140",
-    "risk_score": 0.45,
-    "issues_count": 0,
-    "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821153701-PAT013",
-      "message": "Daniel Wilson REJECTED\nClaim Amount: $385.0\nInsurer: \nRejected: 08/21/2025, 03:37:16 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
-    },
-    "processing_time": 1755770847.3326569
+    "processing_time": 1772369604.3931243
   },
   "PAT011": {
-    "claim_id": "CLM-20250821153512-PAT011",
+    "claim_id": "CLM-20260224-PAT011",
     "patient_id": "PAT011",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:35:33.344469",
-    "updated_at": "2025-08-21T15:35:33.344484",
-    "risk_score": 0.45,
-    "issues_count": 0,
+    "status": "appeal_resubmitted_low_confidence",
+    "timestamp": "2026-02-24T08:12:55.000000",
+    "updated_at": "2026-02-24T08:12:55.000000",
+    "risk_score": 0.88,
+    "issues_count": 3,
     "submission_result": {
       "status": "rejected",
-      "claim_id": "CLM-20250821153512-PAT011",
-      "message": "Kevin Anderson REJECTED\nClaim Amount: $310.0\nInsurer: \nRejected: 08/21/2025, 03:35:26 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
+      "claim_id": "CLM-20260224-PAT011",
+      "message": "Kevin Anderson REJECTED\nClaim Amount: $345.00\nInsurer: Cigna\nReason: Service level mismatch",
       "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
+        "reason": "Service level mismatch",
+        "details": "Authorized service level differs from provided service for coronary artery disease management.",
         "required_items": [
-          "Complete medical records",
-          "Updated claim form"
+          "Updated authorization for service level",
+          "Service level documentation",
+          "Clinical justification for level of care"
         ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
+        "success_rate": 0.55
       },
-      "data_quality_score": 0.0
+      "data_quality_score": 42.0
     },
-    "processing_time": 1755770733.3429391
+    "processing_time": 19.8
   },
-  "PAT014": {
-    "claim_id": "CLM-20250821153659-PAT014",
-    "patient_id": "PAT014",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:37:21.630434",
-    "updated_at": "2025-08-21T15:37:21.630450",
-    "risk_score": 0.45,
-    "issues_count": 0,
+  "PAT015": {
+    "claim_id": "CLM-20260223-PAT015",
+    "patient_id": "PAT015",
+    "status": "appeal_generated",
+    "timestamp": "2026-02-23T13:55:18.000000",
+    "updated_at": "2026-02-23T13:55:18.000000",
+    "risk_score": 0.92,
+    "issues_count": 5,
     "submission_result": {
       "status": "rejected",
-      "claim_id": "CLM-20250821153659-PAT014",
-      "message": "Jessica White REJECTED\nClaim Amount: $125.0\nInsurer: \nRejected: 08/21/2025, 03:37:13 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
+      "claim_id": "CLM-20260223-PAT015",
+      "message": "Andrew Harris REJECTED\nClaim Amount: $425.00\nInsurer: Cigna\nReason: Incomplete provider credentials",
       "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
+        "reason": "Incomplete provider credentials",
+        "details": "Provider NPI validation failed for oncology specialist. Update provider enrollment status for chemotherapy services.",
         "required_items": [
-          "Complete medical records",
-          "Updated claim form"
+          "Updated NPI documentation",
+          "Provider enrollment verification",
+          "State license information for oncology"
         ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
+        "success_rate": 0.9
       },
-      "data_quality_score": 0.0
+      "data_quality_score": 35.0
     },
-    "processing_time": 1755770841.6289802
+    "processing_time": 28.4
   },
-  "PAT026": {
-    "claim_id": "CLM-20250821154315-PAT026",
-    "patient_id": "PAT026",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:43:36.144804",
-    "updated_at": "2025-08-21T15:43:36.144816",
-    "risk_score": 0.45,
-    "issues_count": 0,
+  "PAT017": {
+    "claim_id": "CLM-20260222-PAT017",
+    "patient_id": "PAT017",
+    "status": "appeal_resubmitted",
+    "timestamp": "2026-02-22T10:08:42.000000",
+    "updated_at": "2026-02-22T10:08:42.000000",
+    "risk_score": 0.67,
+    "issues_count": 2,
     "submission_result": {
       "status": "rejected",
-      "claim_id": "CLM-20250821154315-PAT026",
-      "message": "raeymond stew REJECTED\nClaim Amount: $245.0\nInsurer: \nRejected: 08/21/2025, 03:43:29 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
+      "claim_id": "CLM-20260222-PAT017",
+      "message": "Matthew Lewis REJECTED\nClaim Amount: $415.00\nInsurer: BlueCross\nReason: Modifier usage error",
       "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
+        "reason": "Modifier usage error",
+        "details": "Incorrect modifier used for diabetic neuropathy procedure. Bilateral modifier required.",
         "required_items": [
-          "Complete medical records",
-          "Updated claim form"
+          "Correct procedure modifiers",
+          "Operative notes for diabetic neuropathy treatment",
+          "Anatomical identification documentation"
         ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
+        "success_rate": 0.8
       },
-      "data_quality_score": 0.0
+      "data_quality_score": 50.0
     },
-    "processing_time": 1755771216.1426458
+    "processing_time": 16.9
   },
-  "PAT018": {
-    "claim_id": "CLM-20250821154456-PAT018",
-    "patient_id": "PAT018",
-    "status": "resubmission_failed",
-    "timestamp": "2025-08-21T15:45:32.671542",
-    "updated_at": "2025-08-21T15:45:32.671561",
+  "PAT001": {
+    "claim_id": "CLM-20260301-PAT001",
+    "patient_id": "PAT001",
+    "status": "approved",
+    "timestamp": "2026-03-01T09:00:00.000000",
+    "updated_at": "2026-03-01T09:00:00.000000",
+    "risk_score": 0.15,
+    "issues_count": 0,
+    "submission_result": {
+      "status": "approved",
+      "claim_id": "CLM-20260301-PAT001",
+      "approved_amount": 237.5,
+      "data_quality_score": 95.0
+    },
+    "processing_time": 8.2
+  },
+  "PAT003": {
+    "claim_id": "CLM-20260301182309-PAT003",
+    "patient_id": "PAT003",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:37.089102",
+    "updated_at": "2026-03-01T18:23:37.089108",
     "risk_score": 0.45,
     "issues_count": 0,
     "submission_result": {
-      "status": "rejected",
-      "claim_id": "CLM-20250821154456-PAT018",
-      "message": "Rachel Martin REJECTED\nClaim Amount: $285.0\nInsurer: \nRejected: 08/21/2025, 03:45:10 PM\n\nReason: Documentation requirements not met\nDetails: Please review submission guidelines\n\nRequired for Resubmission:\n- Complete medical records\n- Updated claim form\n\nEstimated approval rate after providing required items: 75.0%",
-      "denial_info": {
-        "status": "REJECTED",
-        "reason": "Documentation requirements not met",
-        "details": "Please review submission guidelines",
-        "required_items": [
-          "Complete medical records",
-          "Updated claim form"
-        ],
-        "estimated_success_rate": 0.6,
-        "next_steps": "Contact provider services for specific requirements"
-      },
-      "data_quality_score": 0.0
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT003",
+      "timestamp": "2026-03-01T18:23:17.444568"
     },
-    "processing_time": 1755771332.6695743
+    "processing_time": 1772369617.0781722
+  },
+  "PAT005": {
+    "claim_id": "CLM-20260301182309-PAT005",
+    "patient_id": "PAT005",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:17.418547",
+    "updated_at": "2026-03-01T18:23:17.418557",
+    "risk_score": 0.45,
+    "issues_count": 0,
+    "submission_result": {
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT005",
+      "timestamp": "2026-03-01T18:23:12.992740"
+    },
+    "processing_time": 1772369597.4070683
+  },
+  "PAT010": {
+    "claim_id": "CLM-20260301-PAT010",
+    "patient_id": "PAT010",
+    "status": "approved",
+    "timestamp": "2026-03-01T09:15:00.000000",
+    "updated_at": "2026-03-01T09:15:00.000000",
+    "risk_score": 0.08,
+    "issues_count": 0,
+    "submission_result": {
+      "status": "approved",
+      "claim_id": "CLM-20260301-PAT010",
+      "approved_amount": 125.0,
+      "data_quality_score": 98.0
+    },
+    "processing_time": 6.3
+  },
+  "PAT007": {
+    "claim_id": "CLM-20260301182309-PAT007",
+    "patient_id": "PAT007",
+    "status": "resubmission",
+    "timestamp": "2026-03-01T18:23:17.374584",
+    "updated_at": "2026-03-01T18:23:17.374593",
+    "risk_score": 0.45,
+    "issues_count": 0,
+    "submission_result": {
+      "status": "error",
+      "reason": "Submission error: Client error '422 Unprocessable Content' for url 'http://localhost:8081/submit'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422",
+      "claim_id": "CLM-20260301182309-PAT007",
+      "timestamp": "2026-03-01T18:23:12.789358"
+    },
+    "processing_time": 1772369597.3575726
   }
 }

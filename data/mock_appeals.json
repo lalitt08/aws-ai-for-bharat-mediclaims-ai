@@ -1,0 +1,1436 @@
+[
+  {
+    "appeal_id": "APP-20240001",
+    "claim_id": "CLM-20240001",
+    "patient_id": "PAT001",
+    "patient_name": "Patient 1",
+    "payer": "Cigna",
+    "original_amount": 3613.59,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "prior_authorization",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2026-02-03T18:20:25.772034",
+    "last_updated": "2026-02-11T18:20:25.772073",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240001",
+    "era_analysis": {
+      "primary_denial_code": "CO-100",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240002",
+    "claim_id": "CLM-20240002",
+    "patient_id": "PAT002",
+    "patient_name": "Patient 2",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 1280.37,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "coding_error",
+    "status": "active",
+    "priority": "high",
+    "created_date": "2025-12-23T18:20:25.772099",
+    "last_updated": "2026-02-21T18:20:25.772105",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240002",
+    "era_analysis": {
+      "primary_denial_code": "CO-125",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240003",
+    "claim_id": "CLM-20240003",
+    "patient_id": "PAT003",
+    "patient_name": "Patient 3",
+    "payer": "United Healthcare",
+    "original_amount": 3959.11,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "coding_error",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2025-12-25T18:20:25.772121",
+    "last_updated": "2026-03-01T18:20:25.772126",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240003",
+    "era_analysis": {
+      "primary_denial_code": "CO-82",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240004",
+    "claim_id": "CLM-20240004",
+    "patient_id": "PAT004",
+    "patient_name": "Patient 4",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 4225.15,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "coding_error",
+    "status": "denied",
+    "priority": "urgent",
+    "created_date": "2025-12-21T18:20:25.772141",
+    "last_updated": "2026-02-04T18:20:25.772144",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240004",
+    "era_analysis": {
+      "primary_denial_code": "CO-20",
+      "denial_description": "Patient not eligible for coverage",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240005",
+    "claim_id": "CLM-20240005",
+    "patient_id": "PAT005",
+    "patient_name": "Patient 5",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 2035.29,
+    "denial_reason": "Insufficient documentation provided",
+    "denial_category": "policy_exclusion",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2025-12-16T18:20:25.772156",
+    "last_updated": "2026-02-06T18:20:25.772160",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240005",
+    "era_analysis": {
+      "primary_denial_code": "CO-102",
+      "denial_description": "Medical necessity not established",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240006",
+    "claim_id": "CLM-20240006",
+    "patient_id": "PAT006",
+    "patient_name": "Patient 6",
+    "payer": "Aetna",
+    "original_amount": 534.8,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "timely_filing",
+    "status": "active",
+    "priority": "high",
+    "created_date": "2025-12-16T18:20:25.772173",
+    "last_updated": "2026-02-23T18:20:25.772176",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240006",
+    "era_analysis": {
+      "primary_denial_code": "CO-75",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240007",
+    "claim_id": "CLM-20240007",
+    "patient_id": "PAT007",
+    "patient_name": "Patient 7",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 4020.49,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "prior_authorization",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-02-12T18:20:25.772189",
+    "last_updated": "2026-02-11T18:20:25.772192",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240007",
+    "era_analysis": {
+      "primary_denial_code": "CO-132",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240008",
+    "claim_id": "CLM-20240008",
+    "patient_id": "PAT008",
+    "patient_name": "Patient 8",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 3155.29,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "documentation",
+    "status": "approved",
+    "priority": "medium",
+    "created_date": "2025-12-28T18:20:25.772203",
+    "last_updated": "2026-02-09T18:20:25.772206",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240008",
+    "era_analysis": {
+      "primary_denial_code": "CO-170",
+      "denial_description": "Timely filing limit exceeded",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240009",
+    "claim_id": "CLM-20240009",
+    "patient_id": "PAT009",
+    "patient_name": "Patient 9",
+    "payer": "Aetna",
+    "original_amount": 4510.14,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "medical_necessity",
+    "status": "pending",
+    "priority": "urgent",
+    "created_date": "2026-01-10T18:20:25.772218",
+    "last_updated": "2026-02-27T18:20:25.772221",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240009",
+    "era_analysis": {
+      "primary_denial_code": "CO-25",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240010",
+    "claim_id": "CLM-20240010",
+    "patient_id": "PAT010",
+    "patient_name": "Patient 10",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 2100.59,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "documentation",
+    "status": "active",
+    "priority": "medium",
+    "created_date": "2026-02-28T18:20:25.772233",
+    "last_updated": "2026-02-03T18:20:25.772236",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240010",
+    "era_analysis": {
+      "primary_denial_code": "CO-187",
+      "denial_description": "Patient not eligible for coverage",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240011",
+    "claim_id": "CLM-20240011",
+    "patient_id": "PAT011",
+    "patient_name": "Patient 11",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 4726.81,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "medical_necessity",
+    "status": "pending",
+    "priority": "urgent",
+    "created_date": "2026-01-22T18:20:25.772247",
+    "last_updated": "2026-02-03T18:20:25.772250",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240011",
+    "era_analysis": {
+      "primary_denial_code": "CO-199",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240012",
+    "claim_id": "CLM-20240012",
+    "patient_id": "PAT012",
+    "patient_name": "Patient 12",
+    "payer": "Aetna",
+    "original_amount": 1337.98,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "prior_authorization",
+    "status": "active",
+    "priority": "high",
+    "created_date": "2026-01-05T18:20:25.772261",
+    "last_updated": "2026-02-05T18:20:25.772265",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240012",
+    "era_analysis": {
+      "primary_denial_code": "CO-108",
+      "denial_description": "Timely filing limit exceeded",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240013",
+    "claim_id": "CLM-20240013",
+    "patient_id": "PAT013",
+    "patient_name": "Patient 13",
+    "payer": "United Healthcare",
+    "original_amount": 3884.01,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "prior_authorization",
+    "status": "pending",
+    "priority": "urgent",
+    "created_date": "2026-01-08T18:20:25.772277",
+    "last_updated": "2026-02-18T18:20:25.772281",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240013",
+    "era_analysis": {
+      "primary_denial_code": "CO-8",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240014",
+    "claim_id": "CLM-20240014",
+    "patient_id": "PAT014",
+    "patient_name": "Patient 14",
+    "payer": "United Healthcare",
+    "original_amount": 3007.93,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "timely_filing",
+    "status": "active",
+    "priority": "low",
+    "created_date": "2026-01-26T18:20:25.772295",
+    "last_updated": "2026-02-14T18:20:25.772298",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240014",
+    "era_analysis": {
+      "primary_denial_code": "CO-161",
+      "denial_description": "Timely filing limit exceeded",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240015",
+    "claim_id": "CLM-20240015",
+    "patient_id": "PAT015",
+    "patient_name": "Patient 15",
+    "payer": "Cigna",
+    "original_amount": 2751.66,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "policy_exclusion",
+    "status": "denied",
+    "priority": "urgent",
+    "created_date": "2026-01-05T18:20:25.772309",
+    "last_updated": "2026-02-05T18:20:25.772312",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240015",
+    "era_analysis": {
+      "primary_denial_code": "CO-45",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240016",
+    "claim_id": "CLM-20240016",
+    "patient_id": "PAT016",
+    "patient_name": "Patient 16",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 341.28,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "prior_authorization",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-02-14T18:20:25.772324",
+    "last_updated": "2026-02-08T18:20:25.772327",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240016",
+    "era_analysis": {
+      "primary_denial_code": "CO-183",
+      "denial_description": "Patient not eligible for coverage",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240017",
+    "claim_id": "CLM-20240017",
+    "patient_id": "PAT017",
+    "patient_name": "Patient 17",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 4002.97,
+    "denial_reason": "Insufficient documentation provided",
+    "denial_category": "coding_error",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-01-26T18:20:25.772337",
+    "last_updated": "2026-02-04T18:20:25.772340",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240017",
+    "era_analysis": {
+      "primary_denial_code": "CO-186",
+      "denial_description": "Medical necessity not established",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240018",
+    "claim_id": "CLM-20240018",
+    "patient_id": "PAT018",
+    "patient_name": "Patient 18",
+    "payer": "Aetna",
+    "original_amount": 1763.68,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "medical_necessity",
+    "status": "approved",
+    "priority": "medium",
+    "created_date": "2026-01-24T18:20:25.772355",
+    "last_updated": "2026-02-06T18:20:25.772359",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240018",
+    "era_analysis": {
+      "primary_denial_code": "CO-41",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240019",
+    "claim_id": "CLM-20240019",
+    "patient_id": "PAT019",
+    "patient_name": "Patient 19",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 1111.35,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "timely_filing",
+    "status": "active",
+    "priority": "low",
+    "created_date": "2026-01-25T18:20:25.772376",
+    "last_updated": "2026-01-30T18:20:25.772386",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240019",
+    "era_analysis": {
+      "primary_denial_code": "CO-76",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240020",
+    "claim_id": "CLM-20240020",
+    "patient_id": "PAT020",
+    "patient_name": "Patient 20",
+    "payer": "Cigna",
+    "original_amount": 2002.28,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "duplicate_claim",
+    "status": "denied",
+    "priority": "urgent",
+    "created_date": "2025-12-27T18:20:25.772405",
+    "last_updated": "2026-02-28T18:20:25.772410",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240020",
+    "era_analysis": {
+      "primary_denial_code": "CO-153",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240021",
+    "claim_id": "CLM-20240021",
+    "patient_id": "PAT021",
+    "patient_name": "Patient 21",
+    "payer": "United Healthcare",
+    "original_amount": 4247.75,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "policy_exclusion",
+    "status": "approved",
+    "priority": "low",
+    "created_date": "2026-02-11T18:20:25.772429",
+    "last_updated": "2026-02-01T18:20:25.772434",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240021",
+    "era_analysis": {
+      "primary_denial_code": "CO-137",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240022",
+    "claim_id": "CLM-20240022",
+    "patient_id": "PAT022",
+    "patient_name": "Patient 22",
+    "payer": "Aetna",
+    "original_amount": 2846.02,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "documentation",
+    "status": "approved",
+    "priority": "medium",
+    "created_date": "2025-12-19T18:20:25.772455",
+    "last_updated": "2026-02-20T18:20:25.772459",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240022",
+    "era_analysis": {
+      "primary_denial_code": "CO-157",
+      "denial_description": "Patient not eligible for coverage",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240023",
+    "claim_id": "CLM-20240023",
+    "patient_id": "PAT023",
+    "patient_name": "Patient 23",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 289.23,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "policy_exclusion",
+    "status": "denied",
+    "priority": "urgent",
+    "created_date": "2026-01-16T18:20:25.772469",
+    "last_updated": "2026-01-31T18:20:25.772474",
+    "assigned_to": "Reviewer 4",
+    "notes": "Appeal notes for APP-20240023",
+    "era_analysis": {
+      "primary_denial_code": "CO-167",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240024",
+    "claim_id": "CLM-20240024",
+    "patient_id": "PAT024",
+    "patient_name": "Patient 24",
+    "payer": "United Healthcare",
+    "original_amount": 751.16,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "policy_exclusion",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2025-12-25T18:20:25.772485",
+    "last_updated": "2026-02-22T18:20:25.772488",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240024",
+    "era_analysis": {
+      "primary_denial_code": "CO-181",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240025",
+    "claim_id": "CLM-20240025",
+    "patient_id": "PAT025",
+    "patient_name": "Patient 25",
+    "payer": "Cigna",
+    "original_amount": 124.04,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "policy_exclusion",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2026-01-01T18:20:25.772499",
+    "last_updated": "2026-01-30T18:20:25.772502",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240025",
+    "era_analysis": {
+      "primary_denial_code": "CO-115",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240026",
+    "claim_id": "CLM-20240026",
+    "patient_id": "PAT026",
+    "patient_name": "Patient 26",
+    "payer": "Cigna",
+    "original_amount": 3065.83,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "documentation",
+    "status": "active",
+    "priority": "high",
+    "created_date": "2025-12-19T18:20:25.772513",
+    "last_updated": "2026-02-11T18:20:25.772516",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240026",
+    "era_analysis": {
+      "primary_denial_code": "CO-155",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240027",
+    "claim_id": "CLM-20240027",
+    "patient_id": "PAT027",
+    "patient_name": "Patient 27",
+    "payer": "Aetna",
+    "original_amount": 2549.75,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "coding_error",
+    "status": "active",
+    "priority": "high",
+    "created_date": "2026-01-19T18:20:25.772527",
+    "last_updated": "2026-02-04T18:20:25.772530",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240027",
+    "era_analysis": {
+      "primary_denial_code": "CO-50",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240028",
+    "claim_id": "CLM-20240028",
+    "patient_id": "PAT028",
+    "patient_name": "Patient 28",
+    "payer": "Aetna",
+    "original_amount": 4563.55,
+    "denial_reason": "Insufficient documentation provided",
+    "denial_category": "coding_error",
+    "status": "pending",
+    "priority": "low",
+    "created_date": "2025-12-31T18:20:25.772541",
+    "last_updated": "2026-02-06T18:20:25.772544",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240028",
+    "era_analysis": {
+      "primary_denial_code": "CO-4",
+      "denial_description": "Timely filing limit exceeded",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240029",
+    "claim_id": "CLM-20240029",
+    "patient_id": "PAT029",
+    "patient_name": "Patient 29",
+    "payer": "United Healthcare",
+    "original_amount": 4925.86,
+    "denial_reason": "Insufficient documentation provided",
+    "denial_category": "timely_filing",
+    "status": "approved",
+    "priority": "low",
+    "created_date": "2025-12-13T18:20:25.772556",
+    "last_updated": "2026-02-09T18:20:25.772558",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240029",
+    "era_analysis": {
+      "primary_denial_code": "CO-187",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240030",
+    "claim_id": "CLM-20240030",
+    "patient_id": "PAT030",
+    "patient_name": "Patient 30",
+    "payer": "Aetna",
+    "original_amount": 3103.31,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "documentation",
+    "status": "approved",
+    "priority": "urgent",
+    "created_date": "2026-02-19T18:20:25.772571",
+    "last_updated": "2026-02-02T18:20:25.772574",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240030",
+    "era_analysis": {
+      "primary_denial_code": "CO-171",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240031",
+    "claim_id": "CLM-20240031",
+    "patient_id": "PAT031",
+    "patient_name": "Patient 31",
+    "payer": "United Healthcare",
+    "original_amount": 2156.0,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "coding_error",
+    "status": "denied",
+    "priority": "low",
+    "created_date": "2025-12-10T18:20:25.772587",
+    "last_updated": "2026-02-27T18:20:25.772590",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240031",
+    "era_analysis": {
+      "primary_denial_code": "CO-62",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240032",
+    "claim_id": "CLM-20240032",
+    "patient_id": "PAT032",
+    "patient_name": "Patient 32",
+    "payer": "United Healthcare",
+    "original_amount": 3879.0,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "coding_error",
+    "status": "approved",
+    "priority": "low",
+    "created_date": "2026-02-22T18:20:25.772601",
+    "last_updated": "2026-02-19T18:20:25.772604",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240032",
+    "era_analysis": {
+      "primary_denial_code": "CO-159",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240033",
+    "claim_id": "CLM-20240033",
+    "patient_id": "PAT033",
+    "patient_name": "Patient 33",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 1867.4,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "policy_exclusion",
+    "status": "pending",
+    "priority": "urgent",
+    "created_date": "2026-01-31T18:20:25.772615",
+    "last_updated": "2026-02-12T18:20:25.772620",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240033",
+    "era_analysis": {
+      "primary_denial_code": "CO-121",
+      "denial_description": "Medical necessity not established",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240034",
+    "claim_id": "CLM-20240034",
+    "patient_id": "PAT034",
+    "patient_name": "Patient 34",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 856.36,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "prior_authorization",
+    "status": "pending",
+    "priority": "urgent",
+    "created_date": "2026-02-02T18:20:25.772631",
+    "last_updated": "2026-02-15T18:20:25.772634",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240034",
+    "era_analysis": {
+      "primary_denial_code": "CO-200",
+      "denial_description": "Patient not eligible for coverage",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240035",
+    "claim_id": "CLM-20240035",
+    "patient_id": "PAT035",
+    "patient_name": "Patient 35",
+    "payer": "Cigna",
+    "original_amount": 3897.94,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "documentation",
+    "status": "pending",
+    "priority": "low",
+    "created_date": "2026-01-24T18:20:25.772645",
+    "last_updated": "2026-01-31T18:20:25.772648",
+    "assigned_to": "Reviewer 2",
+    "notes": "Appeal notes for APP-20240035",
+    "era_analysis": {
+      "primary_denial_code": "CO-80",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240036",
+    "claim_id": "CLM-20240036",
+    "patient_id": "PAT036",
+    "patient_name": "Patient 36",
+    "payer": "Aetna",
+    "original_amount": 4789.43,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "timely_filing",
+    "status": "pending",
+    "priority": "low",
+    "created_date": "2025-12-14T18:20:25.772659",
+    "last_updated": "2026-02-15T18:20:25.772663",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240036",
+    "era_analysis": {
+      "primary_denial_code": "CO-178",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240037",
+    "claim_id": "CLM-20240037",
+    "patient_id": "PAT037",
+    "patient_name": "Patient 37",
+    "payer": "Aetna",
+    "original_amount": 4502.36,
+    "denial_reason": "Prior authorization required",
+    "denial_category": "coding_error",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-01-30T18:20:25.772674",
+    "last_updated": "2026-03-01T18:20:25.772677",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240037",
+    "era_analysis": {
+      "primary_denial_code": "CO-45",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240038",
+    "claim_id": "CLM-20240038",
+    "patient_id": "PAT038",
+    "patient_name": "Patient 38",
+    "payer": "United Healthcare",
+    "original_amount": 3708.74,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "medical_necessity",
+    "status": "active",
+    "priority": "low",
+    "created_date": "2026-02-02T18:20:25.772689",
+    "last_updated": "2026-02-21T18:20:25.772693",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240038",
+    "era_analysis": {
+      "primary_denial_code": "CO-65",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240039",
+    "claim_id": "CLM-20240039",
+    "patient_id": "PAT039",
+    "patient_name": "Patient 39",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 2817.55,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "duplicate_claim",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-02-13T18:20:25.772706",
+    "last_updated": "2026-02-06T18:20:25.772709",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240039",
+    "era_analysis": {
+      "primary_denial_code": "CO-150",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240040",
+    "claim_id": "CLM-20240040",
+    "patient_id": "PAT040",
+    "patient_name": "Patient 40",
+    "payer": "United Healthcare",
+    "original_amount": 649.21,
+    "denial_reason": "Timely filing limit exceeded",
+    "denial_category": "medical_necessity",
+    "status": "approved",
+    "priority": "high",
+    "created_date": "2025-12-02T18:20:25.772719",
+    "last_updated": "2026-02-03T18:20:25.772722",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240040",
+    "era_analysis": {
+      "primary_denial_code": "CO-154",
+      "denial_description": "Medical necessity not established",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240041",
+    "claim_id": "CLM-20240041",
+    "patient_id": "PAT041",
+    "patient_name": "Patient 41",
+    "payer": "Cigna",
+    "original_amount": 3060.19,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "timely_filing",
+    "status": "active",
+    "priority": "medium",
+    "created_date": "2026-01-05T18:20:25.772734",
+    "last_updated": "2026-02-23T18:20:25.772737",
+    "assigned_to": "Reviewer 2",
+    "notes": "Appeal notes for APP-20240041",
+    "era_analysis": {
+      "primary_denial_code": "CO-156",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240042",
+    "claim_id": "CLM-20240042",
+    "patient_id": "PAT042",
+    "patient_name": "Patient 42",
+    "payer": "Cigna",
+    "original_amount": 730.43,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "policy_exclusion",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2025-12-24T18:20:25.772748",
+    "last_updated": "2026-02-17T18:20:25.772751",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240042",
+    "era_analysis": {
+      "primary_denial_code": "CO-78",
+      "denial_description": "Procedure code not covered under policy",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240043",
+    "claim_id": "CLM-20240043",
+    "patient_id": "PAT043",
+    "patient_name": "Patient 43",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 4371.99,
+    "denial_reason": "Procedure code not covered under policy",
+    "denial_category": "documentation",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2026-01-23T18:20:25.772762",
+    "last_updated": "2026-02-09T18:20:25.772767",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240043",
+    "era_analysis": {
+      "primary_denial_code": "CO-187",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "violation"
+  },
+  {
+    "appeal_id": "APP-20240044",
+    "claim_id": "CLM-20240044",
+    "patient_id": "PAT044",
+    "patient_name": "Patient 44",
+    "payer": "BlueCross BlueShield",
+    "original_amount": 186.24,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "medical_necessity",
+    "status": "approved",
+    "priority": "low",
+    "created_date": "2025-12-18T18:20:25.772778",
+    "last_updated": "2026-02-14T18:20:25.772781",
+    "assigned_to": "Reviewer 1",
+    "notes": "Appeal notes for APP-20240044",
+    "era_analysis": {
+      "primary_denial_code": "CO-148",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240045",
+    "claim_id": "CLM-20240045",
+    "patient_id": "PAT045",
+    "patient_name": "Patient 45",
+    "payer": "Aetna",
+    "original_amount": 1986.14,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "duplicate_claim",
+    "status": "denied",
+    "priority": "medium",
+    "created_date": "2026-02-23T18:20:25.772792",
+    "last_updated": "2026-02-12T18:20:25.772795",
+    "assigned_to": "Reviewer 2",
+    "notes": "Appeal notes for APP-20240045",
+    "era_analysis": {
+      "primary_denial_code": "CO-136",
+      "denial_description": "Insufficient documentation provided",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240046",
+    "claim_id": "CLM-20240046",
+    "patient_id": "PAT046",
+    "patient_name": "Patient 46",
+    "payer": "United Healthcare",
+    "original_amount": 1035.85,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "timely_filing",
+    "status": "pending",
+    "priority": "medium",
+    "created_date": "2025-12-21T18:20:25.772806",
+    "last_updated": "2026-02-14T18:20:25.772808",
+    "assigned_to": null,
+    "notes": "Appeal notes for APP-20240046",
+    "era_analysis": {
+      "primary_denial_code": "CO-173",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "warning"
+  },
+  {
+    "appeal_id": "APP-20240047",
+    "claim_id": "CLM-20240047",
+    "patient_id": "PAT047",
+    "patient_name": "Patient 47",
+    "payer": "United Healthcare",
+    "original_amount": 1750.97,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "prior_authorization",
+    "status": "pending",
+    "priority": "high",
+    "created_date": "2025-12-06T18:20:25.772820",
+    "last_updated": "2026-02-11T18:20:25.772824",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240047",
+    "era_analysis": {
+      "primary_denial_code": "CO-147",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240048",
+    "claim_id": "CLM-20240048",
+    "patient_id": "PAT048",
+    "patient_name": "Patient 48",
+    "payer": "United Healthcare",
+    "original_amount": 2618.93,
+    "denial_reason": "Duplicate claim submission",
+    "denial_category": "policy_exclusion",
+    "status": "denied",
+    "priority": "urgent",
+    "created_date": "2025-12-03T18:20:25.772835",
+    "last_updated": "2026-02-05T18:20:25.772838",
+    "assigned_to": "Reviewer 5",
+    "notes": "Appeal notes for APP-20240048",
+    "era_analysis": {
+      "primary_denial_code": "CO-92",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240049",
+    "claim_id": "CLM-20240049",
+    "patient_id": "PAT049",
+    "patient_name": "Patient 49",
+    "payer": "Aetna",
+    "original_amount": 3840.79,
+    "denial_reason": "Medical necessity not established",
+    "denial_category": "timely_filing",
+    "status": "pending",
+    "priority": "low",
+    "created_date": "2025-12-20T18:20:25.772848",
+    "last_updated": "2026-02-14T18:20:25.772851",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240049",
+    "era_analysis": {
+      "primary_denial_code": "CO-48",
+      "denial_description": "Duplicate claim submission",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization",
+        "Correct procedure codes"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation",
+      "Submit prior authorization request"
+    ],
+    "compliance_status": "compliant"
+  },
+  {
+    "appeal_id": "APP-20240050",
+    "claim_id": "CLM-20240050",
+    "patient_id": "PAT050",
+    "patient_name": "Patient 50",
+    "payer": "United Healthcare",
+    "original_amount": 116.96,
+    "denial_reason": "Patient not eligible for coverage",
+    "denial_category": "policy_exclusion",
+    "status": "denied",
+    "priority": "high",
+    "created_date": "2026-01-23T18:20:25.772862",
+    "last_updated": "2026-02-26T18:20:25.772865",
+    "assigned_to": "Reviewer 3",
+    "notes": "Appeal notes for APP-20240050",
+    "era_analysis": {
+      "primary_denial_code": "CO-115",
+      "denial_description": "Prior authorization required",
+      "actionable_items": [
+        "Review medical records",
+        "Obtain prior authorization"
+      ]
+    },
+    "suggested_fixes": [
+      "Update diagnosis code to ICD-10",
+      "Provide additional documentation"
+    ],
+    "compliance_status": "violation"
+  }
+]

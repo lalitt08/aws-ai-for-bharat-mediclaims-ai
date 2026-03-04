@@ -99,7 +99,7 @@ async def run_resubmission(state: Dict[str, Any]) -> Dict[str, Any]:
             'error': str(e),
             'success': False
         }
-        state["final_status"] = "resubmission_failed"
+        state["final_status"] = "resubmission"
         
         return state
 

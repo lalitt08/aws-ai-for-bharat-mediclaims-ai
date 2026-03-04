@@ -1056,3 +1056,21 @@ body {
 .activity-pulse {
     animation: activityPulse 1.5s ease-in-out infinite;
 }
+
+/* Appeals Dashboard Button (Post-Submission link) */
+.btn-appeals {
+    background: linear-gradient(135deg, #059669 0%, #10B981 45%, #2DD4BF 100%);
+    color: #ffffff;
+    border: 1px solid #047857;
+    box-shadow: 0 10px 24px rgba(16,185,129,0.35), 0 2px 8px rgba(15,23,42,0.15);
+}
+.btn-appeals:hover {
+    background: linear-gradient(135deg, #047857 0%, #059669 50%, #10B981 100%);
+    opacity: 0.95;
+    transform: scale(1.05);
+    box-shadow: 0 12px 28px rgba(16,185,129,0.4), 0 4px 12px rgba(15,23,42,0.2);
+}
+.btn-appeals:focus-visible {
+    outline: 3px solid #6EE7B7;
+    outline-offset: 2px;
+}

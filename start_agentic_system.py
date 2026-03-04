@@ -79,15 +79,15 @@ def start_component(name, command, wait_time=3):
             print(f"[SUCCESS] {name} started successfully")
             return process
         else:
-            print(f"[ERROR] {name} failed to start")
+            print(f" {name} ")
             # Print error output
             stdout, stderr = process.communicate()
             if stderr:
-                print(f"Error: {stderr.decode()}")
+                print(f" {stderr.decode()}")
             return None
             
     except Exception as e:
-        print(f"[ERROR] Error starting {name}: {e}")
+        print(f" starting {name}: {e}")
         return None
 
 def main():
@@ -188,7 +188,7 @@ def main():
                     print(f"\n[WARNING] Component(s) stopped: {', '.join(dead_processes)}")
                     break
         else:
-            print("\n[ERROR] No components started successfully")
+            print("\n No components started successfully")
             
     except KeyboardInterrupt:
         print("\n\n[STOP] Stopping agentic system...")

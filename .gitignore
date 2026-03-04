@@ -1,0 +1,46 @@
+# Environment variables — NEVER commit
+.env
+.env.*
+*.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Logs (runtime generated)
+data/logs/
+*.log
+*.jsonl
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Database files
+*.db
+*.sqlite
+
+# Frontend static copies (regenerated on startup)
+post_submission_demo/frontend/static/
+
+# Compiled PDFs (generated at runtime)
+data/appeals/*.pdf

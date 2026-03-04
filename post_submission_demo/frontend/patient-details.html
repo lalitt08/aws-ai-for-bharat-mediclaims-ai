@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details - MediClaims AI</title>
+    <link rel="stylesheet" href="/static/styles_new.css">
+    <link rel="stylesheet" href="/static/patient-details.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <svg class="header-icon" viewBox="0 0 24 24" fill="currentColor" width="28" height="28" style="color: hsl(217, 91%, 60%);">
+                        <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>Patient Details & ERA Analysis</h1>
+                        <p>Comprehensive Claim Review & Appeal Processing</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn secondary" onclick="printReport()">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="header-btn secondary" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Patient Overview -->
+            <section class="patient-overview">
+                <div class="overview-grid">
+                    <div class="patient-card-large">
+                        <div class="patient-header-large">
+                            <div class="patient-avatar-large" id="patientAvatar">SM</div>
+                            <div class="patient-info-large">
+                                <h2 id="patientName">Loading...</h2>
+                                <div class="patient-meta">
+                                    <span><i class="fas fa-id-card"></i> Patient ID: <span id="patientId">—</span></span>
+                                    <span><i class="fas fa-birthday-cake"></i> Age: <span id="patientAge">—</span></span>
+                                    <span><i class="fas fa-user-md"></i> Doctor: <span id="doctorName">—</span></span>
+                                </div>
+                            </div>
+                            <div class="priority-indicator">
+                                <div class="priority-badge-large high" id="priorityBadge">HIGH PRIORITY</div>
+                                <div class="success-rate">
+                                    <div class="success-circle"><span id="successRate">—</span></div>
+                                    <div class="success-label">Success Rate</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ERA Upload Section -->
+                        <div class="era-upload-section">
+                            <div class="era-upload-box" id="eraUploadBox">
+                                <div class="upload-idle" id="uploadIdle">
+                                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                    <h4>Upload ERA/835 File</h4>
+                                    <p>Drop an ERA file here or click to browse. AI agents will parse and generate analysis.</p>
+                                    <input type="file" id="eraFileInput" accept=".txt,.835,.edi,.csv,.json" style="display:none">
+                                    <button class="upload-btn" onclick="document.getElementById('eraFileInput').click()">
+                                        <i class="fas fa-file-upload"></i> Choose File
+                                    </button>
+                                    <span class="upload-hint">Supports .835, .txt, .edi, .csv, .json</span>
+                                </div>
+                                <div class="upload-processing" id="uploadProcessing" style="display:none">
+                                    <div class="loading-spinner-ring" style="width:36px;height:36px;margin:0 auto 0.75rem;"></div>
+                                    <h4>AI Agents Processing ERA...</h4>
+                                    <p id="uploadStep">Parsing ERA segments...</p>
+                                </div>
+                                <div class="upload-result" id="uploadResult" style="display:none">
+                                    <div class="result-header">
+                                        <i class="fas fa-check-circle" style="color:hsl(142,76%,36%);font-size:1.25rem;"></i>
+                                        <h4>ERA Processed Successfully</h4>
+                                    </div>
+                                    <div class="result-stats" id="eraResultStats"></div>
+                                    <button class="upload-btn small" onclick="resetERAUpload()"><i class="fas fa-redo"></i> Upload Another</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="claim-details-card">
+                        <h3><i class="fas fa-file-medical"></i> Claim Information</h3>
+                        <div class="details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Claim ID</span>
+                                <span class="detail-value" id="claimId">—</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Amount</span>
+                                <span class="detail-value amount" id="claimAmount">—</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Service Date</span>
+                                <span class="detail-value" id="serviceDate">—</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Procedure</span>
+                                <span class="detail-value" id="procedure">—</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Insurance</span>
+                                <span class="detail-value" id="insurance">—</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status</span>
+                                <span class="detail-value status denied">DENIED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ERA Analysis -->
+            <section class="era-analysis">
+                <h2><i class="fas fa-chart-line"></i> ERA Analysis Report</h2>
+                <div class="analysis-grid">
+                    <div class="analysis-card denial-card">
+                        <div class="card-header"><h3><i class="fas fa-exclamation-triangle"></i> Denial Analysis</h3></div>
+                        <div class="card-body">
+                            <div class="denial-code">
+                                <span class="code-badge" id="denialCode">—</span>
+                                <span class="code-description" id="denialReason">—</span>
+                            </div>
+                            <div class="simple-explanation">
+                                <h4>Why was this claim denied?</h4>
+                                <p id="simpleExplanation">Loading analysis...</p>
+                            </div>
+                            <div class="technical-details">
+                                <h4>Technical Details</h4>
+                                <ul id="technicalDetails"><li>Loading...</li></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card era-document">
+                        <div class="card-header">
+                            <h3><i class="fas fa-file-alt"></i> ERA Document</h3>
+                            <button class="btn secondary small" onclick="viewFullERA()"><i class="fas fa-expand"></i> View Full</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="era-preview"><pre id="eraContent">Loading ERA data...</pre></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-card recommendations">
+                        <div class="card-header"><h3><i class="fas fa-lightbulb"></i> AI Recommendations</h3></div>
+                        <div class="card-body">
+                            <div class="recommendation-list">
+                                <div class="recommendation-item high">
+                                    <div class="rec-icon"><i class="fas fa-star"></i></div>
+                                    <div class="rec-content">
+                                        <h4>Obtain Retroactive Authorization</h4>
+                                        <p>Contact insurer to request retroactive prior authorization</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation-item medium">
+                                    <div class="rec-icon"><i class="fas fa-edit"></i></div>
+                                    <div class="rec-content">
+                                        <h4>Submit Corrected Claim</h4>
+                                        <p>Resubmit with proper authorization codes once obtained</p>
+                                    </div>
+                                </div>
+                                <div class="recommendation-item low">
+                                    <div class="rec-icon"><i class="fas fa-phone"></i></div>
+                                    <div class="rec-content">
+                                        <h4>Provider Education</h4>
+                                        <p>Train staff on prior authorization requirements</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <h2>Choose Your Next Action</h2>
+                <div class="action-buttons">
+                    <button class="action-btn primary large" onclick="autoCorrectAndSubmit()">
+                        <div class="btn-icon-wrap"><i class="fas fa-magic"></i></div>
+                        <div class="btn-content">
+                            <h3>Auto-Correct & Submit Appeal</h3>
+                            <p>Let AI automatically generate and submit the appeal</p>
+                            <span class="success-indicator">85% Success Rate</span>
+                        </div>
+                        <div class="btn-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </button>
+                    <button class="action-btn secondary large" onclick="showSuggestedCorrections()">
+                        <div class="btn-icon-wrap"><i class="fas fa-list-check"></i></div>
+                        <div class="btn-content">
+                            <h3>Show Suggested Corrections</h3>
+                            <p>Review detailed corrections before manual submission</p>
+                            <span class="review-indicator">Manual Review Required</span>
+                        </div>
+                        <div class="btn-arrow"><i class="fas fa-arrow-right"></i></div>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Processing Modal -->
+    <div id="processingModal" class="modal" style="display: none;">
+        <div class="modal-content large">
+            <div class="modal-header"><h2><i class="fas fa-cogs"></i> Processing Appeal</h2></div>
+            <div class="modal-body">
+                <div class="processing-animation">
+                    <div class="loading-spinner-ring" style="width:48px;height:48px;margin:0 auto 1rem;"></div>
+                    <h3 id="processingTitle">Generating Appeal...</h3>
+                    <p id="processingDescription">AI is analyzing the denial and creating the optimal appeal strategy</p>
+                </div>
+                <div class="processing-steps">
+                    <div class="step" id="step1"><i class="fas fa-search"></i><span>Analyzing Denial</span></div>
+                    <div class="step" id="step2"><i class="fas fa-edit"></i><span>Generating Appeal</span></div>
+                    <div class="step" id="step3"><i class="fas fa-paper-plane"></i><span>Submitting to Payer</span></div>
+                    <div class="step" id="step4"><i class="fas fa-check-circle"></i><span>Appeal Submitted</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="/static/patient-details.js"></script>
+</body>
+</html>

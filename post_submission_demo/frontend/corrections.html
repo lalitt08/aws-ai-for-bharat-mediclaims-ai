@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggested Corrections - MediClaims AI</title>
+    <link rel="stylesheet" href="/static/styles_new.css">
+    <link rel="stylesheet" href="/static/corrections.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <button class="back-btn" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28" style="color: hsl(217, 91%, 60%);">
+                        <path d="M10 4h4v6h6v4h-6v6h-4v-6H4v-4h6V4z"/>
+                    </svg>
+                    <div class="app-title">
+                        <h1>Suggested Corrections</h1>
+                        <p>AI-Generated Claim Corrections & Recommendations</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn secondary" onclick="exportCorrections()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                    <button class="header-btn primary" onclick="implementAllCorrections()">
+                        <i class="fas fa-magic"></i> Apply All
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Patient Summary -->
+            <section class="patient-summary">
+                <div class="summary-card">
+                    <div class="patient-info">
+                        <div class="patient-avatar" id="patientAvatar">SM</div>
+                        <div class="patient-details">
+                            <h2 id="patientName">Loading...</h2>
+                            <p>Claim ID: <span id="claimId">—</span> &bull; Amount: <span id="claimAmount">—</span></p>
+                        </div>
+                    </div>
+                    <div class="correction-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="totalCorrections">0</div>
+                            <div class="stat-label">Corrections</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number success" id="successRate">—</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Corrections List -->
+            <section class="corrections-section">
+                <h2><i class="fas fa-list-check"></i> Required Corrections</h2>
+                <p class="section-description">The following corrections have been identified to improve the claim's approval chances:</p>
+                <div class="corrections-list" id="correctionsList"></div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-section">
+                <div class="action-buttons">
+                    <button class="action-btn secondary" onclick="goBack()">
+                        <i class="fas fa-arrow-left"></i> Back to Patient Details
+                    </button>
+                    <button class="action-btn primary" onclick="implementAllCorrections()">
+                        <i class="fas fa-magic"></i> Implement All Corrections & Submit
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Implementation Modal -->
+    <div id="implementationModal" class="modal" style="display: none;">
+        <div class="modal-content large">
+            <div class="modal-header"><h2><i class="fas fa-cogs"></i> Implementing Corrections</h2></div>
+            <div class="modal-body">
+                <div class="implementation-progress">
+                    <div class="loading-spinner-ring" style="width:48px;height:48px;margin:0 auto 1rem;"></div>
+                    <h3 id="implementationTitle">Applying Corrections...</h3>
+                    <p id="implementationDescription">AI is implementing the suggested corrections</p>
+                </div>
+                <div class="implementation-steps">
+                    <div class="step" id="step1"><i class="fas fa-edit"></i><span>Updating Codes</span></div>
+                    <div class="step" id="step2"><i class="fas fa-file-medical"></i><span>Adding Docs</span></div>
+                    <div class="step" id="step3"><i class="fas fa-check-double"></i><span>Validating</span></div>
+                    <div class="step" id="step4"><i class="fas fa-paper-plane"></i><span>Submitting</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+    <script src="/static/corrections.js"></script>
+</body>
+</html>

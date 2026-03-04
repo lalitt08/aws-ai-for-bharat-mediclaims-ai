@@ -1,0 +1,399 @@
+{
+  "daily_metrics": [
+    {
+      "date": "2025-08-17",
+      "new_appeals": 14,
+      "processed_appeals": 12,
+      "approved_appeals": 8,
+      "denied_appeals": 2,
+      "success_rate": 0.654,
+      "avg_processing_time": 20.7,
+      "total_claim_value": 95260
+    },
+    {
+      "date": "2025-08-18",
+      "new_appeals": 11,
+      "processed_appeals": 8,
+      "approved_appeals": 5,
+      "denied_appeals": 2,
+      "success_rate": 0.842,
+      "avg_processing_time": 22.7,
+      "total_claim_value": 53935
+    },
+    {
+      "date": "2025-08-19",
+      "new_appeals": 12,
+      "processed_appeals": 6,
+      "approved_appeals": 7,
+      "denied_appeals": 4,
+      "success_rate": 0.723,
+      "avg_processing_time": 20.3,
+      "total_claim_value": 70592
+    },
+    {
+      "date": "2025-08-20",
+      "new_appeals": 5,
+      "processed_appeals": 7,
+      "approved_appeals": 4,
+      "denied_appeals": 2,
+      "success_rate": 0.692,
+      "avg_processing_time": 16.5,
+      "total_claim_value": 85253
+    },
+    {
+      "date": "2025-08-21",
+      "new_appeals": 8,
+      "processed_appeals": 2,
+      "approved_appeals": 5,
+      "denied_appeals": 2,
+      "success_rate": 0.672,
+      "avg_processing_time": 23.9,
+      "total_claim_value": 199049
+    },
+    {
+      "date": "2025-08-22",
+      "new_appeals": 8,
+      "processed_appeals": 12,
+      "approved_appeals": 8,
+      "denied_appeals": 2,
+      "success_rate": 0.685,
+      "avg_processing_time": 18.8,
+      "total_claim_value": 156891
+    },
+    {
+      "date": "2025-08-23",
+      "new_appeals": 3,
+      "processed_appeals": 11,
+      "approved_appeals": 7,
+      "denied_appeals": 0,
+      "success_rate": 0.74,
+      "avg_processing_time": 12.6,
+      "total_claim_value": 160461
+    },
+    {
+      "date": "2025-08-24",
+      "new_appeals": 9,
+      "processed_appeals": 1,
+      "approved_appeals": 1,
+      "denied_appeals": 2,
+      "success_rate": 0.686,
+      "avg_processing_time": 14.8,
+      "total_claim_value": 118125
+    },
+    {
+      "date": "2025-08-25",
+      "new_appeals": 2,
+      "processed_appeals": 2,
+      "approved_appeals": 3,
+      "denied_appeals": 3,
+      "success_rate": 0.828,
+      "avg_processing_time": 20.0,
+      "total_claim_value": 186874
+    },
+    {
+      "date": "2025-08-26",
+      "new_appeals": 12,
+      "processed_appeals": 11,
+      "approved_appeals": 4,
+      "denied_appeals": 4,
+      "success_rate": 0.721,
+      "avg_processing_time": 12.5,
+      "total_claim_value": 176800
+    },
+    {
+      "date": "2025-08-27",
+      "new_appeals": 13,
+      "processed_appeals": 7,
+      "approved_appeals": 2,
+      "denied_appeals": 1,
+      "success_rate": 0.669,
+      "avg_processing_time": 18.9,
+      "total_claim_value": 81635
+    },
+    {
+      "date": "2025-08-28",
+      "new_appeals": 5,
+      "processed_appeals": 5,
+      "approved_appeals": 4,
+      "denied_appeals": 1,
+      "success_rate": 0.669,
+      "avg_processing_time": 13.5,
+      "total_claim_value": 191363
+    },
+    {
+      "date": "2025-08-29",
+      "new_appeals": 14,
+      "processed_appeals": 4,
+      "approved_appeals": 4,
+      "denied_appeals": 2,
+      "success_rate": 0.746,
+      "avg_processing_time": 24.2,
+      "total_claim_value": 145698
+    },
+    {
+      "date": "2025-08-30",
+      "new_appeals": 9,
+      "processed_appeals": 1,
+      "approved_appeals": 5,
+      "denied_appeals": 0,
+      "success_rate": 0.838,
+      "avg_processing_time": 16.2,
+      "total_claim_value": 150085
+    },
+    {
+      "date": "2025-08-31",
+      "new_appeals": 12,
+      "processed_appeals": 6,
+      "approved_appeals": 6,
+      "denied_appeals": 3,
+      "success_rate": 0.704,
+      "avg_processing_time": 16.4,
+      "total_claim_value": 97653
+    },
+    {
+      "date": "2025-09-01",
+      "new_appeals": 12,
+      "processed_appeals": 7,
+      "approved_appeals": 8,
+      "denied_appeals": 1,
+      "success_rate": 0.72,
+      "avg_processing_time": 22.7,
+      "total_claim_value": 158053
+    },
+    {
+      "date": "2025-09-02",
+      "new_appeals": 13,
+      "processed_appeals": 5,
+      "approved_appeals": 7,
+      "denied_appeals": 4,
+      "success_rate": 0.74,
+      "avg_processing_time": 21.4,
+      "total_claim_value": 104224
+    },
+    {
+      "date": "2025-09-03",
+      "new_appeals": 12,
+      "processed_appeals": 2,
+      "approved_appeals": 3,
+      "denied_appeals": 2,
+      "success_rate": 0.772,
+      "avg_processing_time": 18.3,
+      "total_claim_value": 169503
+    },
+    {
+      "date": "2025-09-04",
+      "new_appeals": 4,
+      "processed_appeals": 8,
+      "approved_appeals": 1,
+      "denied_appeals": 1,
+      "success_rate": 0.757,
+      "avg_processing_time": 17.4,
+      "total_claim_value": 56285
+    },
+    {
+      "date": "2025-09-05",
+      "new_appeals": 11,
+      "processed_appeals": 12,
+      "approved_appeals": 6,
+      "denied_appeals": 1,
+      "success_rate": 0.805,
+      "avg_processing_time": 13.9,
+      "total_claim_value": 108318
+    },
+    {
+      "date": "2025-09-06",
+      "new_appeals": 10,
+      "processed_appeals": 6,
+      "approved_appeals": 6,
+      "denied_appeals": 4,
+      "success_rate": 0.766,
+      "avg_processing_time": 20.9,
+      "total_claim_value": 195298
+    },
+    {
+      "date": "2025-09-07",
+      "new_appeals": 9,
+      "processed_appeals": 9,
+      "approved_appeals": 2,
+      "denied_appeals": 1,
+      "success_rate": 0.832,
+      "avg_processing_time": 20.1,
+      "total_claim_value": 181304
+    },
+    {
+      "date": "2025-09-08",
+      "new_appeals": 2,
+      "processed_appeals": 1,
+      "approved_appeals": 1,
+      "denied_appeals": 0,
+      "success_rate": 0.668,
+      "avg_processing_time": 21.2,
+      "total_claim_value": 161328
+    },
+    {
+      "date": "2025-09-09",
+      "new_appeals": 13,
+      "processed_appeals": 3,
+      "approved_appeals": 6,
+      "denied_appeals": 3,
+      "success_rate": 0.766,
+      "avg_processing_time": 22.9,
+      "total_claim_value": 104757
+    },
+    {
+      "date": "2025-09-10",
+      "new_appeals": 13,
+      "processed_appeals": 1,
+      "approved_appeals": 5,
+      "denied_appeals": 2,
+      "success_rate": 0.683,
+      "avg_processing_time": 13.5,
+      "total_claim_value": 141138
+    },
+    {
+      "date": "2025-09-11",
+      "new_appeals": 4,
+      "processed_appeals": 12,
+      "approved_appeals": 3,
+      "denied_appeals": 3,
+      "success_rate": 0.682,
+      "avg_processing_time": 20.0,
+      "total_claim_value": 95751
+    },
+    {
+      "date": "2025-09-12",
+      "new_appeals": 15,
+      "processed_appeals": 1,
+      "approved_appeals": 3,
+      "denied_appeals": 0,
+      "success_rate": 0.804,
+      "avg_processing_time": 14.9,
+      "total_claim_value": 129346
+    },
+    {
+      "date": "2025-09-13",
+      "new_appeals": 9,
+      "processed_appeals": 8,
+      "approved_appeals": 6,
+      "denied_appeals": 1,
+      "success_rate": 0.822,
+      "avg_processing_time": 14.9,
+      "total_claim_value": 198399
+    },
+    {
+      "date": "2025-09-14",
+      "new_appeals": 4,
+      "processed_appeals": 8,
+      "approved_appeals": 2,
+      "denied_appeals": 1,
+      "success_rate": 0.812,
+      "avg_processing_time": 19.6,
+      "total_claim_value": 80354
+    },
+    {
+      "date": "2025-09-15",
+      "new_appeals": 6,
+      "processed_appeals": 4,
+      "approved_appeals": 2,
+      "denied_appeals": 1,
+      "success_rate": 0.757,
+      "avg_processing_time": 24.5,
+      "total_claim_value": 178677
+    }
+  ],
+  "summary": {
+    "total_appeals_30d": 274,
+    "total_processed_30d": 182,
+    "average_success_rate": 0.742,
+    "average_processing_time": 18.6,
+    "total_claim_value_30d": 4032409
+  },
+  "denial_patterns": {
+    "Coordination of benefits required": {
+      "count": 21,
+      "percentage": 6.0,
+      "avg_amount": 2084,
+      "success_rate": 0.786
+    },
+    "Experimental or investigational treatment": {
+      "count": 10,
+      "percentage": 7.0,
+      "avg_amount": 1908,
+      "success_rate": 0.864
+    },
+    "Non-covered cosmetic procedure": {
+      "count": 16,
+      "percentage": 10.1,
+      "avg_amount": 1128,
+      "success_rate": 0.77
+    },
+    "Duplicate claim submission": {
+      "count": 5,
+      "percentage": 12.6,
+      "avg_amount": 1324,
+      "success_rate": 0.683
+    },
+    "Service not rendered as billed": {
+      "count": 17,
+      "percentage": 8.8,
+      "avg_amount": 1854,
+      "success_rate": 0.677
+    },
+    "Out of network provider": {
+      "count": 14,
+      "percentage": 11.8,
+      "avg_amount": 1284,
+      "success_rate": 0.75
+    },
+    "Timely filing limit exceeded": {
+      "count": 6,
+      "percentage": 9.4,
+      "avg_amount": 2305,
+      "success_rate": 0.766
+    },
+    "Medical necessity not established": {
+      "count": 12,
+      "percentage": 18.7,
+      "avg_amount": 2010,
+      "success_rate": 0.682
+    }
+  },
+  "payer_performance": {
+    "aetna": {
+      "total_appeals": 30,
+      "success_rate": 0.821,
+      "avg_processing_time": 15.5,
+      "total_value": 478858
+    },
+    "united": {
+      "total_appeals": 21,
+      "success_rate": 0.82,
+      "avg_processing_time": 25.3,
+      "total_value": 268310
+    },
+    "bluecross": {
+      "total_appeals": 21,
+      "success_rate": 0.67,
+      "avg_processing_time": 22.8,
+      "total_value": 313015
+    },
+    "cigna": {
+      "total_appeals": 33,
+      "success_rate": 0.79,
+      "avg_processing_time": 20.2,
+      "total_value": 336279
+    },
+    "humana": {
+      "total_appeals": 47,
+      "success_rate": 0.706,
+      "avg_processing_time": 16.1,
+      "total_value": 323394
+    },
+    "anthem": {
+      "total_appeals": 19,
+      "success_rate": 0.666,
+      "avg_processing_time": 16.9,
+      "total_value": 450653
+    }
+  }
+}

@@ -9,7 +9,7 @@ import os
 class PatientLoader:
     """Enhanced patient data loader with full profile support"""
     
-    def __init__(self, csv_path: str = "data/patients.csv"):
+    def __init__(self, csv_path: str = "data/patients1.csv"):
         # Convert relative paths to absolute paths
         if not os.path.isabs(csv_path):
             # Get the project root directory (parent of tools/)

@@ -1,0 +1,23 @@
+{
+  "overall_compliance_score": 0.953,
+  "hipaa_compliance": {
+    "score": 0.925,
+    "violations": 1,
+    "last_audit": "2025-06-25T11:10:50.061627"
+  },
+  "timely_filing": {
+    "score": 0.864,
+    "violations": 2,
+    "average_filing_days": 84
+  },
+  "documentation": {
+    "score": 0.836,
+    "missing_docs": 2,
+    "incomplete_forms": 1
+  },
+  "payer_policies": {
+    "score": 0.868,
+    "policy_violations": 0,
+    "coverage_issues": 3
+  }
+}

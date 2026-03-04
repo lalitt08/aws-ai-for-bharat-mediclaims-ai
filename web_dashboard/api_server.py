@@ -578,15 +578,20 @@ class HealthcareDashboardAPI:
                     self.settings = None
                     logger.info("[WARNING] Settings not available, using defaults")
 
-                # Initialize data loaders - Only OpenEMR for real-time data
-                data_source = getattr(Settings, 'DATA_SOURCE', 'openemr')  # Always OpenEMR
+                # Initialize data loaders - Try OpenEMR first, fallback to CSV
+                data_source = getattr(Settings, 'DATA_SOURCE', 'openemr')  # Prefer OpenEMR
                 self.data_source = data_source
 
-                # Always use OpenEMR database for real-time patient data
-                from tools.openemr_data_loader import OpenEMRPatientLoader, OpenEMRDenialLearningLoader
-                self.patient_loader = OpenEMRPatientLoader()
-                self.denial_loader = OpenEMRDenialLearningLoader()
-                logger.info("[SUCCESS] Initialized OpenEMR database data loaders")
+                # Try to initialize OpenEMR database loaders
+                try:
+                    from tools.openemr_data_loader import OpenEMRPatientLoader, OpenEMRDenialLearningLoader
+                    self.patient_loader = OpenEMRPatientLoader()
+                    self.denial_loader = OpenEMRDenialLearningLoader()
+                    logger.info("[SUCCESS] Initialized OpenEMR database data loaders")
+                except Exception as openemr_e:
+                    logger.warning(f"[WARNING] ⚠️ OpenEMR loaders failed, will use CSV fallback: {openemr_e}")
+                    self.patient_loader = None
+                    self.denial_loader = None
 
                 # Initialize ClaimFlow if available
                 if HAS_CLAIM_FLOW:
@@ -601,8 +606,14 @@ class HealthcareDashboardAPI:
             except Exception as e:
                 logger.error(f"[ERROR] Error initializing agentic system: {e}")
                 self.agentic_available = False
+                # Set loaders to None so load_data can handle fallback
+                self.patient_loader = None
+                self.denial_loader = None
         else:
             self.agentic_available = False
+            # Set loaders to None so load_data can handle fallback
+            self.patient_loader = None
+            self.denial_loader = None
 
         self.load_data()
     
@@ -643,43 +654,108 @@ class HealthcareDashboardAPI:
             logger.warning(f"Could not clear old logs: {e}")
     
     def load_data(self):
-        """Load patient and denial data from OpenEMR database ONLY - no fake data"""
+        """Load patient and denial data - Priority: OpenEMR database, Fallback: CSV files"""
+        openemr_success = False
+        
+        # FIRST PRIORITY: Try OpenEMR database
         try:
             if self.agentic_available and hasattr(self, 'patient_loader'):
-                # Load data using OpenEMR database
-                self.patients_df = self.patient_loader.patients_df
-                # Handle denial loader carefully - it might not have the expected attribute
-                try:
-                    self.denials_df = self.denial_loader.denial_df
-                except AttributeError:
-                    # Fallback if denial_df doesn't exist
-                    logger.warning("[WARNING] denial_df not found, using alternative approach")
-                    self.denials_df = getattr(self.denial_loader, 'denials_df', pd.DataFrame())
-                logger.info(f"[SUCCESS] Loaded {len(self.patients_df)} patients from OpenEMR")
-            else:
-                # NO FAKE DATA - start with empty dataframes
-                logger.info("[INFO] OpenEMR not available - starting with empty patient data")
-                logger.info("✨ Professional mode: No fake activities or sample data")
+                # Check if OpenEMR data loader has actual data
+                if self.patient_loader.patients_df is not None and not self.patient_loader.patients_df.empty:
+                    self.patients_df = self.patient_loader.patients_df
+                    logger.info(f"[SUCCESS] ✅ Loaded {len(self.patients_df)} patients from OpenEMR database")
+                    openemr_success = True
+                    
+                    # Handle denial loader carefully
+                    try:
+                        self.denials_df = self.denial_loader.denial_df
+                    except AttributeError:
+                        logger.warning("[WARNING] denial_df not found, using alternative approach")
+                        self.denials_df = getattr(self.denial_loader, 'denials_df', pd.DataFrame())
+                else:
+                    logger.warning("[WARNING] ⚠️ OpenEMR database returned empty data - will try CSV fallback")
+        except Exception as e:
+            logger.warning(f"[WARNING] ⚠️ OpenEMR database failed: {e}")
+        
+        # FALLBACK: Try CSV files if OpenEMR failed or returned empty data
+        if not openemr_success:
+            logger.info("[INFO] 🔄 Attempting CSV fallback...")
+            try:
+                # Try to import CSV data loader
+                from tools.csv_data_loader import PatientLoader, DenialLearningLoader
+                
+                # Try different CSV file paths
+                csv_paths_to_try = [
+                    "data/patients1.csv",  # Found in attachments
+                    "data/patients.csv",   # Standard path
+                    os.path.join(DATA_DIR, "patients1.csv"),  # Absolute path
+                    os.path.join(DATA_DIR, "patients.csv")    # Absolute path
+                ]
+                
+                csv_success = False
+                for csv_path in csv_paths_to_try:
+                    try:
+                        if os.path.exists(csv_path):
+                            logger.info(f"[INFO] 📄 Trying CSV file: {csv_path}")
+                            csv_patient_loader = PatientLoader(csv_path)
+                            
+                            if csv_patient_loader.patients_df is not None and not csv_patient_loader.patients_df.empty:
+                                self.patients_df = csv_patient_loader.patients_df
+                                logger.info(f"[SUCCESS] ✅ Loaded {len(self.patients_df)} patients from CSV: {csv_path}")
+                                csv_success = True
+                                
+                                # Load denial data from CSV
+                                try:
+                                    csv_denial_loader = DenialLearningLoader()
+                                    self.denials_df = csv_denial_loader.denial_df
+                                    logger.info(f"[SUCCESS] ✅ Loaded denial data from CSV")
+                                except Exception as denial_e:
+                                    logger.warning(f"[WARNING] Could not load denial CSV: {denial_e}")
+                                    self.denials_df = pd.DataFrame()
+                                
+                                break
+                        else:
+                            logger.debug(f"[DEBUG] CSV file not found: {csv_path}")
+                    except Exception as csv_e:
+                        logger.debug(f"[DEBUG] Failed to load CSV {csv_path}: {csv_e}")
+                        continue
+                
+                if not csv_success:
+                    logger.error("[ERROR] ❌ All CSV fallback attempts failed")
+                    self.patients_df = pd.DataFrame()
+                    self.denials_df = pd.DataFrame()
+                    
+            except ImportError as import_e:
+                logger.error(f"[ERROR] ❌ Could not import CSV loader: {import_e}")
                 self.patients_df = pd.DataFrame()
                 self.denials_df = pd.DataFrame()
-                
-        except Exception as e:
-            logger.error(f"[ERROR] Error loading data: {e}")
-            logger.info("✨ Starting with empty data - no fake activities")
-            # DO NOT generate fake data - start clean
-            self.patients_df = pd.DataFrame()
-            self.denials_df = pd.DataFrame()
+            except Exception as e:
+                logger.error(f"[ERROR] ❌ CSV fallback failed: {e}")
+                self.patients_df = pd.DataFrame()
+                self.denials_df = pd.DataFrame()
+        
+        # Final status report
+        patient_count = len(self.patients_df) if self.patients_df is not None else 0
+        denial_count = len(self.denials_df) if self.denials_df is not None else 0
+        
+        if patient_count > 0:
+            source = "OpenEMR database" if openemr_success else "CSV files"
+            logger.info(f"[FINAL] 🎯 Data loading complete: {patient_count} patients, {denial_count} denials from {source}")
+        else:
+            logger.error("[FINAL] ❌ No patient data loaded from any source")
     
     def reload_data(self):
-        """Reload data from OpenEMR database - for real-time updates"""
+        """Reload data with fallback mechanism - Priority: OpenEMR database, Fallback: CSV files"""
         logger.debug(f"🔄 Checking for database updates...")
         
+        # Store previous count for comparison
+        previous_count = len(self.patients_df) if self.patients_df is not None else 0
+        openemr_success = False
+        
+        # FIRST PRIORITY: Try OpenEMR database
         try:
-            # Always use OpenEMR database for real-time data
+            # Always try OpenEMR database first for real-time updates
             from tools.openemr_data_loader import OpenEMRPatientLoader, OpenEMRDenialLearningLoader
-            
-            # Store previous count
-            previous_count = len(self.patients_df) if self.patients_df is not None else 0
             
             self.patient_loader = OpenEMRPatientLoader()
             self.denial_loader = OpenEMRDenialLearningLoader()
@@ -687,21 +763,70 @@ class HealthcareDashboardAPI:
             # Force reload from database
             self.patient_loader.reload_data()
             
-            self.patients_df = self.patient_loader.patients_df
-            current_count = len(self.patients_df) if self.patients_df is not None else 0
-            
-            # Only log if count changed
-            if current_count != previous_count:
-                logger.info(f"[SUCCESS] Data updated: {current_count} patients from OpenEMR database")
+            # Check if we got valid data
+            if self.patient_loader.patients_df is not None and not self.patient_loader.patients_df.empty:
+                self.patients_df = self.patient_loader.patients_df
+                current_count = len(self.patients_df)
+                
+                # Only log if count changed to reduce spam
+                if current_count != previous_count:
+                    logger.info(f"[SUCCESS] ✅ Data updated: {current_count} patients from OpenEMR database")
+                else:
+                    logger.debug(f"[DEBUG] No data changes - {current_count} patients from OpenEMR")
+                    
+                openemr_success = True
             else:
-                logger.debug(f"[DEBUG] No data changes - {current_count} patients")
+                logger.warning("[WARNING] ⚠️ OpenEMR database reload returned empty data - trying CSV fallback")
                     
         except Exception as e:
-            logger.error(f"[ERROR] Error reloading data: {e}")
-            logger.info("✨ Using empty data - no fake activities")
-            # DO NOT generate fake data - keep clean
-            self.patients_df = pd.DataFrame()
-            self.denials_df = pd.DataFrame()
+            logger.warning(f"[WARNING] ⚠️ Error reloading from OpenEMR: {e}")
+        
+        # FALLBACK: Try CSV files if OpenEMR failed
+        if not openemr_success:
+            logger.info("[INFO] 🔄 Attempting CSV reload fallback...")
+            try:
+                from tools.csv_data_loader import PatientLoader, DenialLearningLoader
+                
+                # Try different CSV file paths
+                csv_paths_to_try = [
+                    "data/patients1.csv",
+                    "data/patients.csv", 
+                    os.path.join(DATA_DIR, "patients1.csv"),
+                    os.path.join(DATA_DIR, "patients.csv")
+                ]
+                
+                csv_success = False
+                for csv_path in csv_paths_to_try:
+                    try:
+                        if os.path.exists(csv_path):
+                            csv_patient_loader = PatientLoader(csv_path)
+                            csv_patient_loader.load_data()  # Force reload
+                            
+                            if csv_patient_loader.patients_df is not None and not csv_patient_loader.patients_df.empty:
+                                self.patients_df = csv_patient_loader.patients_df
+                                current_count = len(self.patients_df)
+                                
+                                if current_count != previous_count:
+                                    logger.info(f"[SUCCESS] ✅ Data updated: {current_count} patients from CSV: {csv_path}")
+                                else:
+                                    logger.debug(f"[DEBUG] No data changes - {current_count} patients from CSV")
+                                
+                                csv_success = True
+                                break
+                    except Exception as csv_e:
+                        logger.debug(f"[DEBUG] Failed to reload CSV {csv_path}: {csv_e}")
+                        continue
+                
+                if not csv_success:
+                    logger.error("[ERROR] ❌ All CSV reload attempts failed")
+                    
+            except Exception as e:
+                logger.error(f"[ERROR] ❌ CSV reload fallback failed: {e}")
+        
+        # Final status
+        final_count = len(self.patients_df) if self.patients_df is not None else 0
+        source = "OpenEMR database" if openemr_success else "CSV files"
+        logger.debug(f"[FINAL] 🎯 Reload complete: {final_count} patients from {source}")
 
     def clear_activity_and_logs(self) -> Dict[str, Any]:
         """Admin helper: wipe in-memory activities and truncate logs."""

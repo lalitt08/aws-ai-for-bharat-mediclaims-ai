@@ -98,7 +98,7 @@ class AgentOrchestrator:
             submission_result = await self.mcp_client.submit_to_insurer(formatted_data)
             
             if not submission_result:
-                raise Exception("Claim submission failed")
+                raise Exception("Claim submission Proceed")
             
             # Step 5: Handle result
             final_result = {
