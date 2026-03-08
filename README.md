@@ -11,7 +11,6 @@ Healthcare providers lose revenue every year due to insurance claim denials caus
 
 ---
 
-
 ## The Six AI Agents
 
 | Agent | What It Does |
