@@ -65,14 +65,14 @@ def print_banner():
 
 
 def check_env():
-    required = ["AZURE_OPENAI_API_KEY", "AZURE_OPENAI_ENDPOINT",
-                 "AZURE_OPENAI_DEPLOYMENT_NAME", "AZURE_OPENAI_API_VERSION"]
-    missing = [v for v in required if not os.getenv(v)]
-    if missing:
-        print(f"[WARN] Missing env vars: {missing}")
-        print("       Some AI features may not work. Check your .env file.")
+    token = os.getenv("AWS_BEARER_TOKEN_BEDROCK")
+    model = os.getenv("AWS_BEDROCK_MODEL_ID", "meta.llama3-70b-instruct-v1:0")
+    region = os.getenv("AWS_DEFAULT_REGION", "us-west-2")
+    if not token:
+        print("[WARN] AWS_BEARER_TOKEN_BEDROCK not set — AI features will be disabled.")
+        print("       Set it in your .env file.")
     else:
-        print("[OK] All Azure OpenAI env vars set.")
+        print(f"[OK] Bedrock configured: {model} @ {region}")
 
 
 def start_component(comp):

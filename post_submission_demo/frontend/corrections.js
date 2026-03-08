@@ -33,7 +33,7 @@ class CorrectionsManager {
 
     async loadPatientData() {
         try {
-            const resp = await fetch(`/api/denied-claims/${this.patientId}`);
+            const resp = await fetch(`/appeals/api/denied-claims/${this.patientId}`);
             if (resp.ok) {
                 this.patientData = await resp.json();
             } else {

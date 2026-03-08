@@ -1,7 +1,7 @@
 # agents/risk_predictor.py - Enhanced with MCP Integration
 
-from langchain_openai import AzureChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from tools.bedrock_llm import BedrockLLM
+from langchain_core.prompts import ChatPromptTemplate
 from config.settings import Settings
 from tools.logger import secure_log
 from tools.csv_data_loader import patient_loader
@@ -10,15 +10,8 @@ import json
 import pandas as pd
 import asyncio
 
-# Setup LLM
-llm = AzureChatOpenAI(
-    azure_deployment=Settings.AZURE_OPENAI_DEPLOYMENT_NAME,
-    api_key=Settings.AZURE_OPENAI_API_KEY,
-    azure_endpoint=Settings.AZURE_OPENAI_ENDPOINT,
-    api_version=Settings.AZURE_OPENAI_API_VERSION,
-    temperature=0.2,
-    request_timeout=Settings.TIMEOUT
-)
+# Setup Bedrock LLM (replaces AzureChatOpenAI)
+llm = BedrockLLM(temperature=0.2)
 
 # Enhanced prompt with learning context
 prompt = ChatPromptTemplate.from_messages([
@@ -57,7 +50,7 @@ prompt = ChatPromptTemplate.from_messages([
 ])
 
 async def run_risk_prediction(state: dict) -> dict:
-    """Enhanced risk prediction with MCP-powered data sources"""
+    """Enhanced risk prediction with Bedrock Agent Core + MCP-powered data sources"""
     
     claim_data = state.get("raw_data", {})
     claim_id = state.get("claim_id", "unknown")
@@ -66,7 +59,32 @@ async def run_risk_prediction(state: dict) -> dict:
     procedure_code = claim_data.get("cpt_code", "") or claim_data.get("procedure_code", "")
     diagnosis_code = claim_data.get("icd_code", "") or claim_data.get("diagnosis_code", "")
     claim_amount = claim_data.get("claim_amount", 0)
-    
+
+    # ── Bedrock Agent Core call (primary path) ────────────────────────────────
+    try:
+        from tools.bedrock_agent_integration import bedrock_risk_assessment
+        bedrock_result = bedrock_risk_assessment({**claim_data, "claim_id": claim_id})
+        if bedrock_result:
+            state["risk_score"]      = bedrock_result["risk_score"]
+            state["issues"]          = bedrock_result["issues"]
+            state["recommendations"] = bedrock_result["recommendations"]
+            state["confidence"]      = bedrock_result["confidence"]
+            state["final_status"]    = "risk_assessed"
+            state.setdefault("log", []).append(
+                f"[RiskPredictor] Bedrock Agent Core: risk={bedrock_result['risk_score']:.2f} "
+                f"issues={len(bedrock_result['issues'])} source={bedrock_result['source']}"
+            )
+            secure_log("RiskPredictor-Bedrock", {
+                "claim_id": claim_id,
+                "risk_score": state["risk_score"],
+                "issues": state["issues"],
+                "source": bedrock_result["source"],
+            })
+            return state
+    except Exception as _be:
+        state.setdefault("log", []).append(f"[RiskPredictor] Bedrock Agent skipped: {_be}")
+    # ── End Bedrock Agent Core ────────────────────────────────────────────────
+
     try:
         # Import centralized logger
         from tools.execution_logger import log_agent_work, log_execution

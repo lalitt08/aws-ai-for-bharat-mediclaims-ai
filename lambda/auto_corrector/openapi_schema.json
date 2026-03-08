@@ -1,0 +1,66 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "AutoCorrector", "version": "1.0.0", "description": "Auto-correction tools for medical claim data" },
+  "paths": {
+    "/GetPatientData": {
+      "get": {
+        "summary": "Get patient data",
+        "description": "Retrieve patient data for correction context",
+        "operationId": "GetPatientData",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Patient data", "content": { "application/json": { "schema": { "type": "object", "properties": { "patient_id": { "type": "string" }, "icd_code": { "type": "string" }, "cpt_code": { "type": "string" } } } } } } }
+      }
+    },
+    "/GeneratePriorAuthorization": {
+      "get": {
+        "summary": "Generate prior authorization",
+        "description": "Generate a new prior authorization number for a patient procedure",
+        "operationId": "GeneratePriorAuthorization",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID", "required": true, "schema": { "type": "string" } },
+          { "name": "cpt_code", "in": "query", "description": "CPT procedure code", "required": true, "schema": { "type": "string" } },
+          { "name": "insurer", "in": "query", "description": "Insurance company name", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Generated PA number", "content": { "application/json": { "schema": { "type": "object", "properties": { "prior_auth_number": { "type": "string" }, "status": { "type": "string" } } } } } } }
+      }
+    },
+    "/CorrectICD10Code": {
+      "get": {
+        "summary": "Correct ICD-10 code",
+        "description": "Suggest a corrected ICD-10 code based on current code and diagnosis description",
+        "operationId": "CorrectICD10Code",
+        "parameters": [
+          { "name": "current_code", "in": "query", "description": "Current ICD-10 code", "required": true, "schema": { "type": "string" } },
+          { "name": "diagnosis_description", "in": "query", "description": "Diagnosis description text", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Corrected ICD-10 code", "content": { "application/json": { "schema": { "type": "object", "properties": { "corrected_code": { "type": "string" }, "correction_needed": { "type": "boolean" } } } } } } }
+      }
+    },
+    "/CorrectCPTCode": {
+      "get": {
+        "summary": "Correct CPT code",
+        "description": "Suggest a corrected CPT code based on current code and procedure description",
+        "operationId": "CorrectCPTCode",
+        "parameters": [
+          { "name": "current_code", "in": "query", "description": "Current CPT code", "required": true, "schema": { "type": "string" } },
+          { "name": "procedure_description", "in": "query", "description": "Procedure description text", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Corrected CPT code", "content": { "application/json": { "schema": { "type": "object", "properties": { "corrected_code": { "type": "string" }, "correction_needed": { "type": "boolean" } } } } } } }
+      }
+    },
+    "/ValidateProviderNPI": {
+      "get": {
+        "summary": "Validate provider NPI",
+        "description": "Validate a provider NPI number format and enrollment status",
+        "operationId": "ValidateProviderNPI",
+        "parameters": [
+          { "name": "npi", "in": "query", "description": "Provider NPI number", "required": true, "schema": { "type": "string" } },
+          { "name": "provider_name", "in": "query", "description": "Provider name", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "NPI validation result", "content": { "application/json": { "schema": { "type": "object", "properties": { "valid": { "type": "boolean" }, "enrolled": { "type": "boolean" } } } } } } }
+      }
+    }
+  }
+}

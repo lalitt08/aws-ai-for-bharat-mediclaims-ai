@@ -1,20 +1,13 @@
 # agents/appeal_generator.py
 
-from langchain_openai import AzureChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from tools.bedrock_llm import BedrockLLM
+from langchain_core.prompts import ChatPromptTemplate
 from config.settings import Settings
 from tools.formatter import generate_appeal_pdf
 from tools.logger import secure_log
 
-# Setup Azure OpenAI LLM
-llm = AzureChatOpenAI(
-    azure_endpoint=Settings.AZURE_OPENAI_ENDPOINT,
-    azure_deployment=Settings.AZURE_OPENAI_DEPLOYMENT_NAME,
-    openai_api_key=Settings.AZURE_OPENAI_API_KEY,
-    openai_api_version=Settings.AZURE_OPENAI_API_VERSION,
-    temperature=0.3,
-    request_timeout=Settings.TIMEOUT
-)
+# Setup Bedrock LLM (replaces AzureChatOpenAI)
+llm = BedrockLLM(temperature=0.3)
 
 prompt = ChatPromptTemplate.from_messages([
     ("system", "You are an expert medical appeal writer. Use the provided claim to draft a formal appeal."),
@@ -31,7 +24,26 @@ async def run_appeal_generation(state: dict) -> dict:
     try:
         # Add detailed logging for UI activity tracking
         state["log"].append("[AppealGenerator] Analyzing denial reason and determining if patient data updates are needed")
-        state["log"].append("[AppealGenerator] Azure OpenAI generating intelligent appeal strategy")
+        state["log"].append("[AppealGenerator] AWS Bedrock Agent generating intelligent appeal strategy")
+        
+        # Try Bedrock Agent Core first for enhanced appeal generation
+        bedrock_appeal = ""
+        try:
+            from tools.bedrock_agent_integration import bedrock_generate_appeal
+            ba_result = bedrock_generate_appeal(
+                {**claim_data, "claim_id": state.get("claim_id")},
+                reason,
+            )
+            if ba_result and ba_result.get("appeal_text"):
+                bedrock_appeal = ba_result["appeal_text"]
+                state["log"].append(
+                    f"[AppealGenerator] Bedrock Agent Core appeal received "
+                    f"({len(bedrock_appeal)} chars, source={ba_result.get('source')})"
+                )
+                if ba_result.get("s3_key"):
+                    state["appeal_s3_key"] = ba_result["s3_key"]
+        except Exception as ba_err:
+            state["log"].append(f"[AppealGenerator] Bedrock Agent fallback to local LLM: {ba_err}")
         
         # Analyze if this requires patient data updates in OpenEMR
         requires_patient_update = analyze_data_requirements(denial_info, claim_data)
@@ -49,12 +61,18 @@ async def run_appeal_generation(state: dict) -> dict:
         else:
             state["log"].append("[AppealGenerator] Sufficient data available, proceeding with AI appeal generation")
             
-            formatted_prompt = prompt.format_messages(
-                claim_data=str(claim_data),
-                rejection_reason=reason
-            )
-            response = await llm.ainvoke(formatted_prompt)
-            appeal_text = response.content.strip()
+            # Use Bedrock Agent response if available, otherwise call local LLM
+            if bedrock_appeal:
+                appeal_text = bedrock_appeal.strip()
+                state["log"].append("[AppealGenerator] Using AWS Bedrock Agent Core appeal")
+            else:
+                formatted_prompt = prompt.format_messages(
+                    claim_data=str(claim_data),
+                    rejection_reason=reason
+                )
+                response = await llm.ainvoke(formatted_prompt)
+                appeal_text = response.content.strip()
+                state["log"].append("[AppealGenerator] Using local Bedrock LLM appeal")
 
             # Optional: Convert to PDF (handle errors gracefully)
             try:
@@ -63,6 +81,14 @@ async def run_appeal_generation(state: dict) -> dict:
                     appeal_text=appeal_text
                 )
                 state["appeal_packet"] = appeal_pdf_path
+                # Upload appeal PDF to S3
+                try:
+                    from tools.s3_storage import upload_appeal
+                    with open(appeal_pdf_path, "rb") as f:
+                        s3_key = upload_appeal(claim_data.get("patient_id", "UNK"), state["claim_id"], f.read())
+                    state["log"].append(f"[AppealGenerator] Appeal PDF uploaded to S3: {s3_key}")
+                except Exception as s3_err:
+                    state["log"].append(f"[AppealGenerator] S3 upload skipped: {s3_err}")
                 state["log"].append(f"[AppealGenerator] Appeal created with PDF: {appeal_pdf_path}")
             except Exception as pdf_error:
                 # Don't let PDF generation failure block the workflow

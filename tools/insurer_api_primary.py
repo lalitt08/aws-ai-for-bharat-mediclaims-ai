@@ -32,6 +32,7 @@ class ClaimSubmission(BaseModel):
     medical_history: Optional[str] = None
     provider_npi: str
     treatment_date: str
+    x12_837p: Optional[str] = None   # Real X12 837P transaction
 
 class AppealSubmission(BaseModel):
     claim_id: str
@@ -52,12 +53,29 @@ denial_handler = DenialPatternsHandler()
 
 @app.post("/submit")
 async def submit_claim(claim: ClaimSubmission):
-    """Submit a claim for processing with delayed response"""
-    
-    # Generate unique claim ID
+    """Submit a claim for processing — accepts X12 837P or structured fields"""
+
     claim_id = f"{claim.patient_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
-    
-    # Use 30% denial rate for demonstration
+
+    # ── X12 837P validation ──────────────────────────────────────────────
+    x12_valid = False
+    x12_summary = {}
+    if claim.x12_837p:
+        try:
+            import sys, os
+            sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from tools.x12_837p_builder import parse_837p_summary
+            x12_summary = parse_837p_summary(claim.x12_837p)
+            # Basic validation: must have CLM segment with claim_id and charge
+            x12_valid = bool(x12_summary.get("claim_id") and x12_summary.get("total_charge"))
+            print(f"[837P] Valid={x12_valid} | Claim={x12_summary.get('claim_id')} | "
+                  f"Patient={x12_summary.get('patient_last')},{x12_summary.get('patient_first')} | "
+                  f"CPT={x12_summary.get('cpt_code')} | ICD={x12_summary.get('icd_code')} | "
+                  f"Charge=${x12_summary.get('total_charge')}")
+        except Exception as e:
+            print(f"[837P] Parse error: {e}")
+
+    # ── Adjudication logic ───────────────────────────────────────────────
     if random.random() < 0.3:
         denial_result = denial_handler.get_denial_message(
             patient_name=claim.patient_name,
@@ -71,22 +89,24 @@ async def submit_claim(claim: ClaimSubmission):
             "approved_amount": claim.claim_amount * random.uniform(0.85, 1.0),
             "message": f"Claim approved for ${claim.claim_amount:.2f}"
         }
-    
-    # Store for delayed response
+
     pending_claims[claim_id] = {
         "claim": claim.dict(),
+        "x12_valid": x12_valid,
+        "x12_summary": x12_summary,
         "decision": decision,
         "submitted_at": datetime.now(),
         "processed": False
     }
-    
-    # Schedule delayed response (60 seconds / 1 minute)
+
     asyncio.create_task(process_claim_delayed(claim_id))
-    
+
     return {
         "status": "pending",
         "claim_id": claim_id,
-        "message": "Claim submitted for processing. Result will be available in 1 minute.",
+        "x12_received": bool(claim.x12_837p),
+        "x12_valid": x12_valid,
+        "message": "Claim submitted for processing. Result will be available in 60 seconds.",
         "estimated_processing_time": "60 seconds"
     }
 

@@ -3,8 +3,8 @@
 LLM-powered translator for converting technical agent logs to user-friendly language
 """
 
-from langchain_openai import AzureChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from tools.bedrock_llm import BedrockLLM
+from langchain_core.prompts import ChatPromptTemplate
 from config.settings import Settings
 from tools.logger import secure_log
 import json
@@ -15,16 +15,9 @@ class UserFriendlyTranslator:
     """Translates technical agent activities to user-friendly language using LLM"""
     
     def __init__(self):
-        """Initialize the translator with Azure OpenAI LLM"""
+        """Initialize the translator with Bedrock LLM"""
         try:
-            self.llm = AzureChatOpenAI(
-                azure_deployment=Settings.AZURE_OPENAI_DEPLOYMENT_NAME,
-                api_key=Settings.AZURE_OPENAI_API_KEY,
-                azure_endpoint=Settings.AZURE_OPENAI_ENDPOINT,
-                api_version=Settings.AZURE_OPENAI_API_VERSION,
-                temperature=0.1,  # Low temperature for consistent translations
-                request_timeout=Settings.TIMEOUT
-            )
+            self.llm = BedrockLLM(temperature=0.1)
             
             # Prompt template for translating technical activities
             self.translation_prompt = ChatPromptTemplate.from_messages([

@@ -1,0 +1,8 @@
+{
+  "DocumentName": "AWS-RunShellScript",
+  "InstanceIds": ["i-003e68fd0c2d31cf3"],
+  "Parameters": {
+    "commands": ["tail -n 80 /var/log/mediclaims-setup.log 2>/dev/null || echo NO_LOG_YET"]
+  },
+  "TimeoutSeconds": 30
+}

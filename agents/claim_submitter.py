@@ -141,7 +141,7 @@ def generate_mock_submission_result(claim_id: str, insurance_company: str, claim
         }
 
 async def run_claim_submission(state: dict) -> dict:
-    """Enhanced Claim Submitter Agent with MCP integration and detailed stage output"""
+    """Enhanced Claim Submitter Agent with Bedrock Agent Core + MCP integration"""
     
     claim_payload = state.get("corrected_data") or state.get("raw_data")
     claim_id = state.get("claim_id", "unknown")
@@ -149,7 +149,33 @@ async def run_claim_submission(state: dict) -> dict:
     insurance_company = claim_payload.get("insurance_company", "")
     patient_id = claim_payload.get("patient_id", "")
     remaining_issues = state.get("issues", [])
-    
+
+    # ── Bedrock Agent Core call (primary path) ────────────────────────────────
+    try:
+        from tools.bedrock_agent_integration import bedrock_submit_claim
+        ba_result = bedrock_submit_claim({**claim_payload, "claim_id": claim_id})
+        if ba_result:
+            status = ba_result.get("status", "submitted")
+            state["submission_result"] = {
+                "status":      status,
+                "claim_id":    ba_result.get("claim_id", claim_id),
+                "denial_info": ba_result.get("denial_info"),
+                "source":      ba_result.get("source"),
+            }
+            state["final_status"] = status if status in ("approved", "denied") else "submitted"
+            state.setdefault("log", []).append(
+                f"[ClaimSubmitter] Bedrock Agent Core: status={status} source={ba_result.get('source')}"
+            )
+            secure_log("ClaimSubmitter-Bedrock", {
+                "claim_id": claim_id,
+                "status": status,
+                "source": ba_result.get("source"),
+            })
+            return state
+    except Exception as _be:
+        state.setdefault("log", []).append(f"[ClaimSubmitter] Bedrock Agent skipped: {_be}")
+    # ── End Bedrock Agent Core ────────────────────────────────────────────────
+
     # Log agent start with centralized logger
     if HAS_EXECUTION_LOGGER:
         log_execution('claim_submitter', 'AGENT_START', {
@@ -258,19 +284,43 @@ async def run_claim_submission(state: dict) -> dict:
     print(f"   Target API: {api_url}")
     print(f"   Insurance endpoint: {insurance_company}")
     
-    # Prepare API payload with all required fields, handling None values
+    # Prepare X12 837P payload — real ANSI format used by US insurers
+    try:
+        from tools.x12_837p_builder import build_837p
+        x12_claim = build_837p({
+            **claim_payload,
+            "claim_id":      claim_id,
+            "icd_code":      claim_payload.get("icd_code") or claim_payload.get("diagnosis_code", "Z00.00"),
+            "cpt_code":      claim_payload.get("cpt_code") or claim_payload.get("procedure_code", "99213"),
+            "provider_npi":  claim_payload.get("provider_npi", "1234567890"),
+            "provider_tax_id": claim_payload.get("provider_tax_id", "123456789"),
+            "dob":           claim_payload.get("dob") or claim_payload.get("date_of_birth", "19800101"),
+            "gender":        claim_payload.get("gender", "M"),
+            "insurer":       insurance_company,
+            "service_date":  claim_payload.get("service_date") or claim_payload.get("treatment_date"),
+        })
+        state["x12_837p"] = x12_claim
+        state["log"].append(f"[ClaimSubmitter] X12 837P claim built ({len(x12_claim)} chars)")
+        print(f"\n📄 X12 837P CLAIM GENERATED ({len(x12_claim)} chars)")
+    except Exception as e:
+        x12_claim = None
+        state["log"].append(f"[ClaimSubmitter] X12 build warning: {e}")
+        print(f"   ⚠️  X12 builder: {e}")
+
+    # API payload — send both X12 and structured fields
     api_payload = {
-        "patient_id": claim_payload.get("patient_id") or "UNKNOWN",
-        "patient_name": claim_payload.get("patient_name") or "Unknown Patient",
-        "diagnosis": claim_payload.get("diagnosis") or "General examination",
-        "icd_code": claim_payload.get("icd_code") or "Z00.00",  # Default ICD code
-        "cpt_code": claim_payload.get("cpt_code") or claim_payload.get("procedure_code") or "99213",
-        "claim_amount": float(claim_payload.get("claim_amount") or claim_payload.get("amount") or 0),
+        "patient_id":       claim_payload.get("patient_id") or "UNKNOWN",
+        "patient_name":     claim_payload.get("patient_name") or "Unknown Patient",
+        "diagnosis":        claim_payload.get("diagnosis") or "General examination",
+        "icd_code":         claim_payload.get("icd_code") or claim_payload.get("diagnosis_code", "Z00.00"),
+        "cpt_code":         claim_payload.get("cpt_code") or claim_payload.get("procedure_code", "99213"),
+        "claim_amount":     float(claim_payload.get("claim_amount") or 0),
         "insurance_company": insurance_company or "Unknown",
-        "prior_auth": claim_payload.get("prior_auth") or "Not provided",
-        "medical_history": claim_payload.get("medical_history") or "No history available",
-        "provider_npi": claim_payload.get("provider_npi") or "1234567890",
-        "treatment_date": claim_payload.get("treatment_date") or claim_payload.get("service_date") or claim_payload.get("date") or "2024-01-01"
+        "prior_auth":       claim_payload.get("prior_auth") or "Not provided",
+        "medical_history":  claim_payload.get("medical_history") or "No history available",
+        "provider_npi":     claim_payload.get("provider_npi") or "1234567890",
+        "treatment_date":   claim_payload.get("service_date") or claim_payload.get("treatment_date") or "2024-01-01",
+        "x12_837p":         x12_claim,   # attach real X12 transaction
     }
     
     print(f"📦 API Payload prepared with {len(api_payload)} fields")

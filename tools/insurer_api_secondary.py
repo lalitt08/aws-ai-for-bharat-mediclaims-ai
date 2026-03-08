@@ -32,6 +32,7 @@ class ClaimSubmission(BaseModel):
     medical_history: Optional[str] = None
     provider_npi: str
     treatment_date: str
+    x12_837p: Optional[str] = None   # Real X12 837P transaction
 
 class AppealSubmission(BaseModel):
     claim_id: str
@@ -44,29 +45,45 @@ pending_claims: Dict[str, Dict[str, Any]] = {}
 
 @app.post("/submit")
 async def submit_claim(claim: ClaimSubmission):
-    """Submit a claim for processing with delayed response"""
-    
-    # Generate unique claim ID
+    """Submit a claim — accepts X12 837P or structured fields"""
+
     claim_id = f"{claim.patient_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
-    
-    # Determine processing result based on realistic patterns
+
+    # ── X12 837P validation ──────────────────────────────────────────────
+    x12_valid = False
+    x12_summary = {}
+    if claim.x12_837p:
+        try:
+            import sys, os
+            sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            from tools.x12_837p_builder import parse_837p_summary
+            x12_summary = parse_837p_summary(claim.x12_837p)
+            x12_valid = bool(x12_summary.get("claim_id") and x12_summary.get("total_charge"))
+            print(f"[837P] Valid={x12_valid} | Claim={x12_summary.get('claim_id')} | "
+                  f"CPT={x12_summary.get('cpt_code')} | ICD={x12_summary.get('icd_code')} | "
+                  f"Charge=${x12_summary.get('total_charge')}")
+        except Exception as e:
+            print(f"[837P] Parse error: {e}")
+
     approval_decision = determine_approval(claim)
-    
-    # Store for delayed response
+
     pending_claims[claim_id] = {
         "claim": claim.dict(),
+        "x12_valid": x12_valid,
+        "x12_summary": x12_summary,
         "decision": approval_decision,
         "submitted_at": datetime.now(),
         "processed": False
     }
-    
-    # Schedule delayed response (60 seconds / 1 minute)
+
     asyncio.create_task(process_claim_delayed(claim_id))
-    
+
     return {
         "status": "pending",
         "claim_id": claim_id,
-        "message": "Claim submitted for processing. Result will be available in 1 minute.",
+        "x12_received": bool(claim.x12_837p),
+        "x12_valid": x12_valid,
+        "message": "Claim submitted for processing. Result will be available in 60 seconds.",
         "estimated_processing_time": "60 seconds"
     }
 

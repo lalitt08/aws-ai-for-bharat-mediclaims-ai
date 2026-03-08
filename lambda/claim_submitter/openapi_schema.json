@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "ClaimSubmitter", "version": "1.0.0", "description": "Claim submission tools for medical insurance" },
+  "paths": {
+    "/CheckEligibility": {
+      "get": {
+        "summary": "Check patient eligibility",
+        "description": "Check patient insurance eligibility for a service date",
+        "operationId": "CheckEligibility",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID", "required": true, "schema": { "type": "string" } },
+          { "name": "insurer", "in": "query", "description": "Insurance company name", "required": true, "schema": { "type": "string" } },
+          { "name": "service_date", "in": "query", "description": "Service date YYYY-MM-DD", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Eligibility result", "content": { "application/json": { "schema": { "type": "object", "properties": { "eligible": { "type": "boolean" }, "coverage_active": { "type": "boolean" } } } } } } }
+      }
+    },
+    "/SubmitClaimToInsurer": {
+      "post": {
+        "summary": "Submit claim to insurer",
+        "description": "Submit a medical claim to the appropriate insurer API and get approval or denial",
+        "operationId": "SubmitClaimToInsurer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claim_data_json": { "type": "string", "description": "JSON string of claim data" },
+                  "insurer": { "type": "string", "description": "Insurance company name" }
+                },
+                "required": ["claim_data_json", "insurer"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Submission result", "content": { "application/json": { "schema": { "type": "object", "properties": { "status": { "type": "string" }, "claim_id": { "type": "string" } } } } } } }
+      }
+    },
+    "/GetClaimStatus": {
+      "get": {
+        "summary": "Get claim status",
+        "description": "Get the current status of a submitted claim from S3",
+        "operationId": "GetClaimStatus",
+        "parameters": [
+          { "name": "claim_id", "in": "query", "description": "Claim ID", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Claim status", "content": { "application/json": { "schema": { "type": "object", "properties": { "found": { "type": "boolean" }, "status": { "type": "string" } } } } } } }
+      }
+    },
+    "/SaveClaimResult": {
+      "post": {
+        "summary": "Save claim result",
+        "description": "Save claim submission result to S3 persistent storage",
+        "operationId": "SaveClaimResult",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patient_id": { "type": "string", "description": "Patient ID" },
+                  "claim_id": { "type": "string", "description": "Claim ID" },
+                  "result_json": { "type": "string", "description": "JSON string of submission result" }
+                },
+                "required": ["patient_id", "claim_id", "result_json"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Save confirmation", "content": { "application/json": { "schema": { "type": "object", "properties": { "saved": { "type": "boolean" } } } } } } }
+      }
+    }
+  }
+}

@@ -1043,77 +1043,158 @@ class HealthcareDashboardAPI:
             raise
     
     def get_real_time_agent_activity(self) -> List[Dict[str, Any]]:
-        """Get real-time agent activity for user-friendly display - ONLY CURRENT ACTIVITY"""
+        """Get real-time agent activity — reads from MCP agent log files + in-memory sessions."""
         activities = []
         current_time = datetime.now()
-        
-        # Clean up old completed activities (older than 5 minutes)
-        if hasattr(self, 'completed_activities') and self.completed_activities:
-            cutoff_time = current_time - timedelta(minutes=5)
-            self.completed_activities = [
-                activity for activity in self.completed_activities
-                if datetime.fromisoformat(activity['timestamp'].replace('Z', '+00:00')) > cutoff_time
-            ]
-        
-        logger.info(f"🔍 Active processing sessions: {len(self.active_processing) if hasattr(self, 'active_processing') else 0}")
-        logger.info(f"🔍 Recent completed activities: {len(self.completed_activities) if hasattr(self, 'completed_activities') else 0}")
-        
-        # ONLY show actual active processing sessions - NO FAKE DATA
+
+        # ── 1. In-memory active processing sessions (live, highest priority) ──
         if hasattr(self, 'active_processing') and self.active_processing:
+            agent_labels = {
+                'risk_predictor': ('Risk Predictor', '🧠 Analyzing medical risk'),
+                'auto_corrector': ('Auto Corrector', '🔧 Fixing claim data issues'),
+                'claim_submitter': ('Claim Submitter', '📤 Submitting to insurance'),
+                'appeal_generator': ('Appeal Generator', '📝 Generating appeal letter'),
+                'resubmitter': ('Resubmitter', '🔄 Resubmitting corrected claim'),
+                'feedback_learner': ('Feedback Learner', '📈 Learning from outcome'),
+            }
             for session_id, session_data in self.active_processing.items():
                 patient_name = session_data.get('patient_name', 'Unknown Patient')
-                agent = session_data.get('current_agent', 'Unknown')
+                agent_key = session_data.get('current_agent', 'unknown')
+                label, desc = agent_labels.get(agent_key, (agent_key, f'Processing {patient_name}'))
                 start_time = session_data.get('start_time', current_time)
-                
-                # Convert agent names to user-friendly descriptions
-                agent_descriptions = {
-                    'risk_predictor': f'🧠 Analyzing medical risk for {patient_name}',
-                    'auto_corrector': f'🔧 Fixing missing information for {patient_name}',
-                    'claim_submitter': f'📤 Submitting claim to insurance for {patient_name}',
-                    'appeal_generator': f'📝 Creating appeal letter for {patient_name}',
-                    'resubmitter': f'🔄 Resubmitting claim for {patient_name}',
-                    'feedback_learner': f'📈 Learning from {patient_name}\'s case for future improvements'
-                }
-                
-                activity = {
+                activities.append({
                     'id': session_id,
-                    'activity': agent_descriptions.get(agent, f'Processing {patient_name}'),
+                    'agent': label,
+                    'activity': f'{desc} for {patient_name}',
+                    'user_friendly_activity': f'{desc} for {patient_name}',
+                    'patient_id': session_data.get('patient_id', ''),
                     'patient_name': patient_name,
-                    'agent': agent,
                     'duration': int((current_time - start_time).total_seconds()),
-                    'status': session_data.get('status', 'processing'),
+                    'status': 'processing',
                     'timestamp': start_time.isoformat(),
-                    'details': '',
-                    'category': 'processing'
+                    'details': f'Active session started {int((current_time - start_time).total_seconds())}s ago',
+                    'category': 'live',
+                })
+
+        # ── 2. Read from MCP agent JSONL log files (persistent across restarts) ──
+        mcp_log_files = [
+            ('RiskPredictor-MCP_log.jsonl', 'Risk Predictor'),
+            ('AutoCorrector-MCP_log.jsonl', 'Auto Corrector'),
+            ('ClaimSubmitter-MCP_log.jsonl', 'Claim Submitter'),
+            ('AppealGenerator_log.jsonl', 'Appeal Generator'),
+            ('resubmitter_log.jsonl', 'Resubmitter'),
+            ('feedback_learner_log.jsonl', 'Feedback Learner'),
+        ]
+        agent_icons = {
+            'Risk Predictor': '🧠', 'Auto Corrector': '🔧',
+            'Claim Submitter': '📤', 'Appeal Generator': '📝',
+            'Resubmitter': '🔄', 'Feedback Learner': '📈',
+        }
+        for log_file, agent_label in mcp_log_files:
+            log_path = os.path.join(logs_dir, log_file)
+            if not os.path.exists(log_path):
+                continue
+            try:
+                with open(log_path, 'r', encoding='utf-8', errors='replace') as f:
+                    lines = f.readlines()
+                # Read last 20 lines per file
+                for line in lines[-20:]:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    try:
+                        entry = json.loads(line)
+                    except Exception:
+                        continue
+                    ts = entry.get('timestamp', current_time.isoformat())
+                    state = entry.get('state_snapshot', {})
+                    claim_id = entry.get('claim_id') or state.get('claim_id', '')
+                    patient_id = state.get('patient_id', '')
+                    risk_score = state.get('risk_score')
+                    issues = state.get('issues', [])
+                    dq = state.get('data_quality_score', 0)
+                    final_status = state.get('final_status', '')
+                    icon = agent_icons.get(agent_label, '⚙️')
+
+                    # Build a rich detail string
+                    detail_parts = []
+                    if claim_id:
+                        detail_parts.append(f'Claim: {claim_id}')
+                    if risk_score is not None:
+                        detail_parts.append(f'Risk: {int(float(risk_score)*100)}%')
+                    if dq:
+                        detail_parts.append(f'Data Quality: {dq}%')
+                    if issues:
+                        detail_parts.append(f'{len(issues)} issues found')
+                    if final_status:
+                        detail_parts.append(f'Status: {final_status}')
+                    details = ' | '.join(detail_parts) if detail_parts else entry.get('details', '')
+
+                    activity_text = f'{icon} {agent_label}: {entry.get("action", "Processing")}'
+                    activities.append({
+                        'id': f'{log_file}-{ts}',
+                        'agent': agent_label,
+                        'activity': activity_text,
+                        'user_friendly_activity': activity_text,
+                        'patient_id': patient_id or claim_id,
+                        'status': 'completed' if final_status else 'completed',
+                        'timestamp': ts,
+                        'details': details,
+                        'user_friendly_details': details,
+                        'category': agent_label.lower().replace(' ', '_'),
+                        'duration': 0,
+                    })
+            except Exception as e:
+                logger.warning(f'Could not read {log_file}: {e}')
+
+        # ── 3. Also read from claim_status.json for a summary of pipeline outcomes ──
+        try:
+            claim_status_path = os.path.join(DATA_DIR, 'claim_status.json')
+            if os.path.exists(claim_status_path):
+                with open(claim_status_path, 'r', encoding='utf-8') as f:
+                    claim_statuses = json.load(f)
+                status_icons = {
+                    'approved': '✅', 'resubmission': '🔄',
+                    'appeal_resubmitted': '📨', 'appeal_generated': '📝',
+                    'appeal_resubmitted_low_confidence': '⚠️',
+                    'denied': '❌', 'rejected': '❌',
                 }
-                activities.append(activity)
-        
-        # Show recent completed activities only (last 5 minutes)
-        if hasattr(self, 'completed_activities') and self.completed_activities:
-            for activity in self.completed_activities:
-                activities.append(activity)
-        
-        # If no real activities, return empty list with NO FAKE DATA
+                for pid, entry in list(claim_statuses.items())[-8:]:
+                    status = entry.get('status', 'unknown')
+                    icon = status_icons.get(status, '📋')
+                    ts = entry.get('updated_at') or entry.get('timestamp', current_time.isoformat())
+                    claim_id = entry.get('claim_id', '')
+                    risk = entry.get('risk_score', 0)
+                    activities.append({
+                        'id': f'status-{pid}',
+                        'agent': 'Pipeline',
+                        'activity': f'{icon} {pid}: {status.replace("_", " ").title()}',
+                        'user_friendly_activity': f'{icon} {pid}: Claim {status.replace("_", " ").title()}',
+                        'patient_id': pid,
+                        'status': 'approved' if status == 'approved' else ('processing' if 'resubmit' in status else 'completed'),
+                        'timestamp': ts,
+                        'details': f'Claim {claim_id} | Risk: {int(float(risk)*100)}%' if claim_id else f'Risk: {int(float(risk)*100)}%',
+                        'user_friendly_details': f'Claim ID: {claim_id} | AI Risk Score: {int(float(risk)*100)}%',
+                        'category': 'claim_status',
+                        'duration': 0,
+                    })
+        except Exception as e:
+            logger.warning(f'Could not read claim_status for activity: {e}')
+
         if not activities:
-            logger.info("⚠️ No activities found - returning clean empty state")
-            append_execution_log({
-                'type': 'agent_activity',
-                'count': 0,
-                'state': 'empty',
-                'timestamp': datetime.now().isoformat()
-            })
+            logger.info("No agent activities found in logs or memory")
             return []
-        
-        # Sort by timestamp (newest first) and limit to 10 recent activities
-        sorted_activities = sorted(activities, key=lambda x: x['timestamp'], reverse=True)[:10]
-        
-        logger.info(f"✅ Returning {len(sorted_activities)} real activities")
-        append_execution_log({
-            'type': 'agent_activity',
-            'count': len(sorted_activities),
-            'timestamp': datetime.now().isoformat()
-        })
-        return sorted_activities
+
+        # Sort newest first, deduplicate by id, limit to 25
+        seen = set()
+        unique = []
+        for a in sorted(activities, key=lambda x: x.get('timestamp', ''), reverse=True):
+            if a['id'] not in seen:
+                seen.add(a['id'])
+                unique.append(a)
+        result = unique[:25]
+        logger.info(f"Returning {len(result)} agent activities")
+        return result
     
     def clear_old_activities(self):
         """Clear activities older than 10 minutes to prevent memory buildup"""
@@ -1158,19 +1239,41 @@ class HealthcareDashboardAPI:
                 # Use agentic system for claim processing
                 logger.info("🤖 Processing claim with agentic system...")
                 
-                # Format claim data for agentic processing
+                # Enrich claim with full patient CSV data (dob, gender, address, npi, etc.)
+                from tools.csv_data_loader import patient_loader as _pl
+                _pid = claim_data.get('patient_id', '')
+                _csv = _pl.get_patient_by_id(_pid) or {}
+
+                # Format claim data for agentic processing — all fields needed for X12 837P
                 formatted_claim = {
                     'claim_id': claim_id,
-                    'patient_id': claim_data.get('patient_id'),
-                    'patient_name': claim_data.get('patient_name'),
-                    'procedure_code': claim_data.get('procedure_code'),
-                    'diagnosis_code': claim_data.get('diagnosis_code'),
-                    'claim_amount': float(claim_data.get('claim_amount', 0)),
-                    'service_date': claim_data.get('service_date', datetime.now().strftime('%Y-%m-%d')),
-                    'provider': claim_data.get('provider'),
-                    'insurer': claim_data.get('insurer'),
-                    'priority': claim_data.get('priority', 'normal'),
-                    'notes': claim_data.get('notes', '')
+                    'patient_id': _pid,
+                    'patient_name': claim_data.get('patient_name') or _csv.get('name', ''),
+                    'procedure_code': claim_data.get('procedure_code') or _csv.get('procedure_code', '99213'),
+                    'diagnosis_code': claim_data.get('diagnosis_code') or _csv.get('diagnosis_code', 'Z00.00'),
+                    'icd_code':       claim_data.get('diagnosis_code') or _csv.get('diagnosis_code', 'Z00.00'),
+                    'cpt_code':       claim_data.get('procedure_code') or _csv.get('procedure_code', '99213'),
+                    'claim_amount':   float(claim_data.get('claim_amount') or _csv.get('claim_amount', 0)),
+                    'service_date':   claim_data.get('service_date') or _csv.get('service_date', datetime.now().strftime('%Y-%m-%d')),
+                    'provider':       claim_data.get('provider') or _csv.get('provider', ''),
+                    'insurer':        claim_data.get('insurer') or _csv.get('insurer', ''),
+                    'insurance_company': claim_data.get('insurer') or _csv.get('insurer', ''),
+                    # Full patient demographics for X12 837P
+                    'dob':            _csv.get('dob', '1980-01-01'),
+                    'gender':         _csv.get('gender', 'M'),
+                    'address':        _csv.get('address', '123 MAIN ST'),
+                    'phone':          _csv.get('phone', ''),
+                    'email':          _csv.get('email', ''),
+                    'medical_history': _csv.get('medical_history', ''),
+                    'allergies':      _csv.get('allergies', ''),
+                    'medications':    _csv.get('medications', ''),
+                    'prior_auth':     _csv.get('prior_authorization', False),
+                    # Provider fields for X12 837P
+                    'provider_npi':   claim_data.get('provider_npi', '1234567890'),
+                    'provider_tax_id': claim_data.get('provider_tax_id', '123456789'),
+                    'insurance_id':   _pid,
+                    'priority':       claim_data.get('priority', 'normal'),
+                    'notes':          claim_data.get('notes', ''),
                 }
                 
                 # Log formatted claim data
@@ -1431,6 +1534,62 @@ def submit_claim():
         logger.error(f"[ERROR] Error submitting claim: {str(e)}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
+@app.route('/api/claim-x12/<patient_id>')
+def get_claim_x12(patient_id):
+    """Return the raw X12 837P transaction for a patient's latest claim.
+    If not stored, generate it on-the-fly from patient + claim data."""
+    try:
+        claim_status_path = os.path.join(DATA_DIR, 'claim_status.json')
+        if not os.path.exists(claim_status_path):
+            return jsonify({'error': 'No claim data found'}), 404
+        with open(claim_status_path, 'r') as f:
+            all_claims = json.load(f)
+        patient_claims = [c for c in all_claims.values() if c.get('patient_id') == patient_id]
+        if not patient_claims:
+            return jsonify({'error': 'No claim found for patient'}), 404
+        latest = sorted(patient_claims, key=lambda c: c.get('processing_time', 0), reverse=True)[0]
+
+        # Return stored X12 if available
+        x12 = latest.get('x12_837p')
+        if x12:
+            return jsonify({'claim_id': latest.get('claim_id'), 'x12_837p': x12})
+
+        # Generate on-the-fly from patient CSV + claim data
+        try:
+            from tools.x12_837p_builder import build_837p
+            # Look up patient from the DataFrame
+            patient_data = {}
+            if api.patients_df is not None and not api.patients_df.empty:
+                rows = api.patients_df[api.patients_df['patient_id'] == patient_id]
+                if not rows.empty:
+                    patient_data = rows.iloc[0].where(rows.iloc[0].notna(), other='').to_dict()
+            x12 = build_837p({
+                'claim_id':       latest.get('claim_id', ''),
+                'patient_id':     patient_id,
+                'patient_name':   patient_data.get('name', ''),
+                'dob':            patient_data.get('dob', '1980-01-01'),
+                'gender':         patient_data.get('gender', 'M'),
+                'insurer':        patient_data.get('insurer', ''),
+                'insurance_company': patient_data.get('insurer', ''),
+                'procedure_code': patient_data.get('procedure_code', '99213'),
+                'diagnosis_code': patient_data.get('diagnosis_code', 'Z00.00'),
+                'claim_amount':   float(patient_data.get('claim_amount', 0) or 0),
+                'service_date':   patient_data.get('service_date', ''),
+                'provider_npi':   patient_data.get('provider_npi', '1234567890'),
+                'provider_tax_id': '123456789',
+                'treatment_date': patient_data.get('service_date', ''),
+            })
+            # Cache it back into claim_status.json for next time
+            all_claims[patient_id]['x12_837p'] = x12
+            with open(claim_status_path, 'w') as f:
+                json.dump(all_claims, f, indent=2)
+            return jsonify({'claim_id': latest.get('claim_id'), 'x12_837p': x12})
+        except Exception as gen_err:
+            return jsonify({'error': f'Could not generate X12: {gen_err}'}), 500
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/api/patient/<patient_id>')
 def get_patient_details(patient_id):
     """Get detailed patient information"""
@@ -1504,4 +1663,4 @@ if __name__ == '__main__':
         print("[WARNING] Agentic system integration: FALLBACK MODE")
     
     # Enable debug mode temporarily to see request logs
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000)

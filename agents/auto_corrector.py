@@ -16,11 +16,45 @@ except ImportError:
     HAS_EXECUTION_LOGGER = False
 
 async def run_auto_correction(state: dict) -> dict:
-    """Enhanced Auto-Corrector Agent with MCP integration and detailed stage output"""
+    """Enhanced Auto-Corrector Agent with Bedrock Agent Core + MCP integration"""
     
     claim_id = state.get("claim_id", "unknown")
     patient_name = state.get("raw_data", {}).get("patient_name", "Unknown Patient")
-    
+
+    # ── Bedrock Agent Core call (primary path) ────────────────────────────────
+    try:
+        from tools.bedrock_agent_integration import bedrock_auto_correct
+        claim_data_for_bedrock = state.get("raw_data", {}).copy()
+        ba_result = bedrock_auto_correct(
+            {**claim_data_for_bedrock, "claim_id": claim_id},
+            state.get("issues", []),
+        )
+        if ba_result:
+            # Apply Bedrock corrections on top of existing claim data
+            claim_data_for_bedrock.update({
+                k: v for k, v in {
+                    "icd_code":   ba_result.get("corrected_icd"),
+                    "cpt_code":   ba_result.get("corrected_cpt"),
+                    "prior_auth": ba_result.get("prior_auth"),
+                }.items() if v
+            })
+            state["corrected_data"] = claim_data_for_bedrock
+            state["corrections_made"] = ba_result.get("corrections", [])
+            state["final_status"] = "corrected"
+            state.setdefault("log", []).append(
+                f"[AutoCorrector] Bedrock Agent Core: corrections={len(state['corrections_made'])} "
+                f"source={ba_result.get('source')}"
+            )
+            secure_log("AutoCorrector-Bedrock", {
+                "claim_id": claim_id,
+                "corrections": state["corrections_made"],
+                "source": ba_result.get("source"),
+            })
+            return state
+    except Exception as _be:
+        state.setdefault("log", []).append(f"[AutoCorrector] Bedrock Agent skipped: {_be}")
+    # ── End Bedrock Agent Core ────────────────────────────────────────────────
+
     # Log agent start with centralized logger
     if HAS_EXECUTION_LOGGER:
         log_execution('auto_corrector', 'AGENT_START', {

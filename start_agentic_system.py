@@ -34,32 +34,22 @@ def set_environment():
 def check_requirements():
     """Check if required environment variables are set"""
     print("[INFO] Checking environment variables...")
-    
-    required_vars = [
-        'AZURE_OPENAI_API_KEY',
-        'AZURE_OPENAI_ENDPOINT',
-        'AZURE_OPENAI_DEPLOYMENT_NAME',
-        'AZURE_OPENAI_API_VERSION'
-    ]
-    
-    missing_vars = []
-    for var in required_vars:
-        value = os.getenv(var)
-        if not value:
-            missing_vars.append(var)
-        else:
-            print(f"[SUCCESS] {var} = {value[:20]}..." if len(value) > 20 else f"[SUCCESS] {var} = {value}")
-    
-    if missing_vars:
-        print("[WARNING] Missing required environment variables:")
-        for var in missing_vars:
-            print(f"   - {var}")
-        print("\nPlease set these variables in your .env file before starting.")
-        print("The system will continue but some features may not work.")
+
+    token = os.getenv("AWS_BEARER_TOKEN_BEDROCK")
+    model = os.getenv("AWS_BEDROCK_MODEL_ID", "meta.llama3-70b-instruct-v1:0")
+    region = os.getenv("AWS_DEFAULT_REGION", "us-west-2")
+
+    if not token:
+        print("[WARNING] AWS_BEARER_TOKEN_BEDROCK is not set.")
+        print("   Please add it to your .env file before starting.")
+        print("   The system will continue but LLM features will be disabled.")
         time.sleep(3)
-        return True  # Continue anyway
-    
-    print("[SUCCESS] All required environment variables are set")
+    else:
+        print(f"[SUCCESS] AWS_BEARER_TOKEN_BEDROCK = {token[:20]}...")
+        print(f"[SUCCESS] AWS_BEDROCK_MODEL_ID = {model}")
+        print(f"[SUCCESS] AWS_DEFAULT_REGION = {region}")
+        print("[SUCCESS] All required environment variables are set")
+
     return True
 
 def start_component(name, command, wait_time=3):

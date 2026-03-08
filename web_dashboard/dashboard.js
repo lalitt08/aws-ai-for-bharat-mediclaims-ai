@@ -21,13 +21,12 @@ let metrics = {
     successRate: 0
 };
 
-// Base URL for API endpoints (ensure proper resolution when loaded from file://)
-const API_BASE_URL = 'http://localhost:5000';
+// Base URL for API endpoints — always use the same host/port the page was served from
+const API_BASE_URL = window.location.protocol + '//' + window.location.host;
 
 // Redirect to server if page loaded directly as file://
 if (window.location.protocol === 'file:') {
-    console.warn('Dashboard loaded via file://, redirecting to server...');
-    window.location.href = API_BASE_URL;
+    console.warn('Dashboard loaded via file://, please open via the server URL.');
 }
 
 // DOM Ready
@@ -254,18 +253,11 @@ function initializeDashboard() {
             return;
         });
     
-    // Do not push any placeholder activity; fetch real activity only
-    fetchAgentActivity();
-    
-    // DISABLED: Auto-refresh for CSV data (was causing repeated loading messages)
-    // Only refresh data when user explicitly clicks refresh button
-    // setInterval(() => {
-    //     console.log('🔄 Auto-refreshing CSV data...');
-    //     refreshDataFromCSV();
-    // }, 30000); // Refresh every 30 seconds
+    // Start real-time agent activity refresh (every 5 seconds)
+    startActivityRefresh();
     
     // Set up auto-refresh for active claims status every 5 seconds
-    setInterval(checkActiveClaimsStatus, 5000); // Check every 5 seconds
+    setInterval(checkActiveClaimsStatus, 5000);
 }
 
 function updateMetrics() {
@@ -1388,41 +1380,122 @@ No manual intervention required.
 
 // Provide a basic claim details viewer for processed claims
 function viewClaimDetails(patientId) {
-    const claim = processedClaims.find(c => c.patient_id === patientId) || rejectedClaims.find(c => c.patient_id === patientId);
-    if (!claim) {
-        showError('No claim details found for this patient');
-        return;
-    }
-    
-    const status = claim.status || 'unknown';
-    const denialInfo = claim.denial_info || {};
-    
-    let detailsText = `Patient: ${claim.patient_name || patientId}\n`;
-    detailsText += `Status: ${status}\n`;
-    detailsText += `Insurer: ${claim.insurer || '-'}\n`;
-    detailsText += `Amount: $${parseFloat(claim.claim_amount || 0).toLocaleString()}\n`;
-    
-    if (status === 'denied' || status === 'rejected') {
-        detailsText += `\nRejection Reason: ${claim.reason || denialInfo.reason || 'N/A'}\n`;
-        if (denialInfo.details) {
-            detailsText += `Details: ${denialInfo.details}\n`;
-        }
-        if (denialInfo.requirements && denialInfo.requirements.length > 0) {
-            detailsText += `\nRequired for Approval:\n`;
-            denialInfo.requirements.forEach(req => {
-                detailsText += `• ${req}\n`;
-            });
-        }
-        if (denialInfo.success_rate) {
-            detailsText += `\nExpected Success Rate: ${(denialInfo.success_rate * 100).toFixed(0)}%\n`;
-        }
-        detailsText += `\nAI Status: Auto-processing appeal and resubmission`;
-    } else if (status === 'approved') {
-        detailsText += `Approved Amount: $${parseFloat(claim.approved_amount || claim.claim_amount || 0).toLocaleString()}`;
-    }
-    
-    alert(detailsText);
+    const claim = processedClaims.find(c => c.patient_id === patientId)
+                || rejectedClaims.find(c => c.patient_id === patientId);
+    const patient = patients.find(p => p.patient_id === patientId);
+
+    if (!claim && !patient) { showError('No claim details found'); return; }
+
+    const data = claim || {};
+    const pat  = patient || {};
+    const status = (data.status || 'unknown').toLowerCase();
+    const isApproved = status === 'approved';
+    const isDenied   = status === 'denied' || status === 'rejected';
+    const denialInfo = data.denial_info || {};
+
+    const statusColor = isApproved ? '#10b981' : isDenied ? '#ef4444' : '#f59e0b';
+    const statusLabel = isApproved ? 'APPROVED' : isDenied ? 'DENIED' : status.toUpperCase();
+
+    const reqItems = (denialInfo.requirements || denialInfo.required_items || [])
+        .map(r => `<li style="padding:4px 0;color:#475569;font-size:13px;">→ ${r}</li>`).join('');
+
+    const fields = [
+        ['Claim ID',     data.claim_id || `CLM-${patientId}`],
+        ['Patient',      data.patient_name || pat.name || patientId],
+        ['Insurer',      data.insurer || pat.insurer || '—'],
+        ['Amount',       `$${parseFloat(data.claim_amount||pat.claim_amount||0).toLocaleString()}`],
+        ['Procedure',    pat.procedure_code || '—'],
+        ['Diagnosis',    pat.diagnosis_code || '—'],
+        ['Service Date', pat.service_date || '—'],
+        ['Provider',     pat.provider || '—'],
+    ].map(([label, val]) => `
+        <div style="background:#f8fafc;border-radius:8px;padding:0.6rem 0.75rem;">
+            <div style="font-size:0.7rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;font-weight:600;margin-bottom:2px;">${label}</div>
+            <div style="font-size:0.88rem;font-weight:600;color:#1e293b;">${val}</div>
+        </div>`).join('');
+
+    const denialBlock = isDenied ? `
+        <div style="background:#fef2f2;border-radius:10px;padding:1rem;margin-bottom:1rem;">
+            <div style="font-weight:700;color:#991b1b;font-size:0.85rem;margin-bottom:0.4rem;">⚠ Denial Reason</div>
+            <div style="color:#7f1d1d;font-size:0.88rem;margin-bottom:0.4rem;">${denialInfo.reason || data.reason || 'Claim denied by insurer'}</div>
+            ${denialInfo.details ? `<div style="color:#92400e;font-size:0.82rem;margin-bottom:0.5rem;">${denialInfo.details}</div>` : ''}
+            ${reqItems ? `<div style="font-weight:600;color:#991b1b;font-size:0.8rem;margin-bottom:0.3rem;">Required to Appeal:</div><ul style="margin:0;padding:0;list-style:none;">${reqItems}</ul>` : ''}
+            ${denialInfo.success_rate ? `<div style="margin-top:0.75rem;font-size:0.82rem;color:#475569;">Appeal success rate: <strong style="color:#10b981;">${Math.round(denialInfo.success_rate*100)}%</strong></div>` : ''}
+        </div>` : '';
+
+    const approvedBlock = isApproved ? `
+        <div style="background:#f0fdf4;border-radius:10px;padding:1rem;margin-bottom:1rem;">
+            <div style="font-weight:700;color:#166534;font-size:0.85rem;">✓ Claim Approved</div>
+            <div style="color:#14532d;font-size:0.88rem;margin-top:0.3rem;">Payment of $${parseFloat(data.processed_amount||data.claim_amount||0).toLocaleString()} will be processed by ${data.insurer||pat.insurer||'insurer'}.</div>
+        </div>` : '';
+
+    const html = `
+    <div id="claimModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;" onclick="if(event.target===this)this.remove()">
+      <div style="background:white;border-radius:16px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px rgba(0,0,0,0.25);">
+        <div style="padding:1.25rem 1.5rem;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-weight:700;font-size:1rem;color:#1e293b;">📄 Generated Claim</span>
+          <button onclick="document.getElementById('claimModal').remove()" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:1.25rem;">✕</button>
+        </div>
+        <div style="background:${statusColor}15;border-left:4px solid ${statusColor};margin:1.25rem 1.5rem 0;border-radius:8px;padding:0.75rem 1rem;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-weight:700;color:${statusColor};font-size:0.85rem;letter-spacing:0.05em;">${statusLabel}</span>
+          ${isApproved ? `<span style="color:#10b981;font-size:0.85rem;">Approved: $${parseFloat(data.processed_amount||data.claim_amount||0).toLocaleString()}</span>` : ''}
+          ${isDenied   ? `<span style="color:#ef4444;font-size:0.85rem;">Denied: $${parseFloat(data.claim_amount||0).toLocaleString()}</span>` : ''}
+        </div>
+        <div style="padding:1.25rem 1.5rem;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">${fields}</div>
+          ${denialBlock}
+          ${approvedBlock}
+          <!-- X12 837P section — loaded async -->
+          <div id="x12Section_${patientId}" style="margin-bottom:1rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#f1f5f9;border-radius:8px;padding:0.6rem 0.75rem;" onclick="toggleX12('${patientId}')">
+              <span style="font-size:0.82rem;font-weight:700;color:#334155;">📋 X12 837P Transaction (ANSI)</span>
+              <span id="x12Toggle_${patientId}" style="font-size:0.75rem;color:#64748b;">▼ Show</span>
+            </div>
+            <div id="x12Body_${patientId}" style="display:none;margin-top:0.5rem;">
+              <div id="x12Content_${patientId}" style="background:#0f172a;border-radius:8px;padding:0.75rem;font-family:monospace;font-size:0.72rem;color:#86efac;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow-y:auto;">Loading X12 837P...</div>
+              <div style="font-size:0.7rem;color:#94a3b8;margin-top:0.3rem;text-align:right;">Real ANSI X12 837P — used by US healthcare insurers (CMS, BlueCross, Aetna, Cigna, United)</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
+            ${isDenied ? `<a href="/appeals/patient-details/${patientId}" style="flex:1;background:#3b82f6;color:white;border:none;border-radius:8px;padding:0.65rem;font-size:0.85rem;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;">View in Post-Submission →</a>` : ''}
+            <button onclick="document.getElementById('claimModal').remove()" style="flex:1;background:#f1f5f9;color:#475569;border:none;border-radius:8px;padding:0.65rem;font-size:0.85rem;font-weight:600;cursor:pointer;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+    const existing = document.getElementById('claimModal');
+    if (existing) existing.remove();
+    document.body.insertAdjacentHTML('beforeend', html);
+
+    // Fetch X12 async
+    fetch(`/api/claim-x12/${patientId}`)
+        .then(r => r.json())
+        .then(d => {
+            const el = document.getElementById(`x12Content_${patientId}`);
+            if (!el) return;
+            if (d.x12_837p) {
+                el.textContent = d.x12_837p;
+            } else {
+                el.textContent = d.error || 'X12 not yet generated — submit the claim first.';
+                el.style.color = '#fca5a5';
+            }
+        })
+        .catch(() => {
+            const el = document.getElementById(`x12Content_${patientId}`);
+            if (el) { el.textContent = 'X12 not yet generated — submit the claim first.'; el.style.color = '#fca5a5'; }
+        });
 }
+
+function toggleX12(patientId) {
+    const body = document.getElementById(`x12Body_${patientId}`);
+    const toggle = document.getElementById(`x12Toggle_${patientId}`);
+    if (!body) return;
+    const hidden = body.style.display === 'none';
+    body.style.display = hidden ? 'block' : 'none';
+    if (toggle) toggle.textContent = hidden ? '▲ Hide' : '▼ Show';
+}
+
 
 window.viewClaimDetails = viewClaimDetails;
 window.openPatientInOpenEMR = openPatientInOpenEMR;

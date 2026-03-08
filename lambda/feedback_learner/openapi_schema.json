@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "FeedbackLearner", "version": "1.0.0", "description": "Feedback learning tools for medical claims pattern analysis" },
+  "paths": {
+    "/RecordClaimOutcome": {
+      "post": {
+        "summary": "Record claim outcome",
+        "description": "Record the final outcome of a claim to the learning log in S3",
+        "operationId": "RecordClaimOutcome",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patient_id": { "type": "string", "description": "Patient ID" },
+                  "claim_id": { "type": "string", "description": "Claim ID" },
+                  "outcome": { "type": "string", "description": "Outcome: approved, denied, appealed, or resubmitted" },
+                  "insurer": { "type": "string", "description": "Insurance company name" },
+                  "cpt_code": { "type": "string", "description": "CPT procedure code" },
+                  "icd_code": { "type": "string", "description": "ICD-10 diagnosis code" }
+                },
+                "required": ["patient_id", "claim_id", "outcome", "insurer", "cpt_code", "icd_code"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Record confirmation", "content": { "application/json": { "schema": { "type": "object", "properties": { "recorded": { "type": "boolean" } } } } } } }
+      }
+    },
+    "/UpdateDenialPatterns": {
+      "post": {
+        "summary": "Update denial patterns",
+        "description": "Update denial pattern statistics in S3 based on claim outcome for future learning",
+        "operationId": "UpdateDenialPatterns",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "insurer": { "type": "string", "description": "Insurance company name" },
+                  "cpt_code": { "type": "string", "description": "CPT procedure code" },
+                  "denial_reason": { "type": "string", "description": "Denial reason text" },
+                  "was_appealed_successfully": { "type": "string", "description": "true or false" }
+                },
+                "required": ["insurer", "cpt_code", "denial_reason", "was_appealed_successfully"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Update confirmation", "content": { "application/json": { "schema": { "type": "object", "properties": { "updated": { "type": "boolean" } } } } } } }
+      }
+    },
+    "/GetLearningInsights": {
+      "get": {
+        "summary": "Get learning insights",
+        "description": "Get historical success rates and learning insights for an insurer and procedure combination",
+        "operationId": "GetLearningInsights",
+        "parameters": [
+          { "name": "insurer", "in": "query", "description": "Insurance company name", "required": true, "schema": { "type": "string" } },
+          { "name": "cpt_code", "in": "query", "description": "CPT procedure code", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Learning insights", "content": { "application/json": { "schema": { "type": "object", "properties": { "historical_success_rate": { "type": "number" }, "recommendation": { "type": "string" } } } } } } }
+      }
+    }
+  }
+}

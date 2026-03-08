@@ -1,0 +1,66 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Resubmitter", "version": "1.0.0", "description": "Claim resubmission tools for denied medical claims" },
+  "paths": {
+    "/DetermineResubmissionStrategy": {
+      "get": {
+        "summary": "Determine resubmission strategy",
+        "description": "Determine the best resubmission strategy based on denial code and reason",
+        "operationId": "DetermineResubmissionStrategy",
+        "parameters": [
+          { "name": "denial_code", "in": "query", "description": "Denial code e.g. CO-16", "required": true, "schema": { "type": "string" } },
+          { "name": "denial_reason", "in": "query", "description": "Denial reason text", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Resubmission strategy", "content": { "application/json": { "schema": { "type": "object", "properties": { "strategy_type": { "type": "string" }, "success_probability": { "type": "number" } } } } } } }
+      }
+    },
+    "/ResubmitWithAppeal": {
+      "post": {
+        "summary": "Resubmit claim with appeal",
+        "description": "Resubmit a denied claim with an appeal packet to the insurer API",
+        "operationId": "ResubmitWithAppeal",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claim_data_json": { "type": "string", "description": "JSON string of claim data" },
+                  "appeal_text": { "type": "string", "description": "Appeal letter text" },
+                  "insurer": { "type": "string", "description": "Insurance company name" }
+                },
+                "required": ["claim_data_json", "appeal_text", "insurer"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Resubmission result", "content": { "application/json": { "schema": { "type": "object", "properties": { "status": { "type": "string" }, "resubmission_id": { "type": "string" } } } } } } }
+      }
+    },
+    "/UpdateClaimStatus": {
+      "post": {
+        "summary": "Update claim status",
+        "description": "Update claim status in S3 persistent storage after resubmission",
+        "operationId": "UpdateClaimStatus",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patient_id": { "type": "string", "description": "Patient ID" },
+                  "claim_id": { "type": "string", "description": "Claim ID" },
+                  "new_status": { "type": "string", "description": "New status value" }
+                },
+                "required": ["patient_id", "claim_id", "new_status"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Update confirmation", "content": { "application/json": { "schema": { "type": "object", "properties": { "updated": { "type": "boolean" } } } } } } }
+      }
+    }
+  }
+}

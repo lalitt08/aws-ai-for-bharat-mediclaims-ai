@@ -16,31 +16,34 @@ logger = logging.getLogger(__name__)
 _llm_client = None
 
 def _get_llm_client():
-    """Lazy-load Azure OpenAI client using the project .env."""
+    """Lazy-load Bedrock client using bearer token from .env."""
     global _llm_client
     if _llm_client is not None:
         return _llm_client
     try:
         from dotenv import load_dotenv
-        # Load .env from the project root (two levels up from services/)
         env_path = os.path.join(os.path.dirname(__file__), "..", "..", ".env")
         load_dotenv(env_path)
 
-        from openai import AzureOpenAI
-        _llm_client = AzureOpenAI(
-            api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-            api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2025-01-01-preview"),
-            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
-        )
-        logger.info("Azure OpenAI client initialized for ERA analysis")
+        import requests as _req
+        token = os.getenv("AWS_BEARER_TOKEN_BEDROCK", "")
+        region = os.getenv("AWS_DEFAULT_REGION", "us-west-2")
+        model = os.getenv("AWS_BEDROCK_MODEL_ID", "meta.llama3-70b-instruct-v1:0")
+
+        if not token:
+            raise ValueError("AWS_BEARER_TOKEN_BEDROCK not set")
+
+        # Store as a simple callable dict
+        _llm_client = {"token": token, "region": region, "model": model, "requests": _req}
+        logger.info(f"Bedrock client initialized: {model} in {region}")
     except Exception as e:
-        logger.warning(f"Could not init Azure OpenAI client: {e}. LLM analysis will be skipped.")
+        logger.warning(f"Could not init Bedrock client: {e}. LLM analysis will be skipped.")
         _llm_client = None
     return _llm_client
 
 
 def _get_deployment_name() -> str:
-    return os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4.1-01")
+    return os.getenv("AWS_BEDROCK_MODEL_ID", "meta.llama3-70b-instruct-v1:0")
 
 
 class ERAProcessor:
@@ -142,12 +145,22 @@ class ERAProcessor:
         if llm_analysis:
             result["llm_analysis"] = llm_analysis
 
+        # Step 3 — Upload ERA file to S3 for persistent storage
+        try:
+            import sys, os
+            sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+            from tools.s3_storage import upload_era
+            patient_id = denials_extracted[0].get("patient_id", "UNKNOWN") if denials_extracted else "UNKNOWN"
+            upload_era(patient_id, filename, file_content.encode("utf-8"))
+        except Exception as s3_err:
+            pass  # S3 upload is best-effort
+
         return result
 
     # ── LLM Analysis ──────────────────────────────────────────────────
 
     def _run_llm_analysis(self, denials: List[Dict], summary: Dict) -> Optional[Dict]:
-        """Call Azure OpenAI to produce an intelligent narrative analysis of the ERA."""
+        """Call AWS Bedrock (bearer token) to produce an intelligent narrative analysis of the ERA."""
         client = _get_llm_client()
         if not client or not denials:
             return None
@@ -185,16 +198,33 @@ Respond in valid JSON with these keys:
 Only output the JSON, no markdown fences."""
 
         try:
-            response = client.chat.completions.create(
-                model=_get_deployment_name(),
-                messages=[
-                    {"role": "system", "content": "You are a healthcare revenue cycle management AI expert."},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.3,
-                max_tokens=800,
+            req = client["requests"]
+            token = client["token"]
+            region = client["region"]
+            model = client["model"]
+            url = f"https://bedrock-runtime.{region}.amazonaws.com/model/{model}/invoke"
+
+            # Build Llama 3 instruct prompt
+            full_prompt = (
+                "<|begin_of_text|>"
+                "<|start_header_id|>system<|end_header_id|>\n"
+                "You are a healthcare revenue cycle management AI expert."
+                "<|eot_id|>"
+                "<|start_header_id|>user<|end_header_id|>\n"
+                f"{prompt}<|eot_id|>"
+                "<|start_header_id|>assistant<|end_header_id|>\n"
             )
-            raw = response.choices[0].message.content.strip()
+            payload = {"prompt": full_prompt, "max_gen_len": 800, "temperature": 0.3}
+
+            resp = req.post(
+                url,
+                headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+                json=payload,
+                timeout=60,
+            )
+            resp.raise_for_status()
+            raw = resp.json().get("generation", "").strip()
+
             # Strip markdown fences if model adds them
             if raw.startswith("```"):
                 raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]

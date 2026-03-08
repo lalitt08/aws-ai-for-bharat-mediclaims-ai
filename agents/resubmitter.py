@@ -7,7 +7,7 @@ from tools.logger import secure_log
 
 async def run_resubmission(state: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Enhanced Resubmission Agent - Intelligent claim resubmission with appeal integration
+    Enhanced Resubmission Agent - Bedrock Agent Core + intelligent resubmission
     """
     secure_log("resubmitter", state)
     
@@ -15,9 +15,45 @@ async def run_resubmission(state: Dict[str, Any]) -> Dict[str, Any]:
         claim_id = state.get('claim_id', 'unknown')
         corrected_data = state.get('corrected_data', {})
         appeal_packet = state.get('appeal_packet', '')
+        appeal_text   = state.get('appeal_text', str(appeal_packet))
         original_rejection = state.get('submission_result', {})
         denial_info = original_rejection.get('denial_info', {}) if original_rejection else {}
-        
+
+        # ── Bedrock Agent Core call (primary path) ────────────────────────────
+        try:
+            from tools.bedrock_agent_integration import bedrock_resubmit
+            ba_result = bedrock_resubmit(
+                {**corrected_data, "claim_id": claim_id,
+                 "denial_code": denial_info.get("code", "CO-16"),
+                 "denial_reason": denial_info.get("reason", "")},
+                appeal_text,
+            )
+            if ba_result:
+                state['resubmission_result'] = {
+                    'resubmission_id':    ba_result.get("resubmission_id", f"RESUB-{claim_id}"),
+                    'status':             ba_result.get("status", "resubmitted"),
+                    'success_probability': ba_result.get("success_probability", 0.7),
+                    'strategy_used':      ba_result.get("strategy", "standard_appeal"),
+                    'appeal_included':    bool(appeal_text),
+                    'success':            True,
+                    'source':             ba_result.get("source"),
+                }
+                state['final_status'] = "appeal_resubmitted"
+                state.setdefault('log', []).append(
+                    f"[Resubmitter] Bedrock Agent Core: status={ba_result.get('status')} "
+                    f"prob={ba_result.get('success_probability', 0.7):.0%} "
+                    f"source={ba_result.get('source')}"
+                )
+                secure_log("Resubmitter-Bedrock", {
+                    "claim_id": claim_id,
+                    "status": ba_result.get("status"),
+                    "source": ba_result.get("source"),
+                })
+                return state
+        except Exception as _be:
+            state.setdefault('log', []).append(f"[Resubmitter] Bedrock Agent skipped: {_be}")
+        # ── End Bedrock Agent Core ────────────────────────────────────────────
+
         # Add detailed logging for UI activity tracking
         state.setdefault('log', []).append("[Resubmitter] Preparing intelligent resubmission with AI-generated appeal packet")
         state.setdefault('log', []).append("[Resubmitter] Analyzing original denial reason and optimizing resubmission strategy")

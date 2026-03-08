@@ -264,6 +264,7 @@ class ClaimFlow:
                         "risk_score": final_state.get("risk_score", 0.0),
                         "issues_count": len(final_state.get("issues", [])),
                         "submission_result": final_state.get("submission_result"),
+                        "x12_837p": final_state.get("x12_837p"),   # store real X12 transaction
                         "processing_time": time.time()
                     }
                     save_claim_status(claim_id, patient_id, final_status, additional_data)

@@ -1,0 +1,65 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "RiskPredictor", "version": "1.0.0", "description": "Risk prediction tools for medical claims" },
+  "paths": {
+    "/GetPatientData": {
+      "get": {
+        "summary": "Get patient data",
+        "description": "Retrieve full patient profile from the patient database",
+        "operationId": "GetPatientData",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID e.g. PAT001", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Patient profile", "content": { "application/json": { "schema": { "type": "object", "properties": { "patient_id": { "type": "string" }, "name": { "type": "string" }, "insurer": { "type": "string" } } } } } } }
+      }
+    },
+    "/ValidateICD10Code": {
+      "get": {
+        "summary": "Validate ICD-10 code",
+        "description": "Validate an ICD-10 diagnosis code format and prefix",
+        "operationId": "ValidateICD10Code",
+        "parameters": [
+          { "name": "icd10_code", "in": "query", "description": "ICD-10 code to validate e.g. M54.5", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Validation result", "content": { "application/json": { "schema": { "type": "object", "properties": { "valid": { "type": "boolean" }, "message": { "type": "string" } } } } } } }
+      }
+    },
+    "/ValidateCPTCode": {
+      "get": {
+        "summary": "Validate CPT code",
+        "description": "Validate a CPT procedure code numeric range",
+        "operationId": "ValidateCPTCode",
+        "parameters": [
+          { "name": "cpt_code", "in": "query", "description": "CPT code to validate e.g. 99213", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Validation result", "content": { "application/json": { "schema": { "type": "object", "properties": { "valid": { "type": "boolean" }, "message": { "type": "string" } } } } } } }
+      }
+    },
+    "/CheckPriorAuthorization": {
+      "get": {
+        "summary": "Check prior authorization",
+        "description": "Check if prior authorization exists or is required for a patient procedure",
+        "operationId": "CheckPriorAuthorization",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID", "required": true, "schema": { "type": "string" } },
+          { "name": "cpt_code", "in": "query", "description": "CPT procedure code", "required": true, "schema": { "type": "string" } },
+          { "name": "insurer", "in": "query", "description": "Insurance company name", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Prior auth status", "content": { "application/json": { "schema": { "type": "object", "properties": { "has_prior_auth": { "type": "boolean" }, "prior_auth_number": { "type": "string" } } } } } } }
+      }
+    },
+    "/AnalyzeDenialPatterns": {
+      "get": {
+        "summary": "Analyze denial patterns",
+        "description": "Analyze historical denial patterns for an insurer and procedure combination",
+        "operationId": "AnalyzeDenialPatterns",
+        "parameters": [
+          { "name": "insurer", "in": "query", "description": "Insurance company name", "required": true, "schema": { "type": "string" } },
+          { "name": "cpt_code", "in": "query", "description": "CPT procedure code", "required": true, "schema": { "type": "string" } },
+          { "name": "icd_code", "in": "query", "description": "ICD-10 diagnosis code", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Denial pattern analysis", "content": { "application/json": { "schema": { "type": "object", "properties": { "risk_score": { "type": "number" }, "historical_denial_rate": { "type": "number" } } } } } } }
+      }
+    }
+  }
+}

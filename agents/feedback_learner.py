@@ -19,6 +19,38 @@ async def run_feedback_learning(state: Dict[str, Any]) -> Dict[str, Any]:
         state.setdefault('log', []).append("[FeedbackLearner] Analyzes final claim outcome to learn from successful/failed strategies")
         state.setdefault('log', []).append("[FeedbackLearner] Learning pattern updated")
         
+        # Call Bedrock Agent Core for deep pattern analysis
+        try:
+            from tools.bedrock_agent_integration import bedrock_learn_outcome
+            claim_data = state.get("corrected_data") or state.get("raw_data", {})
+            ba_result = bedrock_learn_outcome(
+                {**claim_data, "claim_id": claim_id},
+                final_status,
+            )
+            if ba_result:
+                state["log"].append(
+                    f"[FeedbackLearner] Bedrock Agent Core: patterns_updated={ba_result.get('patterns_updated')} "
+                    f"source={ba_result.get('source')}"
+                )
+                if ba_result.get("insights"):
+                    state["bedrock_insights"] = ba_result["insights"]
+                # Save insight to S3
+                try:
+                    from tools.s3_storage import append_log
+                    append_log("logs/feedback_learner.jsonl", {
+                        "claim_id": claim_id,
+                        "outcome": final_status,
+                        "bedrock_insights": ba_result.get("insights", ""),
+                        "patterns_updated": ba_result.get("patterns_updated"),
+                        "insurer": claim_data.get("insurer") or claim_data.get("insurance_company"),
+                        "cpt_code": claim_data.get("cpt_code") or claim_data.get("procedure_code"),
+                        "icd_code": claim_data.get("icd_code") or claim_data.get("diagnosis_code"),
+                    })
+                except Exception:
+                    pass
+        except Exception as ba_err:
+            state["log"].append(f"[FeedbackLearner] Bedrock Agent skipped: {ba_err}")
+        
         # Log the learning attempt
         log_entry = f"Learning from claim {claim_id} outcome: {final_status}"
         state.setdefault('log', []).append(log_entry)

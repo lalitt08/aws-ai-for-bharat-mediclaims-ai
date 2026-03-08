@@ -13,9 +13,9 @@ langchain-openai>=0.1.0
 openai>=1.0.0
 python-dotenv>=1.0.0
 
-# === Azure OpenAI ===
-azure-core>=1.29.0
-azure-identity>=1.15.0
+# === AWS SDK ===
+boto3>=1.28.0
+botocore>=1.31.0
 
 # === Data Processing ===
 pandas>=2.0.0

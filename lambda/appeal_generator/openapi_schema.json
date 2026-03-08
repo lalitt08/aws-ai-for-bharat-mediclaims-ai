@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "AppealGenerator", "version": "1.0.0", "description": "Appeal generation tools for denied medical claims" },
+  "paths": {
+    "/GetDenialDetails": {
+      "get": {
+        "summary": "Get denial details",
+        "description": "Retrieve denial details for a specific claim from S3 storage",
+        "operationId": "GetDenialDetails",
+        "parameters": [
+          { "name": "patient_id", "in": "query", "description": "Patient ID", "required": true, "schema": { "type": "string" } },
+          { "name": "claim_id", "in": "query", "description": "Claim ID", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Denial details", "content": { "application/json": { "schema": { "type": "object", "properties": { "denial_reason": { "type": "string" }, "denial_code": { "type": "string" } } } } } } }
+      }
+    },
+    "/CheckAppealRequirements": {
+      "get": {
+        "summary": "Check appeal requirements",
+        "description": "Get required documents and appeal type for a specific denial code",
+        "operationId": "CheckAppealRequirements",
+        "parameters": [
+          { "name": "denial_code", "in": "query", "description": "Denial code e.g. CO-16", "required": true, "schema": { "type": "string" } },
+          { "name": "denial_reason", "in": "query", "description": "Denial reason text", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Appeal requirements", "content": { "application/json": { "schema": { "type": "object", "properties": { "required_documents": { "type": "array", "items": { "type": "string" } }, "estimated_success_rate": { "type": "number" } } } } } } }
+      }
+    },
+    "/GenerateAppealLetter": {
+      "post": {
+        "summary": "Generate appeal letter",
+        "description": "Generate a formal appeal letter using AI for a denied medical claim",
+        "operationId": "GenerateAppealLetter",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "claim_data_json": { "type": "string", "description": "JSON string of claim data" },
+                  "denial_reason": { "type": "string", "description": "Reason for denial" },
+                  "denial_code": { "type": "string", "description": "Denial code e.g. CO-16" }
+                },
+                "required": ["claim_data_json", "denial_reason", "denial_code"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Generated appeal letter", "content": { "application/json": { "schema": { "type": "object", "properties": { "appeal_text": { "type": "string" }, "word_count": { "type": "integer" } } } } } } }
+      }
+    },
+    "/SaveAppealToS3": {
+      "post": {
+        "summary": "Save appeal to S3",
+        "description": "Save generated appeal letter to S3 appeals bucket for storage",
+        "operationId": "SaveAppealToS3",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patient_id": { "type": "string", "description": "Patient ID" },
+                  "claim_id": { "type": "string", "description": "Claim ID" },
+                  "appeal_text": { "type": "string", "description": "Appeal letter text content" }
+                },
+                "required": ["patient_id", "claim_id", "appeal_text"]
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "S3 save confirmation", "content": { "application/json": { "schema": { "type": "object", "properties": { "saved": { "type": "boolean" }, "s3_key": { "type": "string" } } } } } } }
+      }
+    }
+  }
+}

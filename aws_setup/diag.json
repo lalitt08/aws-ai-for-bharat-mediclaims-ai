@@ -1,0 +1,1 @@
+{"commands":["python3 --version; pip3 --version; echo LOGSTART; cat /var/log/mediclaims-setup.log 2>/dev/null | tail -30; echo DIRSTART; ls /opt/mediclaims/ 2>/dev/null; echo DONE"]}
