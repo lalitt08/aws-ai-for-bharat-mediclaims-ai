@@ -46,9 +46,56 @@ Healthcare providers lose revenue every year due to insurance claim denials caus
 
 ## Run Locally
 
+### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
-# add AWS credentials to .env
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the project root with the following:
+
+```bash
+# === AWS Core ===
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+AWS_DEFAULT_REGION=us-east-1
+AWS_ACCOUNT_ID=your_account_id
+
+# === Bedrock Model ===
+AWS_BEDROCK_MODEL_ID=us.amazon.nova-micro-v1:0
+
+# === S3 Storage ===
+S3_BUCKET_NAME=your-bucket-name
+
+# === Bedrock Agent IDs (6 Agents) ===
+BEDROCK_AGENT_RISK_PREDICTOR=your_risk_predictor_id
+BEDROCK_AGENT_APPEAL_GENERATOR=your_appeal_generator_id
+BEDROCK_AGENT_AUTO_CORRECTOR=your_auto_corrector_id
+BEDROCK_AGENT_CLAIM_SUBMITTER=your_claim_submitter_id
+BEDROCK_AGENT_RESUBMITTER=your_resubmitter_id
+BEDROCK_AGENT_FEEDBACK_LEARNER=your_feedback_learner_id
+
+# === Bedrock Agent Aliases (Optional - falls back to TSTALIASID) ===
+BEDROCK_AGENT_ALIAS=TSTALIASID
+BEDROCK_AGENT_ALIAS_RISK_PREDICTOR=your_alias_id
+BEDROCK_AGENT_ALIAS_APPEAL_GENERATOR=your_alias_id
+BEDROCK_AGENT_ALIAS_AUTO_CORRECTOR=your_alias_id
+BEDROCK_AGENT_ALIAS_CLAIM_SUBMITTER=your_alias_id
+BEDROCK_AGENT_ALIAS_RESUBMITTER=your_alias_id
+BEDROCK_AGENT_ALIAS_FEEDBACK_LEARNER=your_alias_id
+
+# === IAM Role ===
+BEDROCK_AGENTS_ROLE_ARN=arn:aws:iam::your_account_id:role/BedrockAgentsClaimsRole
+
+# === System Configuration ===
+OPERATIONAL_MODE=mcp
+MCP_SERVER_URL=http://localhost:8001
+DATA_SOURCE=openemr
+```
+
+### 3. Start Services
+```bash
 python start_all.py
 ```
 
@@ -61,8 +108,14 @@ python start_all.py
 
 ## Screenshots
 
+### Pre-Submission Dashboard
 ![Agent Dashboard](Images/image-1.png)
 ![Claims Interface](Images/image-2.png)
+
+### Post-Submission Appeals
+![Denied Claims & ERA Processing](Images/image-3.png)
+![Appeal Generation](Images/image-4.png)
+![Resubmission Interface](Images/image-5.png)
 
 
 
