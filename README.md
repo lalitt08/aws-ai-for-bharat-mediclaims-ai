@@ -4,11 +4,13 @@ A prototype built for **AI for Bharat Hackathon** under the **Healthcare & Life 
 
 ---
 
+
 ## What It Does
 
 Healthcare providers lose revenue every year due to insurance claim denials caused by missing data, wrong codes, or incomplete documentation. MediClaims AI automates the entire claims lifecycle using six AI agents that work together — from fetching patient data, predicting denials, correcting errors, submitting claims, generating appeals, and learning from outcomes.
 
 ---
+
 
 ## The Six AI Agents
 
