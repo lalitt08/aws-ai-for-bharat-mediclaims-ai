@@ -41,9 +41,7 @@ Healthcare providers lose revenue every year due to insurance claim denials caus
 
 | | URL |
 |-|-----|
-| Pre-submission | http://mediclaims-alb-640335154.us-east-1.elb.amazonaws.com/ |
-| Post-submission | http://mediclaims-alb-640335154.us-east-1.elb.amazonaws.com/appeals/ |
-
+|Visit | https://mvp.mediclaimsai.com/ |
 ---
 
 ## Run Locally
