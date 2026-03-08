@@ -66,6 +66,6 @@ python start_all.py
 ![Agent Dashboard](Images/image-1.png)
 ![Claims Interface](Images/image-2.png)
 
----
+
 
 *Prototype — AI for Bharat Hackathon 2026*
