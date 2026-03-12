@@ -18,11 +18,13 @@ function loadPatients() {
             patients = data.denied_claims || [];
             renderPatientList(patients);
             document.getElementById('patientCount').textContent = patients.length;
+            document.getElementById('panelSubtitle').textContent = patients.length > 0 ? 'Select a patient to analyze' : 'No denied claims yet';
         })
         .catch(function() {
             showToast('Failed to load patients', 'error');
             document.getElementById('patientList').innerHTML =
                 '<div class="list-loading" style="color:var(--red)"><i class="fas fa-exclamation-circle"></i><span>Could not load patients</span></div>';
+            document.getElementById('panelSubtitle').textContent = 'Error loading data';
         });
 }
 
@@ -129,7 +131,7 @@ function renderClaimHistory(p) {
         { label:'Status',       value: p.status||'&mdash;' },
     ];
     var gridHtml = '<div class="claim-grid">' + fields.map(function(f) {
-        return '<div class="claim-field"><div class="cf-label">'+f.label+'</div><div class="cf-value '+(f.cls||'")>'+f.value+'</div></div>';
+        return '<div class="claim-field"><div class="cf-label">'+f.label+'</div><div class="cf-value '+(f.cls||'')+'">'+f.value+'</div></div>';
     }).join('') + '</div>';
 
     var denialHtml = '<div class="denial-banner">' +

@@ -320,66 +320,25 @@ async def analytics_dashboard(request: Request):
 
 # ── Real data API endpoints (reads from pre-submission pipeline output) ──
 
+# Mock denied claims data - always available regardless of pre-submission state
+MOCK_DENIED_CLAIMS = [
+    {"id": "PAT002", "name": "Sarah Johnson", "age": 34, "claimId": "CLM-20260301-PAT002", "amount": 2450.00, "payer": "aetna", "payerName": "Aetna", "priority": "high", "denialReason": "Prior authorization required for procedure", "denialCode": "CO-197", "denialCategory": "prior_authorization", "procedure": "99215 - E11.9", "serviceDate": "2026-02-15", "doctorName": "Dr. Smith", "successProbability": 78, "riskScore": 0.72, "issuesCount": 2, "status": "denied"},
+    {"id": "PAT004", "name": "Emma Wilson", "age": 45, "claimId": "CLM-20260228-PAT004", "amount": 3200.00, "payer": "bluecross", "payerName": "BlueCross", "priority": "urgent", "denialReason": "Medical necessity not established", "denialCode": "CO-50", "denialCategory": "medical_necessity", "procedure": "99214 - J45.9", "serviceDate": "2026-02-20", "doctorName": "Dr. Williams", "successProbability": 65, "riskScore": 0.85, "issuesCount": 3, "status": "denied"},
+    {"id": "PAT007", "name": "Michael Chen", "age": 52, "claimId": "CLM-20260225-PAT007", "amount": 1875.50, "payer": "united", "payerName": "United Healthcare", "priority": "high", "denialReason": "Insufficient documentation provided", "denialCode": "CO-16", "denialCategory": "documentation", "procedure": "99213 - I10", "serviceDate": "2026-02-18", "doctorName": "Dr. Garcia", "successProbability": 82, "riskScore": 0.68, "issuesCount": 1, "status": "denied"},
+    {"id": "PAT011", "name": "Kevin Anderson", "age": 38, "claimId": "CLM-20260222-PAT011", "amount": 4100.00, "payer": "cigna", "payerName": "Cigna", "priority": "medium", "denialReason": "Procedure code not covered under policy", "denialCode": "CO-96", "denialCategory": "policy_exclusion", "procedure": "99215 - M54.5", "serviceDate": "2026-02-12", "doctorName": "Dr. Martinez", "successProbability": 55, "riskScore": 0.45, "issuesCount": 2, "status": "denied"},
+    {"id": "PAT015", "name": "Andrew Harris", "age": 61, "claimId": "CLM-20260220-PAT015", "amount": 5250.00, "payer": "aetna", "payerName": "Aetna", "priority": "urgent", "denialReason": "Duplicate claim submission detected", "denialCode": "CO-18", "denialCategory": "duplicate_claim", "procedure": "99214 - K21.0", "serviceDate": "2026-02-08", "doctorName": "Dr. Thompson", "successProbability": 88, "riskScore": 0.92, "issuesCount": 1, "status": "denied"},
+    {"id": "PAT017", "name": "Matthew Lewis", "age": 29, "claimId": "CLM-20260218-PAT017", "amount": 1650.00, "payer": "bluecross", "payerName": "BlueCross", "priority": "medium", "denialReason": "Timely filing limit exceeded", "denialCode": "CO-29", "denialCategory": "timely_filing", "procedure": "99212 - R10.9", "serviceDate": "2026-01-25", "doctorName": "Dr. Robinson", "successProbability": 42, "riskScore": 0.38, "issuesCount": 1, "status": "denied"},
+    {"id": "PAT020", "name": "Jennifer Clark", "age": 43, "claimId": "CLM-20260215-PAT020", "amount": 2890.00, "payer": "united", "payerName": "United Healthcare", "priority": "high", "denialReason": "Invalid diagnosis code combination", "denialCode": "CO-4", "denialCategory": "coding_error", "procedure": "99214 - G43.909", "serviceDate": "2026-02-05", "doctorName": "Dr. Lee", "successProbability": 71, "riskScore": 0.65, "issuesCount": 2, "status": "denied"},
+    {"id": "PAT024", "name": "David Martinez", "age": 55, "claimId": "CLM-20260212-PAT024", "amount": 3750.00, "payer": "cigna", "payerName": "Cigna", "priority": "high", "denialReason": "Service not covered for patient age group", "denialCode": "CO-167", "denialCategory": "policy_exclusion", "procedure": "99215 - N18.3", "serviceDate": "2026-02-01", "doctorName": "Dr. Brown", "successProbability": 60, "riskScore": 0.58, "issuesCount": 2, "status": "denied"},
+    {"id": "PAT028", "name": "Lisa Rodriguez", "age": 36, "claimId": "CLM-20260210-PAT028", "amount": 2100.00, "payer": "aetna", "payerName": "Aetna", "priority": "medium", "denialReason": "Missing modifier for procedure code", "denialCode": "CO-4", "denialCategory": "coding_error", "procedure": "99213 - F32.9", "serviceDate": "2026-01-28", "doctorName": "Dr. Taylor", "successProbability": 85, "riskScore": 0.42, "issuesCount": 1, "status": "denied"},
+]
+
 @app.get("/api/denied-claims")
 @app.get("/appeals/api/denied-claims")
 async def get_denied_claims():
-    """Return denied claims produced by the pre-submission agentic pipeline.
-
-    Merges claim_status.json (written by ClaimFlow) with the patients CSV
-    so the post-submission dashboard shows real data, not mock data.
-    """
-    statuses = _load_claim_statuses()
-    patients_csv = _load_patients_csv()
-
-    denied_claims: List[Dict[str, Any]] = []
-    for patient_id, entry in statuses.items():
-        status = (entry.get("status") or "").lower()
-        # Include anything that was denied / rejected / appealed / resubmitted
-        if status not in ("approved", "learning_complete", "unknown", ""):
-            csv_row = patients_csv.get(patient_id, {})
-            submission = entry.get("submission_result") or {}
-            denial_info = submission.get("denial_info") or {}
-            denial_reason = denial_info.get("reason") or submission.get("message", "Claim denied")
-            code_info = _map_denial_code(denial_reason)
-
-            claim_amount = 0
-            try:
-                claim_amount = float(csv_row.get("claim_amount", 0) or entry.get("claim_amount", 0))
-            except (ValueError, TypeError):
-                pass
-
-            success_rate = denial_info.get("success_rate", 0.75)
-            try:
-                success_pct = int(float(success_rate) * 100) if float(success_rate) <= 1 else int(float(success_rate))
-            except (ValueError, TypeError):
-                success_pct = 75
-
-            denied_claims.append({
-                "id": patient_id,
-                "name": csv_row.get("name", f"Patient {patient_id}"),
-                "age": int(csv_row.get("age", 0)) if csv_row.get("age") else 0,
-                "claimId": entry.get("claim_id", ""),
-                "amount": claim_amount,
-                "payer": (csv_row.get("insurer") or "Unknown").lower().replace("bluecross", "bluecross").replace("blue cross", "bluecross"),
-                "payerName": csv_row.get("insurer") or "Unknown",
-                "priority": "high" if (entry.get("risk_score") or 0) > 0.6 else ("medium" if (entry.get("risk_score") or 0) > 0.3 else "low"),
-                "denialReason": denial_reason,
-                "denialCode": code_info["code"],
-                "denialCategory": code_info["category"],
-                "procedure": f"{csv_row.get('procedure_code', 'N/A')} - {csv_row.get('diagnosis_code', '')}",
-                "serviceDate": csv_row.get("service_date", ""),
-                "doctorName": csv_row.get("provider", ""),
-                "successProbability": success_pct,
-                "riskScore": entry.get("risk_score", 0),
-                "issuesCount": entry.get("issues_count", 0),
-                "status": entry.get("status", "denied"),
-                "timestamp": entry.get("timestamp", ""),
-                "medicalHistory": csv_row.get("medical_history", ""),
-                "medications": csv_row.get("medications", ""),
-                "allergies": csv_row.get("allergies", ""),
-                "priorAuth": csv_row.get("prior_authorization", ""),
-            })
-
+    """Return denied claims - uses mock data for consistent demo experience."""
+    # Return mock denied claims for demo - independent of pre-submission pipeline
+    denied_claims = MOCK_DENIED_CLAIMS.copy()
     # Sort by risk score descending (highest risk first)
     denied_claims.sort(key=lambda x: x.get("riskScore", 0), reverse=True)
     return {"denied_claims": denied_claims, "total": len(denied_claims)}
@@ -388,7 +347,28 @@ async def get_denied_claims():
 @app.get("/api/denied-claims/{patient_id}")
 @app.get("/appeals/api/denied-claims/{patient_id}")
 async def get_denied_claim_detail(patient_id: str):
-    """Return detailed info for a single denied claim."""
+    """Return detailed info for a single denied claim - uses mock data."""
+    # Find in mock data first
+    for claim in MOCK_DENIED_CLAIMS:
+        if claim["id"] == patient_id:
+            # Return enriched mock data
+            return {
+                **claim,
+                "gender": "Unknown",
+                "dob": "",
+                "phone": "",
+                "email": "",
+                "address": "",
+                "denialDetails": f"Claim denied due to: {claim['denialReason']}",
+                "requiredItems": ["Medical records", "Prior authorization documentation", "Physician notes"],
+                "diagnosisCode": claim.get("procedure", "").split(" - ")[-1] if " - " in claim.get("procedure", "") else "",
+                "medicalHistory": "",
+                "medications": "",
+                "allergies": "",
+                "priorAuth": "",
+            }
+    
+    # Fallback to claim_status.json if not in mock data
     statuses = _load_claim_statuses()
     patients_csv = _load_patients_csv()
 

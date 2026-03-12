@@ -22,9 +22,57 @@ import json
 import uuid
 import logging
 import os
+from datetime import datetime
 from typing import Dict, Any, Optional
 
 logger = logging.getLogger(__name__)
+
+# Activity log directory for dashboard
+LOGS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'logs')
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+def _log_agent_activity(agent_key: str, action: str, claim_id: str = None, 
+                        patient_id: str = None, details: dict = None):
+    """Log agent activity to JSONL file for dashboard display"""
+    try:
+        # Map agent keys to display names
+        agent_names = {
+            "risk_predictor": "Risk Predictor",
+            "auto_corrector": "Auto Corrector", 
+            "claim_submitter": "Claim Submitter",
+            "appeal_generator": "Appeal Generator",
+            "resubmitter": "Resubmitter",
+            "feedback_learner": "Feedback Learner"
+        }
+        
+        agent_display = agent_names.get(agent_key, agent_key)
+        
+        log_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "agent": agent_display,
+            "action": action,
+            "claim_id": claim_id or "",
+            "patient_id": patient_id or "",
+            "state_snapshot": {
+                "patient_id": patient_id or "",
+                "claim_id": claim_id or "",
+                **(details or {})
+            }
+        }
+        
+        # Write to agent-specific log file (format: RiskPredictor-MCP_log.jsonl)
+        log_file = os.path.join(LOGS_DIR, f"{agent_display.replace(' ', '')}-MCP_log.jsonl")
+        with open(log_file, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(log_entry, ensure_ascii=True) + '\n')
+        
+        # Also write to unified activity log for easier reading
+        unified_log = os.path.join(LOGS_DIR, "agent_activity.jsonl")
+        with open(unified_log, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(log_entry, ensure_ascii=True) + '\n')
+            
+        logger.info(f"[ActivityLog] {agent_display}: {action} | claim={claim_id} patient={patient_id}")
+    except Exception as e:
+        logger.warning(f"[ActivityLog] Failed to log activity: {e}")
 
 REGION       = os.getenv("AWS_DEFAULT_REGION", "us-east-1")
 DEFAULT_ALIAS = os.getenv("BEDROCK_AGENT_ALIAS", "TSTALIASID")
@@ -55,7 +103,7 @@ def _runtime_client():
 
 
 def invoke_agent(agent_key: str, prompt: str, session_id: str = None,
-                 timeout: int = 30) -> str:
+                 timeout: int = 30, claim_id: str = None, patient_id: str = None) -> str:
     """
     Invoke a Bedrock Agent and return the full text response.
 
@@ -75,6 +123,12 @@ def invoke_agent(agent_key: str, prompt: str, session_id: str = None,
         return ""
 
     session_id = session_id or str(uuid.uuid4())
+    
+    # Log agent invocation start
+    _log_agent_activity(agent_key, "Processing started", claim_id, patient_id, {
+        "status": "processing",
+        "agent_id": agent_id
+    })
 
     try:
         client = _runtime_client()
@@ -90,6 +144,10 @@ def invoke_agent(agent_key: str, prompt: str, session_id: str = None,
         completion = response.get("completion")
         if completion is None:
             logger.warning(f"[BedrockAgent] {agent_key}: no 'completion' in response")
+            _log_agent_activity(agent_key, "No completion in response", claim_id, patient_id, {
+                "status": "error",
+                "error": "No completion in response"
+            })
             return ""
 
         for event in completion:
@@ -110,10 +168,22 @@ def invoke_agent(agent_key: str, prompt: str, session_id: str = None,
                 logger.info(f"[BedrockAgent] {agent_key} returnControl: {json.dumps(roc)[:200]}")
 
         logger.info(f"[BedrockAgent] {agent_key} → {len(full_text)} chars")
+        
+        # Log successful completion
+        _log_agent_activity(agent_key, "Processing completed", claim_id, patient_id, {
+            "status": "completed",
+            "response_length": len(full_text),
+            "final_status": "completed"
+        })
+        
         return full_text.strip()
 
     except Exception as e:
         logger.warning(f"[BedrockAgent] {agent_key} invocation failed: {e}")
+        _log_agent_activity(agent_key, f"Error: {str(e)[:100]}", claim_id, patient_id, {
+            "status": "error",
+            "error": str(e)[:200]
+        })
         return ""
 
 
@@ -132,7 +202,8 @@ def invoke_risk_predictor(claim: dict, session_id: str = None) -> str:
         f"check prior authorization, and analyze denial patterns. "
         f"Return a risk score (0.0-1.0), list of issues, and recommendations."
     )
-    return invoke_agent("risk_predictor", prompt, session_id)
+    return invoke_agent("risk_predictor", prompt, session_id, 
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def invoke_auto_corrector(claim: dict, issues: list, session_id: str = None) -> str:
@@ -147,7 +218,8 @@ def invoke_auto_corrector(claim: dict, issues: list, session_id: str = None) -> 
         f"Use your tools to correct ICD-10/CPT codes, generate prior auth if needed, "
         f"and validate the provider NPI. Return the corrected claim data."
     )
-    return invoke_agent("auto_corrector", prompt, session_id)
+    return invoke_agent("auto_corrector", prompt, session_id,
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def invoke_claim_submitter(claim: dict, session_id: str = None) -> str:
@@ -161,7 +233,8 @@ def invoke_claim_submitter(claim: dict, session_id: str = None) -> str:
         f"Use your tools to: check patient eligibility, submit the claim to the insurer, "
         f"and save the result. Return the submission status and any denial information."
     )
-    return invoke_agent("claim_submitter", prompt, session_id)
+    return invoke_agent("claim_submitter", prompt, session_id,
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def invoke_appeal_generator(claim: dict, denial_reason: str,
@@ -178,7 +251,8 @@ def invoke_appeal_generator(claim: dict, denial_reason: str,
         f"generate the appeal letter, and save it to S3. "
         f"Return the complete appeal letter text."
     )
-    return invoke_agent("appeal_generator", prompt, session_id)
+    return invoke_agent("appeal_generator", prompt, session_id,
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def invoke_resubmitter(claim: dict, appeal_text: str,
@@ -196,7 +270,8 @@ def invoke_resubmitter(claim: dict, appeal_text: str,
         f"resubmit with the appeal, and update the claim status. "
         f"Return the resubmission result and final status."
     )
-    return invoke_agent("resubmitter", prompt, session_id)
+    return invoke_agent("resubmitter", prompt, session_id,
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def invoke_feedback_learner(claim: dict, outcome: str,
@@ -212,7 +287,8 @@ def invoke_feedback_learner(claim: dict, outcome: str,
         f"Use your tools to: record the claim outcome, update denial patterns, "
         f"and retrieve learning insights. Return patterns identified and recommendations."
     )
-    return invoke_agent("feedback_learner", prompt, session_id)
+    return invoke_agent("feedback_learner", prompt, session_id,
+                       claim_id=claim.get('claim_id'), patient_id=claim.get('patient_id'))
 
 
 def check_agents_have_action_groups() -> Dict[str, bool]:

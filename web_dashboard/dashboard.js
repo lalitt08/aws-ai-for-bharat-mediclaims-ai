@@ -1069,8 +1069,19 @@ function updateAgentActivity(activities) {
 
 function getTimeAgo(timestamp) {
     const now = new Date();
-    const time = new Date(timestamp);
+    // Parse the timestamp - if it doesn't have timezone info, treat it as UTC
+    let time;
+    if (timestamp.endsWith('Z') || timestamp.includes('+') || timestamp.includes('-')) {
+        time = new Date(timestamp);
+    } else {
+        // Server sends UTC timestamps without 'Z', so append it
+        time = new Date(timestamp + 'Z');
+    }
+    
     const diffInSeconds = Math.floor((now - time) / 1000);
+    
+    // Handle negative differences (future timestamps due to clock skew)
+    if (diffInSeconds < 0) return 'just now';
     
     if (diffInSeconds < 60) return `${diffInSeconds}s ago`;
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;

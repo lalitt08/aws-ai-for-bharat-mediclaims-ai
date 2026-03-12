@@ -49,15 +49,22 @@ class Settings:
 
     @staticmethod
     def validate():
+        """Validate settings - warn but don't fail if AWS credentials missing"""
         missing = []
         if not Settings.AWS_ACCESS_KEY_ID:
             missing.append("AWS_ACCESS_KEY_ID")
         if not Settings.AWS_SECRET_ACCESS_KEY:
             missing.append("AWS_SECRET_ACCESS_KEY")
         if missing:
-            raise EnvironmentError(f"Missing required env variables: {', '.join(missing)}")
+            print(f"[WARNING] Missing AWS env variables: {', '.join(missing)} - Bedrock features will be disabled")
+            return False
         print(f"[OK] Bedrock LLM  : {Settings.AWS_BEDROCK_MODEL_ID} @ {Settings.AWS_DEFAULT_REGION}")
         print(f"[OK] S3 Bucket    : {Settings.S3_BUCKET_NAME}")
         print(f"[OK] Bedrock Agents: RiskPredictor={Settings.BEDROCK_AGENT_RISK_PREDICTOR} | AppealGen={Settings.BEDROCK_AGENT_APPEAL_GENERATOR}")
+        return True
 
-Settings.validate()
+# Try to validate but don't crash if credentials missing
+try:
+    Settings.validate()
+except Exception as e:
+    print(f"[WARNING] Settings validation error: {e}")
